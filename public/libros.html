@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Catálogo de libros de Salmo 27 - Librería Cristiana en Liberia, Guanacaste. Explora nuestra colección de Biblias, literatura cristiana y artículos cristianos." />
+  <title>Catálogo de Libros - Salmo 27 Librería</title>
+  <link rel="shortcut icon" href="img/logoprincipal.png" type="image/png" />
+  <link rel="apple-touch-icon" href="img/logoprincipal.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .catalogo {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    .catalogo__title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+    .catalogo__subtitle {
+      text-align: center;
+      color: var(--color-text-muted);
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+    .grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      margin-top: 2rem;
+    }
+    .libro {
+      background: var(--color-white);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+    .libro:hover {
+      transform: translateY(-3px);
+    }
+    .libro img {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #eee;
+      margin-bottom: 10px;
+    }
+    .sin-portada {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: var(--color-border);
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      display: flex;
+    }
+    .sin-portada span {
+      color: var(--color-text-muted);
+      font-size: 14px;
+    }
+    .libro h3 {
+      margin: 10px 0 4px;
+      font-size: 17px;
+      color: var(--color-primary);
+    }
+    .libro .autor {
+      color: var(--color-text-muted);
+      margin: 0 0 6px;
+      font-size: 14px;
+    }
+    .libro .precio {
+      font-weight: bold;
+      font-size: 18px;
+      color: var(--color-accent);
+      margin: 6px 0;
+    }
+    .libro .descripcion {
+      font-size: 13px;
+      color: var(--color-text);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    .libro .agotado {
+      opacity: 0.6;
+      position: relative;
+    }
+    .libro .agotado::after {
+      content: "Agotado";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-20deg);
+      background: var(--color-highlight);
+      color: var(--color-white);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <img src="img/logoprincipal.png" alt="Salmo 27 - Librería Cristiana" class="logo__img" />
+      </a>
+      <div class="social social--header">
+        <a href="https://www.facebook.com/salmo27libreria" target="_blank" rel="noopener noreferrer" class="social__link" aria-label="Facebook">
+          <img src="img/iconos/facebook.svg" alt="Facebook" class="social__img" />
+        </a>
+        <a href="https://www.instagram.com/salmo27_libreriacristiana" target="_blank" rel="noopener noreferrer" class="social__link" aria-label="Instagram">
+          <img src="img/iconos/instagram.svg" alt="Instagram" class="social__img" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="catalogo">
+      <h1 class="catalogo__title">Catálogo de Libros</h1>
+      <p class="catalogo__subtitle">Explora nuestra colección de libros cristianos</p>
+      <div id="catalogo" class="grid">Cargando libros...</div>
+    </section>
+  </main>
+
+  <script>
+    fetch('/data/libros.json')
+      .then(respuesta => respuesta.json())
+      .then(libros => {
+        const visibles = libros.filter(libro => libro.disponible !== false);
+        const contenedor = document.getElementById('catalogo');
+
+        if (visibles.length === 0) {
+          contenedor.textContent = 'No hay libros disponibles en este momento.';
+          return;
+        }
+
+        contenedor.innerHTML = visibles.map(libro => `
+          <article class="libro ${libro.disponible === false ? 'agotado' : ''}">
+            ${libro.imagen ?
+              `<img src="${libro.imagen}" alt="${libro.nombre}" loading="lazy" onerror="this.parentElement.querySelector('img').style.display='none'">` :
+              `<div class="sin-portada"><span>Sin portada</span></div>`
+            }
+            <h3>${libro.nombre}</h3>
+            ${libro.autor ? `<p class="autor">${libro.autor}</p>` : ''}
+            <p class="precio">$${libro.precio}</p>
+            ${libro.descripcion ? `<p class="descripcion">${libro.descripcion}</p>` : ''}
+          </article>
+        `).join('');
+      })
+      .catch(() => {
+        document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
+      });
+  </script>
+</body>
+</html>

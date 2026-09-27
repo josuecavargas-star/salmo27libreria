@@ -1,0 +1,10 @@
+[
+  {
+    "nombre": "El Principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "precio": 250,
+    "imagen": "",
+    "descripcion": "Un clásico para todas las edades sobre un niño y su amigo viajero del cosmos.",
+    "disponible": true
+  }
+]

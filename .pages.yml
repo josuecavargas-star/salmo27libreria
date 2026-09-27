@@ -1,0 +1,31 @@
+media:
+  input: public/images/libros
+  output: /images/libros
+content:
+  - name: libros
+    label: Inventario de libros
+    type: file
+    path: public/data/libros.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del libro
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
