@@ -30,11 +30,16 @@ Visitantes ven tu página
 salmo27libreria/
 ├── AGENTS.md              ← esta guía
 ├── wrangler.jsonc         ← config de Cloudflare Workers
+├── .pages.yml             ← config de Pages CMS (catálogo de libros)
 └── public/                ← archivos del sitio web
- ├── index.html           ← página principal
+ ├── index.html           ← landing page principal
+ ├── libros.html          ← página de catálogo de libros (dinámica)
  ├── css/styles.css       ← estilos
  ├── js/main.js           ← scripts
- ├── img/                 ← imágenes y logos
+ ├── data/libros.json     ← inventario de libros (editado vía Pages CMS)
+ ├── img/                 ← imágenes y logos del sitio
+ ├── images/libros/        ← portadas de libros (subidas vía Pages CMS)
+ │   └── .gitkeep
  └── guia/                ← documentación del proyecto
 ```
 
@@ -62,11 +67,23 @@ salmo27libreria/
 
 ## Workflow de Deploy
 
-1. Editas archivos en `public/`
+1. Editas archivos en `public/` (o `.pages.yml`, `wrangler.jsonc` en raíz)
 2. `git add .`
-3. `git commit -m "descripción del cambio"`
-4. `git push origin main`
-5. Cloudflare detecta el push y redeploya en 1-2 minutos
+3. `git commit` — mensaje en **lenguaje natural** en español, explicando qué se cambió
+4. **Preguntar al usuario antes de push**
+5. `git push origin main`
+6. Cloudflare detecta el push y redeploya en 1-2 minutos
+
+## Pages CMS (Catálogo de Libros)
+
+Permite al dueño agregar/editar libros sin tocar código:
+
+1. Ir a https://app.pagescms.org y hacer login con GitHub
+2. Seleccionar el repo `salmo27libreria`, rama `main`
+3. En el menú lateral → **"Inventario de libros"**
+4. Allí puedes agregar, editar o quitar libros con un formulario
+5. Al guardar, Pages CMS escribe directamente en `public/data/libros.json` y sube las portadas a `public/images/libros/`
+6. Cada cambio dispara un deploy automático en Cloudflare (1-2 min)
 
 ## Notas Importantes
 
@@ -75,5 +92,4 @@ salmo27libreria/
 - **Commit después de cada cambio**: usar `git add .` y `git commit` para registrar cada cambio antes de push.
 - **Mensaje de commit en lenguaje natural**: usar frases descriptivas en español (ej. "Agregué las instrucciones de deploy al documento de guía") en lugar de formatos técnicos como `docs: algo`. El mensaje debe explicar claramente qué se cambió y por qué.
 - **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
-- **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
-- **Imágenes**: se suben como assets estáticos, no requieren configuración especial.
+- **El catálogo de libros es dinámico**: la página `libros.html` hace `fetch('/data/libros.json')` y dibuja las tarjetas automáticamente. Para agregar libros, edita el JSON o usa Pages CMS.
