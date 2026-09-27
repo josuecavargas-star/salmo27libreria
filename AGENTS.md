@@ -71,5 +71,8 @@ salmo27libreria/
 ## Notas Importantes
 
 - **No usar Cloudflare Pages**: este proyecto usa **Cloudflare Workers** con `wrangler.jsonc`. Los archivos deben estar en `public/` y el `wrangler.jsonc` en la raíz.
+- **No hacer push sin permiso**: después de cada commit, **preguntar al usuario antes de ejecutar `git push`**. El push activa un deploy automático en Cloudflare.
+- **Commit después de cada cambio**: usar `git add .` y `git commit -m "descripción"` para registrar cada cambio antes de push.
+- **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
 - **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
 - **Imágenes**: se suben como assets estáticos, no requieren configuración especial.
