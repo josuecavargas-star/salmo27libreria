@@ -1,4 +1,4 @@
-# Guía para Agentes de IA — Salvo27 Librería
+# Guía para Agentes de IA — Salmo 27 Librería
 
 ## Objetivo del Proyecto
 
@@ -8,6 +8,18 @@ Sitio web estático para **Salmo 27 Librería Cristiana** (librería en Liberia,
 - **wrangler.jsonc** — configuración de despliegue
 
 URL: `https://salmo27libreria.josuecavargas.workers.dev`
+Catálogo libros: `https://salmo27libreria.josuecavargas.workers.dev/libros.html`
+JSON inventario: `https://salmo27libreria.josuecavargas.workers.dev/data/libros.json`
+
+## Estado Actual
+
+- ✅ Repo de GitHub creado: `josuecavargas-star/salmo27libreria` (push completado)
+- ✅ Cloudflare Workers configurado y deployado (sitio en vivo)
+- ✅ Landing page (`index.html`) desplegada y funcionando (HTTP 200)
+- ✅ Catálogo de libros (`libros.html`) desplegado y funcionando (HTTP 200)
+- ✅ JSON de inventario accesible (`/data/libros.json`, HTTP 200)
+- ✅ Pages CMS configurado (`.pages.yml`) — listo para conectar en app.pagescms.org
+- ✅ Página de libros conectada desde el menú de navegación de `index.html`
 
 ## Arquitectura
 
@@ -72,7 +84,7 @@ salmo27libreria/
 3. `git commit` — mensaje en **lenguaje natural** en español, explicando qué se cambió
 4. **Preguntar al usuario antes de push**
 5. `git push origin main`
-6. Cloudflare detecta el push y redeploya en 1-2 minutos
+6. Cloudflare detecta el push y redeploya en 1-2 minutos (Workers con `npx wrangler deploy`)
 
 ## Pages CMS (Catálogo de Libros)
 
@@ -93,3 +105,11 @@ Permite al dueño agregar/editar libros sin tocar código:
 - **Mensaje de commit en lenguaje natural**: usar frases descriptivas en español (ej. "Agregué las instrucciones de deploy al documento de guía") en lugar de formatos técnicos como `docs: algo`. El mensaje debe explicar claramente qué se cambió y por qué.
 - **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
 - **El catálogo de libros es dinámico**: la página `libros.html` hace `fetch('/data/libros.json')` y dibuja las tarjetas automáticamente. Para agregar libros, edita el JSON o usa Pages CMS.
+- **La carpeta `public/` es invisible en la URL**: en GitHub el repo tiene `public/` como subcarpeta, pero Cloudflare Workers sirve su contenido como raíz. Así `/data/libros.json` mapea a `public/data/libros.json`.
+
+## Próximos Pasos (para el owner)
+
+1. Ir a https://app.pagescms.org
+2. Sign in with GitHub → autorizar la app → seleccionar repo `salmo27libreria`
+3. En el menú lateral → "Inventario de libros" → agregar/editar libros
+4. Cada cambio guardado se refleja en la web en 1-2 minutos
