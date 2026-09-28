@@ -2,10 +2,19 @@
   {
     "nombre": "El Principito",
     "autor": "Antoine de Saint-Exupéry",
-    "precio": 250,
-    "imagen": "",
-    "descripcion": "Un clásico para todas las edades sobre un niño y su amigo viajero del cosmos.",
     "categoria": "literatura",
+    "precio": 250,
+    "imagen": "/images/libros/9781937482978.jpg",
+    "descripcion": "Un clásico para todas las edades sobre un niño y su amigo viajero del cosmos.",
+    "disponible": true
+  },
+  {
+    "nombre": "test",
+    "autor": "test",
+    "categoria": "biblias",
+    "precio": 1500,
+    "imagen": "/images/libros/512WQ56W8VL._AC_UF1000,1000_QL80_.jpg",
+    "descripcion": "test",
     "disponible": true
   }
 ]
