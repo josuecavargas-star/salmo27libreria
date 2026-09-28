@@ -257,15 +257,20 @@
       }
     });
 
-    fetch('/data/libros.json')
-      .then(respuesta => respuesta.json())
-      .then(data => {
-        librosData = data;
-        renderLibros();
-      })
-      .catch(() => {
-        document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
-      });
+    Promise.all([
+      fetch('/data/biblias.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('/data/literatura.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('/data/regalos.json').then(r => r.ok ? r.json() : []).catch(() => [])
+    ]).then(([biblias, literatura, regalos]) => {
+      librosData = [
+        ...biblias.map(item => ({ ...item, categoria: 'biblias' })),
+        ...literatura.map(item => ({ ...item, categoria: 'literatura' })),
+        ...regalos.map(item => ({ ...item, categoria: 'regalos' }))
+      ];
+      renderLibros();
+    }).catch(() => {
+      document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
+    });
   </script>
 </body>
 </html>

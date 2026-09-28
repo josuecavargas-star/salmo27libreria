@@ -2,10 +2,10 @@ media:
   input: public/images/libros
   output: /images/libros
 content:
-  - name: libros
-    label: Inventario de libros
+  - name: biblias
+    label: Biblias
     type: file
-    path: public/data/libros.json
+    path: public/data/biblias.json
     format: json
     list: true
     fields:
@@ -16,19 +16,65 @@ content:
       - name: autor
         label: Autor
         type: string
-      - name: categoria
-        label: Categoría
-        type: select
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: literatura
+    label: Literatura Cristiana
+    type: file
+    path: public/data/literatura.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del libro
+        type: string
         required: true
-        options:
-          values:
-            - name: biblias
-              label: Biblias
-            - name: literatura
-              label: Literatura cristiana
-            - name: regalos
-              label: Regalos
-        default: biblias
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: regalos
+    label: Regalos
+    type: file
+    path: public/data/regalos.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del artículo
+        type: string
+        required: true
       - name: cantidad
         label: Cantidad en stock
         type: number
