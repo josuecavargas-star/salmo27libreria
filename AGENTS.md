@@ -106,7 +106,16 @@ Los libros se organizan por categoría. El admin las selecciona desde un dropdow
 - **Literatura cristiana** (`literatura`)
 - **Regalos** (`regalos`)
 
-La página `catalogo.html` tiene botones de filtro ("Todos", "Biblias", "Literatura cristiana", "Regalos") para ver solo libros de una categoría. Cada tarjeta muestra un badge con la categoría.
+La página `catalogo.html` tiene botones de filtro ("Todos", "Biblias", "Literatura cristiana", "Regalos") para ver solo libros de una categoría. Cada tarjeta muestra un badge de categoría y el stock disponible.
+
+## Sistema de Inventario
+
+Cada libro tiene un campo `cantidad` (número) que controla el stock:
+- **cantidad 0** → muestra "Agotado" (rojo)
+- **cantidad < 5** → muestra "Últimas unidades (N)" (naranja)
+- **cantidad ≥ 5** → muestra "En stock (N)" (verde)
+
+El owner actualiza la cantidad desde el formulario de Pages CMS. Cada cambio dispara un deploy automático.
 
 ## Notas Importantes
 

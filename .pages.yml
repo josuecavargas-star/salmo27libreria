@@ -29,6 +29,10 @@ content:
             - name: regalos
               label: Regalos
         default: biblias
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
       - name: precio
         label: Precio
         type: number

@@ -141,6 +141,32 @@
       text-transform: capitalize;
       margin-bottom: 6px;
     }
+    .stock-info {
+      font-size: 13px;
+      font-weight: 500;
+      margin: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stock-agotado {
+      color: #dc2626;
+    }
+    .stock-bajo {
+      color: #ea580c;
+    }
+    .stock-ok {
+      color: var(--color-accent);
+    }
+    .stock-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .stock-dot.agotado { background: #dc2626; }
+    .stock-dot.bajo { background: #ea580c; }
+    .stock-dot.ok { background: var(--color-accent); }
   </style>
 </head>
 <body>
@@ -184,6 +210,16 @@
       regalos: 'Regalos'
     };
 
+    function getStockHtml(cantidad) {
+      if (cantidad === 0 || cantidad === undefined) {
+        return `<span class="stock-info stock-agotado"><span class="stock-dot agotado"></span> Agotado</span>`;
+      }
+      if (cantidad < 5) {
+        return `<span class="stock-info stock-bajo"><span class="stock-dot bajo"></span> Últimas unidades (${cantidad})</span>`;
+      }
+      return `<span class="stock-info stock-ok"><span class="stock-dot ok"></span> En stock (${cantidad})</span>`;
+    }
+
     function renderLibros() {
       const visibles = librosData.filter(libro =>
         libro.disponible !== false &&
@@ -207,6 +243,7 @@
           ${libro.autor ? `<p class="autor">${libro.autor}</p>` : ''}
           <p class="precio">$${libro.precio}</p>
           ${libro.descripcion ? `<p class="descripcion">${libro.descripcion}</p>` : ''}
+          ${getStockHtml(libro.cantidad)}
         </article>
       `).join('');
     }
