@@ -5,6 +5,7 @@
     "precio": 250,
     "imagen": "",
     "descripcion": "Un clásico para todas las edades sobre un niño y su amigo viajero del cosmos.",
+    "categoria": "literatura",
     "disponible": true
   }
 ]

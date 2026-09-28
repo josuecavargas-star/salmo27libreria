@@ -16,6 +16,19 @@ content:
       - name: autor
         label: Autor
         type: string
+      - name: categoria
+        label: Categoría
+        type: select
+        required: true
+        options:
+          values:
+            - name: biblias
+              label: Biblias
+            - name: literatura
+              label: Literatura cristiana
+            - name: regalos
+              label: Regalos
+        default: biblias
       - name: precio
         label: Precio
         type: number

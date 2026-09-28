@@ -103,6 +103,44 @@
       font-size: 12px;
       font-weight: bold;
     }
+    .filtros {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .filtro-btn {
+      background: var(--color-white);
+      border: 2px solid var(--color-accent);
+      color: var(--color-accent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .filtro-btn:hover {
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+    .filtro-btn.activo {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border-color: var(--color-primary);
+    }
+    .categoria-badge {
+      display: inline-block;
+      background: var(--color-bg);
+      color: var(--color-primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: capitalize;
+      margin-bottom: 6px;
+    }
   </style>
 </head>
 <body>
@@ -126,34 +164,67 @@
     <section class="catalogo">
       <h1 class="catalogo__title">Catálogo de Libros</h1>
       <p class="catalogo__subtitle">Explora nuestra colección de libros cristianos</p>
+      <div class="filtros" id="filtros">
+        <button class="filtro-btn activo" data-filtro="todos">Todos</button>
+        <button class="filtro-btn" data-filtro="biblias">Biblias</button>
+        <button class="filtro-btn" data-filtro="literatura">Literatura cristiana</button>
+        <button class="filtro-btn" data-filtro="regalos">Regalos</button>
+      </div>
       <div id="catalogo" class="grid">Cargando libros...</div>
     </section>
   </main>
 
   <script>
+    let librosData = [];
+    let filtroActivo = 'todos';
+
+    const categoriaLabels = {
+      biblias: 'Biblias',
+      literatura: 'Literatura cristiana',
+      regalos: 'Regalos'
+    };
+
+    function renderLibros() {
+      const visibles = librosData.filter(libro =>
+        libro.disponible !== false &&
+        (filtroActivo === 'todos' || libro.categoria === filtroActivo)
+      );
+      const contenedor = document.getElementById('catalogo');
+
+      if (visibles.length === 0) {
+        contenedor.textContent = 'No hay libros disponibles en esta categoría.';
+        return;
+      }
+
+      contenedor.innerHTML = visibles.map(libro => `
+        <article class="libro ${libro.disponible === false ? 'agotado' : ''}">
+          ${libro.imagen ?
+            `<img src="${libro.imagen}" alt="${libro.nombre}" loading="lazy" onerror="this.style.display='none'">` :
+            `<div class="sin-portada"><span>Sin portada</span></div>`
+          }
+          ${libro.categoria ? `<span class="categoria-badge">${categoriaLabels[libro.categoria] || libro.categoria}</span>` : ''}
+          <h3>${libro.nombre}</h3>
+          ${libro.autor ? `<p class="autor">${libro.autor}</p>` : ''}
+          <p class="precio">$${libro.precio}</p>
+          ${libro.descripcion ? `<p class="descripcion">${libro.descripcion}</p>` : ''}
+        </article>
+      `).join('');
+    }
+
+    document.getElementById('filtros').addEventListener('click', function(e) {
+      if (e.target.classList.contains('filtro-btn')) {
+        document.querySelector('.filtro-btn.activo').classList.remove('activo');
+        e.target.classList.add('activo');
+        filtroActivo = e.target.dataset.filtro;
+        renderLibros();
+      }
+    });
+
     fetch('/data/libros.json')
       .then(respuesta => respuesta.json())
-      .then(libros => {
-        const visibles = libros.filter(libro => libro.disponible !== false);
-        const contenedor = document.getElementById('catalogo');
-
-        if (visibles.length === 0) {
-          contenedor.textContent = 'No hay libros disponibles en este momento.';
-          return;
-        }
-
-        contenedor.innerHTML = visibles.map(libro => `
-          <article class="libro ${libro.disponible === false ? 'agotado' : ''}">
-            ${libro.imagen ?
-              `<img src="${libro.imagen}" alt="${libro.nombre}" loading="lazy" onerror="this.parentElement.querySelector('img').style.display='none'">` :
-              `<div class="sin-portada"><span>Sin portada</span></div>`
-            }
-            <h3>${libro.nombre}</h3>
-            ${libro.autor ? `<p class="autor">${libro.autor}</p>` : ''}
-            <p class="precio">$${libro.precio}</p>
-            ${libro.descripcion ? `<p class="descripcion">${libro.descripcion}</p>` : ''}
-          </article>
-        `).join('');
+      .then(data => {
+        librosData = data;
+        renderLibros();
       })
       .catch(() => {
         document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
