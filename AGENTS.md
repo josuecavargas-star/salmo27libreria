@@ -19,8 +19,9 @@ JSON inventario: `https://salmo27libreria.josuecavargas.workers.dev/data/libros.
 - ✅ Catálogo dinámico (`catalogo.html`) conectado desde el menú "Catálogo" de la landing
 - ✅ Catálogo de libros (`catalogo.html`) desplegado y funcionando (HTTP 200)
 - ✅ JSON de inventario accesible (`/data/libros.json`, HTTP 200)
-- ✅ Pages CMS configurado (`.pages.yml`) — listo para conectar en app.pagescms.org
-- ✅ Página de libros conectada desde el menú de navegación de `index.html`
+- ✅ Pages CMS configurado (`.pages.yml` con campos: nombre, autor, categoría, cantidad, precio, imagen, descripción, disponible)
+- ✅ Owner ya usando Pages CMS — 3 libros cargados (El Principito, test, Taza Salmo 27)
+- ✅ Sistema de inventario (cantidad) activo: muestra Agotado / Últimas unidades / En stock
 
 ## Arquitectura
 
