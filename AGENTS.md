@@ -19,8 +19,7 @@ JSON inventario: `https://salmo27libreria.josuecavargas.workers.dev/data/libros.
 - ✅ Catálogo dinámico (`catalogo.html`) conectado desde el menú "Catálogo" de la landing
 - ✅ Catálogo de libros (`catalogo.html`) desplegado y funcionando (HTTP 200)
 - ✅ JSON de inventario accesible (`/data/libros.json`, HTTP 200)
-- ✅ Pages CMS configurado (`.pages.yml` con campos: nombre, autor, categoría, cantidad, precio, imagen, descripción, disponible)
-- ✅ Owner ya usando Pages CMS — 3 libros cargados (El Principito, test, Taza Salmo 27)
+- ✅ Pages CMS configurado (`.pages.yml` con 3 colecciones: Biblias, Literatura Cristiana, Regalos)
 - ✅ Sistema de inventario (cantidad) activo: muestra Agotado / Últimas unidades / En stock
 
 ## Arquitectura
@@ -50,7 +49,10 @@ salmo27libreria/
  ├── catalogo.html          ← página de catálogo de libros (dinámica)
  ├── css/styles.css       ← estilos
  ├── js/main.js           ← scripts
- ├── data/libros.json     ← inventario de libros (editado vía Pages CMS)
+ ├── data/
+ │   ├── biblias.json      ← inventario de Biblias (editado vía Pages CMS)
+ │   ├── literatura.json   ← inventario de Literatura (editado vía Pages CMS)
+ │   └── regalos.json      ← inventario de Regalos (editado vía Pages CMS)
  ├── img/                 ← imágenes y logos del sitio
  ├── images/libros/        ← portadas de libros (subidas vía Pages CMS)
  │   └── .gitkeep
@@ -88,35 +90,16 @@ salmo27libreria/
 5. `git push origin main`
 6. Cloudflare detecta el push y redeploya en 1-2 minutos (Workers con `npx wrangler deploy`)
 
-## Pages CMS (Catálogo de Libros)
+## Pages CMS (Catálogo de Productos)
 
-Permite al dueño agregar/editar libros sin tocar código:
+Permite al dueño agregar/editar productos sin tocar código. Hay **3 colecciones separadas** por categoría:
 
 1. Ir a https://app.pagescms.org y hacer login con GitHub
 2. Seleccionar el repo `salmo27libreria`, rama `main`
-3. En el menú lateral → **"Inventario de libros"**
-4. Allí puedes agregar, editar o quitar libros con un formulario
-5. Al guardar, Pages CMS escribe directamente en `public/data/libros.json` y sube las portadas a `public/images/libros/`
+3. En el menú lateral verás **3 secciones**: "Biblias", "Literatura Cristiana", "Regalos"
+4. Cada sección tiene su propio formulario para agregar/editar/quitar productos
+5. Al guardar, Pages CMS escribe en `public/data/{categoria}.json` y sube portadas a `public/images/libros/`
 6. Cada cambio dispara un deploy automático en Cloudflare (1-2 min)
-
-## Sistema de Categorías
-
-Los libros se organizan por categoría. El admin las selecciona desde un dropdown en Pages CMS:
-
-- **Biblias** (`biblias`)
-- **Literatura cristiana** (`literatura`)
-- **Regalos** (`regalos`)
-
-La página `catalogo.html` tiene botones de filtro ("Todos", "Biblias", "Literatura cristiana", "Regalos") para ver solo libros de una categoría. Cada tarjeta muestra un badge de categoría y el stock disponible.
-
-## Sistema de Inventario
-
-Cada libro tiene un campo `cantidad` (número) que controla el stock:
-- **cantidad 0** → muestra "Agotado" (rojo)
-- **cantidad < 5** → muestra "Últimas unidades (N)" (naranja)
-- **cantidad ≥ 5** → muestra "En stock (N)" (verde)
-
-El owner actualiza la cantidad desde el formulario de Pages CMS. Cada cambio dispara un deploy automático.
 
 ## Notas Importantes
 
@@ -125,12 +108,12 @@ El owner actualiza la cantidad desde el formulario de Pages CMS. Cada cambio dis
 - **Commit después de cada cambio**: usar `git add .` y `git commit` para registrar cada cambio antes de push.
 - **Mensaje de commit en lenguaje natural**: usar frases descriptivas en español (ej. "Agregué las instrucciones de deploy al documento de guía") en lugar de formatos técnicos como `docs: algo`. El mensaje debe explicar claramente qué se cambió y por qué.
 - **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
-- **Catálogo dinámico**: la página `catalogo.html` hace `fetch('/data/libros.json')` y dibuja las tarjetas automáticamente. El link "Catálogo" en la landing page (`index.html`) y el botón "Ver catálogo" del hero apuntan a `catalogo.html`. Para agregar libros, edita el JSON o usa Pages CMS.
-- **La carpeta `public/` es invisible en la URL**: en GitHub el repo tiene `public/` como subcarpeta, pero Cloudflare Workers sirve su contenido como raíz. Así `/data/libros.json` mapea a `public/data/libros.json`.
+- **Catálogo dinámico**: la página `catalogo.html` hace `fetch` de 3 archivos JSON (`biblias.json`, `literatura.json`, `regalos.json`) en paralelo, agrega la categoría a cada producto y dibuja las tarjetas. El link "Catálogo" en la landing page (`index.html`) y el botón "Ver catálogo" del hero apuntan a `catalogo.html`.
+- **La carpeta `public/` es invisible en la URL**: en GitHub el repo tiene `public/` como subcarpeta, pero Cloudflare Workers sirve su contenido como raíz. Así `/data/biblias.json` mapea a `public/data/biblias.json`.
 
 ## Próximos Pasos (para el owner)
 
 1. Ir a https://app.pagescms.org
 2. Sign in with GitHub → autorizar la app → seleccionar repo `salmo27libreria`
-3. En el menú lateral → "Inventario de libros" → agregar/editar libros
+3. En el menú lateral → "Biblias", "Literatura Cristiana", "Regalos" → agregar/editar productos
 4. Cada cambio guardado se refleja en la web en 1-2 minutos
