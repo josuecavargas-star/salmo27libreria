@@ -97,6 +97,16 @@ Permite al dueño agregar/editar libros sin tocar código:
 5. Al guardar, Pages CMS escribe directamente en `public/data/libros.json` y sube las portadas a `public/images/libros/`
 6. Cada cambio dispara un deploy automático en Cloudflare (1-2 min)
 
+## Sistema de Categorías
+
+Los libros se organizan por categoría. El admin las selecciona desde un dropdown en Pages CMS:
+
+- **Biblias** (`biblias`)
+- **Literatura cristiana** (`literatura`)
+- **Regalos** (`regalos`)
+
+La página `libros.html` tiene botones de filtro ("Todos", "Biblias", "Literatura cristiana", "Regalos") para ver solo libros de una categoría. Cada tarjeta muestra un badge con la categoría.
+
 ## Notas Importantes
 
 - **No usar Cloudflare Pages**: este proyecto usa **Cloudflare Workers** con `wrangler.jsonc`. Los archivos deben estar en `public/` y el `wrangler.jsonc` en la raíz.
