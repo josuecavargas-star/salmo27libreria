@@ -73,7 +73,7 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 ## Secciones de la Página Web (`index.html`)
 
 1. **Header** — Logo (64px) + navegación (Inicio, Catálogo, Categorías, Nosotros, Contacto). Menú responsive con toggle para móviles. Redes sociales (Facebook, Instagram, WhatsApp) con íconos SVG en `img/iconos/`. Fondo verde sólido `#273A39`.
-2. **Hero** — Banner principal con imagen de portada de Facebook como fondo + overlay verde semitransparente. Texto centrado: "Librería Cristiana", "Biblias, literatura y artículos para tu espíritu". Botones de acción centrados.
+2. **Hero** — Banner principal con `img/hero-portada.jpg` como fondo + overlay verde semitransparente (`rgba(39,58,57,0.3)` arriba → `rgba(59,94,91,0.9)` abajo). Texto centrado: "Librería Cristiana", "Biblias, literatura y artículos para tu espíritu". Botones de acción centrados. El fondo usa `background-size: cover` y `background-position: center top`, así que en pantallas anchas se recorta por los lados.
 3. **Catálogo de Facebook** — Imagen de portada destacada que enlaza a la página de Facebook.
 4. **Categorías** — Grid de 3 tarjetas centradas: Biblias, Literatura cristiana, Regalos cristianos.
 5. **Sobre nosotros** — Texto institucional sobre la librería en Liberia + estadísticas.
@@ -116,21 +116,61 @@ Descripción del producto: {descripción}
 
 Ya no se usa Google Apps Script ni la hoja de cálculo. El código del formulario
 está en `public/js/main.js`, al final del archivo.
-- **SVGs** — Íconos de redes sociales en `img/iconos/` (facebook.svg, instagram.svg, whatsapp.svg).
+
+## Publicar (deploy)
+
+El deploy ya **no se hace desde GitHub**. La integración de Cloudflare con el
+repo no siempre ha ejecutado los builds de forma confiable, así que el flujo real
+es desplegar desde la máquina con Wrangler.
+
+**Requisitos (ya instalados en esta máquina)**
+- Node.js v24.19.0 — `winget install OpenJS.NodeJS.LTS`
+- Wrangler 4.147.0, vía `npx`, con sesión OAuth iniciada
+
+**Comando**
+
+```
+npx.cmd wrangler deploy
+```
+
+Se ejecuta desde la raíz del repo. Toma los archivos de `public/` y los publica
+en `https://salmo27libreria.josuecavargas.workers.dev`.
+
+**Notas de Windows**
+- En PowerShell hay que usar **`npx.cmd`**, no `npx`: la política de ejecución de
+  scripts del sistema bloquea el shim `npx.ps1` y el comando falla.
+- En una terminal abierta **antes** de instalar Node, `node` y `npx` no están en
+  el PATH. Abrir una terminal nueva.
+- El login es `npx.cmd wrangler login` (abre el navegador). La sesión queda
+  guardada en `C:\Users\josue\AppData\Roaming\xdg.config\.wrangler\`.
+
+**Verificar el deploy** — `wrangler` avisa al final, pero conviene comprobar en
+el sitio que los cambios se vean.
+
+## Problemas conocidos
+
+- **El deploy automático desde GitHub no es confiable.** El push a `main` llega
+  a GitHub, pero Cloudflare a veces no lanza el build. Por eso el deploy se hace
+  con Wrangler. Conviene revisar la integración en el dashboard de Cloudflare.
+- **Hay dos repos en GitHub.** `josuecavargas-star/salmo27libreria` es el
+  activo. `josuecavargas-star/salmo27` quedó huérfano en septiembre de 2026 y se
+  puede borrar para evitar confusiones.
+- **La carpeta `guia/` está dentro de `public/`**, o sea que este documento se
+  publica como parte del sitio web y es accesible por URL.
 
 ## Estado del Repositorio Git
 
 - **Rama principal**: `main`
-- **Remote configurado**: `https://github.com/josuecavargas-star/salmo27.git`
+- **Remote configurado**: `https://github.com/josuecavargas-star/salmo27libreria.git`
 - **Commits recientes**:
   ```
-  fe5caa4 feat: bajar imagen hero y actualizar datos de contacto
-  1db8c3b feat: centrar texto hero, bajar imagen de fondo, centrar cards y agrandar logo footer
-  c36e0db feat: header verde sólido y hero con imagen de fondo y texto arriba
-  86abc1b refactor: header con imagen de portada full-height y quitar tarjetas del hero
-  0a2b5ac feat: hero con imagen de portada y texto centrado
-  c4d3f31 fix: corregir logo en header y footer (remover filtro de inversión)
-  511398e feat: crear sitio web de Salmo 27 librería cristiana
+  1e417f4 Agrega al formulario un campo para describir el producto
+  51d7910 Simplifica el formulario: nombre + categoría, y abre WhatsApp
+  3ac8cf4 Cambia la imagen del hero por la portada Presentación Elegante 2
+  180e11c Actualiza la guía: material/ y árbol de archivos corregido
+  407e523 Saca del sitio los .psd y logos que no usa (85 MB menos por deploy)
+  1512bd8 Actualiza AGENTS.md con las 3 colecciones de Pages CMS
+  ed552c4 Separa el inventario en biblias/literatura/regalos.json
   ```
 
 ## Contacto
