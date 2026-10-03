@@ -53,6 +53,8 @@ salmo27libreria/
 ├── material/              ← FUERA de public/: no se publica ni se sube al repo
 │   ├── logos/             ← logos y .psd del dueño
 │   └── portadas-pendientes/  ← portadas de libros aún no cargadas al catálogo
+├── guia/                  ← FUERA de public/: documentación interna, no se publica
+│   └── README.md            ← guía del proyecto
 └── public/                ← archivos del sitio web
  ├── index.html           ← landing page principal
  ├── catalogo.html          ← página de catálogo de libros (dinámica)
@@ -69,9 +71,10 @@ salmo27libreria/
  │   └── salmo 27 logos/   ← solo la portada anterior, ya sin uso
  ├── images/libros/        ← portadas de libros (subidas vía Pages CMS)
  │   └── .gitkeep
- └── guia/                ← documentación del proyecto
-     └── README.md          ← esta guía (se publica como parte del sitio)
 ```
+
+`guia/` está **fuera** de `public/`, en la raíz del repo, para que la
+documentación no se publique en el sitio web.
 
 ## Configuración Clave
 
@@ -165,7 +168,7 @@ código está al final de `public/js/main.js`.
 - **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
 - **Catálogo dinámico**: la página `catalogo.html` hace `fetch` de 3 archivos JSON (`biblias.json`, `literatura.json`, `regalos.json`) en paralelo, agrega la categoría a cada producto y dibuja las tarjetas. El link "Catálogo" en la landing page (`index.html`) y el botón "Ver catálogo" del hero apuntan a `catalogo.html`.
 - **La carpeta `public/` es invisible en la URL**: en GitHub el repo tiene `public/` como subcarpeta, pero Cloudflare Workers sirve su contenido como raíz. Así `/data/biblias.json` mapea a `public/data/biblias.json`.
-- **`public/guia/` se publica**: el README de la guía es accesible por URL porque está dentro de `public/`. Cuidado de no escribir datos sensibles ahí.
+- **`guia/` NO se publica**: la documentación vive fuera de `public/`, así que no es accesible por URL. No moverla adentro.
 - **Los .psd y logos sin uso están en `material/`**: fuera de `public/` (no se publican) y en `.gitignore` (no van al repo). Si el sitio necesita un logo, copiarlo a `public/img/` y referenciarlo.
 
 ## Próximos Pasos (para el owner)

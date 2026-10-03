@@ -51,12 +51,16 @@ salmo27libreria/
 │   │   └── whatsapp.svg
 │   └── salmo 27 logos/
 │       └── Portada-facebook.jpg   # Portada anterior (ya no se usa)
-├── guia/
-│   └── README.md       # Esta guía
-└── material/           # Fuera de public/: NO se publica ni se sube al repo
-    ├── logos/          # Logos y archivos .psd del dueño
-    └── portadas-pendientes/  # Portadas de libros aún no cargadas al catálogo
+├── material/           # Fuera de public/: NO se publica ni se sube al repo
+│   ├── logos/          # Logos y archivos .psd del dueño
+│   └── portadas-pendientes/  # Portadas de libros aún no cargadas al catálogo
+└── guia/               # Esta guía. Fuera de public/: NO se publica
+    └── README.md
 ```
+
+> Esta guía está **fuera de `public/`** a propósito. `wrangler deploy` sube todo
+> lo que hay en `public/`, así que si la documentación viviera adentro quedaría
+> accesible por URL para cualquiera que visitara el sitio.
 
 ### Sobre `material/`
 
@@ -155,8 +159,8 @@ el sitio que los cambios se vean.
 - **Hay dos repos en GitHub.** `josuecavargas-star/salmo27libreria` es el
   activo. `josuecavargas-star/salmo27` quedó huérfano en septiembre de 2026 y se
   puede borrar para evitar confusiones.
-- **La carpeta `guia/` está dentro de `public/`**, o sea que este documento se
-  publica como parte del sitio web y es accesible por URL.
+- **La carpeta `guia/` está en la raíz del repo**, fuera de `public/`, para que
+  esta documentación no aparezca en el sitio web.
 
 ## Estado del Repositorio Git
 
