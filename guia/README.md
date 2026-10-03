@@ -1,5 +1,13 @@
 # Guía del Proyecto — Salmo 27 Web
 
+> **Qué es esta guía y cuál no.** Este documento explica **qué es el proyecto y
+> cómo funciona por dentro**: la paleta de colores, las secciones de la página, el
+> carrito, el formulario, los datos de contacto.
+>
+> Lo otro —desplegar, correr pruebas, reglas de git, estructura del repositorio—
+> está en **`AGENTS.md`**, en la raíz del repo. Ninguna de las dos se publica en el
+> sitio web.
+
 ## Información del Proyecto
 
 | Campo | Detalle |
@@ -135,30 +143,6 @@ envía nada por sí solo. El carrito se vacía al finalizar.
   pierde.
 - El precio se muestra en colones con el formato `₡1.500`.
 
-### Pruebas
-
-La carpeta `pruebas/` corre con Node, **sin dependencias externas** (no hay
-`node_modules`) ni navegador headless. `pruebas/entorno.js` arma un DOM mínimo
-para poder ejercitar `carrito.js` tal cual se usa en el sitio.
-
-```
-npm test
-```
-
-O por separado:
-
-```
-node pruebas/carrito.test.js    # lógica del carrito, stock y formato
-node pruebas/checkout.test.js   # mensaje de WhatsApp y validaciones
-```
-
-Cubren, entre otras cosas: acentos y ñ, comillas y caracteres especiales, límite
-de stock, productos agotados, los tres tipos de entrega, `localStorage` corrupto,
-y que no se abra WhatsApp si falta el nombre o la dirección.
-
-**Hay que correrlas después de tocar `carrito.js` o `catalogo.html`.** Es la
-única forma de comprobar que el carrito no se rompió.
-
 ## Formulario de contacto → WhatsApp
 
 El formulario de la sección Contacto pide tres datos y abre WhatsApp con el
@@ -189,62 +173,6 @@ Descripción del producto: {descripción}
 
 Ya no se usa Google Apps Script ni la hoja de cálculo. El código del formulario
 está en `public/js/main.js`, al final del archivo.
-
-## Publicar (deploy)
-
-El deploy ya **no se hace desde GitHub**. La integración de Cloudflare con el
-repo no siempre ha ejecutado los builds de forma confiable, así que el flujo real
-es desplegar desde la máquina con Wrangler.
-
-**Requisitos (ya instalados en esta máquina)**
-- Node.js v24.19.0 — `winget install OpenJS.NodeJS.LTS`
-- Wrangler 4.147.0, vía `npx`, con sesión OAuth iniciada
-
-**Comando**
-
-```
-npx.cmd wrangler deploy
-```
-
-Se ejecuta desde la raíz del repo. Toma los archivos de `public/` y los publica
-en `https://salmo27libreria.josuecavargas.workers.dev`.
-
-**Notas de Windows**
-- En PowerShell hay que usar **`npx.cmd`**, no `npx`: la política de ejecución de
-  scripts del sistema bloquea el shim `npx.ps1` y el comando falla.
-- En una terminal abierta **antes** de instalar Node, `node` y `npx` no están en
-  el PATH. Abrir una terminal nueva.
-- El login es `npx.cmd wrangler login` (abre el navegador). La sesión queda
-  guardada en `C:\Users\josue\AppData\Roaming\xdg.config\.wrangler\`.
-
-**Verificar el deploy** — `wrangler` avisa al final, pero conviene comprobar en
-el sitio que los cambios se vean.
-
-## Problemas conocidos
-
-- **El deploy automático desde GitHub no es confiable.** El push a `main` llega
-  a GitHub, pero Cloudflare a veces no lanza el build. Por eso el deploy se hace
-  con Wrangler. Conviene revisar la integración en el dashboard de Cloudflare.
-- **Hay dos repos en GitHub.** `josuecavargas-star/salmo27libreria` es el
-  activo. `josuecavargas-star/salmo27` quedó huérfano en septiembre de 2026 y se
-  puede borrar para evitar confusiones.
-- **La carpeta `guia/` está en la raíz del repo**, fuera de `public/`, para que
-  esta documentación no aparezca en el sitio web.
-
-## Estado del Repositorio Git
-
-- **Rama principal**: `main`
-- **Remote configurado**: `https://github.com/josuecavargas-star/salmo27libreria.git`
-- **Commits recientes**:
-  ```
-  1e417f4 Agrega al formulario un campo para describir el producto
-  51d7910 Simplifica el formulario: nombre + categoría, y abre WhatsApp
-  3ac8cf4 Cambia la imagen del hero por la portada Presentación Elegante 2
-  180e11c Actualiza la guía: material/ y árbol de archivos corregido
-  407e523 Saca del sitio los .psd y logos que no usa (85 MB menos por deploy)
-  1512bd8 Actualiza AGENTS.md con las 3 colecciones de Pages CMS
-  ed552c4 Separa el inventario en biblias/literatura/regalos.json
-  ```
 
 ## Contacto
 

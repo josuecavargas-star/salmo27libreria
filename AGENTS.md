@@ -1,5 +1,13 @@
 # Guía para Agentes de IA — Salmo 27 Librería
 
+> **Alcance de este documento.** Aquí está todo lo operativo: cómo desplegar, cómo
+> correr las pruebas, las reglas de git, la estructura del repositorio y los
+> problemas conocidos.
+>
+> Lo descriptivo —paleta de colores, secciones de la página, datos de contacto,
+> cómo funciona el carrito por fuera— está en **`guia/README.md`**. Mantener cada
+> cosa en un solo lugar: si un dato aparece en los dos, se desincronizan.
+
 ## Objetivo del Proyecto
 
 Sitio web estático para **Salmo 27 Librería Cristiana** (librería en Liberia, Guanacaste), desplegado gratuitamente con:
@@ -128,18 +136,13 @@ sin publicar un commit completo.
 committeado o no. Si se despliega con cambios sin commitear, el sitio los muestra
 pero GitHub no los tiene. Commitear **antes** de desplegar.
 
-## Pruebas
+## Carrito de compras
 
-```
-npm test
-```
+Vive en `public/js/carrito.js` + `public/css/carrito.css`, se inyecta desde JS en
+`index.html` y `catalogo.html`, y guarda en `localStorage`. Sin backend. El
+comportamiento para el usuario está en `guia/README.md`.
 
-Requiere Node en el PATH. En PowerShell, si `npm` falla por la política de
-ejecución, usar `npm.cmd test`.
-
-Son pruebas de la lógica del carrito (`pruebas/`), sin dependencias ni navegador.
-**Hay que correrlas después de tocar `public/js/carrito.js` o
-`public/catalogo.html`** — es lo único que verifica que el carrito no se rompió.
+Antes de tocar `carrito.js` o `catalogo.html`, correr `npm test`.
 
 ## Vista previa local
 
@@ -177,13 +180,10 @@ Permite al dueño agregar/editar productos sin tocar código. Hay **3 coleccione
 
 ## Formulario de Contacto
 
-No hay backend. El formulario de `index.html` pide nombre, categoría y
-descripción, y arma un enlace a `https://wa.me/50661745609` con esos datos. El
-código está al final de `public/js/main.js`.
-
-- La persona tiene que pulsar **Enviar** dentro de WhatsApp; el sitio no envía nada.
-- Para envío automático haría falta WhatsApp Business Platform con un backend.
-- La validación es solo frontend.
+Sin backend. El formulario de `index.html` pide nombre, categoría y descripción y
+arma un enlace a `https://wa.me/50661745609`. El código está al final de
+`public/js/main.js`. Los detalles de la experiencia del usuario están en
+`guia/README.md`.
 
 ## Notas Importantes
 
