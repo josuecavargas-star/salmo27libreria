@@ -29,12 +29,18 @@
 ## Estructura de Archivos
 
 ```
-salmo27/
-├── index.html          # Página principal
+salmo27libreria/
+├── index.html          # Página principal (landing)
+├── catalogo.html       # Catálogo de libros (dinámico, carga los JSON)
 ├── css/
 │   └── styles.css      # Estilos con la paleta de colores
 ├── js/
 │   └── main.js         # Funcionalidades (menú móvil, formulario, año dinámico)
+├── data/               # Inventario (editado vía Pages CMS)
+│   ├── biblias.json
+│   ├── literatura.json
+│   └── regalos.json
+├── images/libros/      # Portadas de libros (subidas vía Pages CMS)
 ├── img/
 │   ├── logoprincipal.png          # Logo principal
 │   ├── paleta.jpg                 # Paleta de colores de referencia
@@ -42,16 +48,26 @@ salmo27/
 │   │   ├── facebook.svg
 │   │   ├── instagram.svg
 │   │   └── whatsapp.svg
-│   └── salmo 27 logos/            # Logos varios
-│       ├── Portada Facebook - Color sólido.png
-│       ├── Portada facebook.psd
-│       ├── Portada-facebook.jpg   # Imagen de portada de Facebook
-│       ├── Salmo 27 - A color - Sin Fondo.png
-│       ├── ... (más logos en PNG, PSD, varios colores)
-│       └── Salmo27- Presentación Elegante 2.png
-└── guia/
-    └── README.md       # Esta guía
+│   └── salmo 27 logos/
+│       └── Portada-facebook.jpg   # Fondo del hero (única imagen que carga el sitio)
+├── guia/
+│   └── README.md       # Esta guía
+└── material/           # Fuera de public/: NO se publica ni se sube al repo
+    ├── logos/          # Logos y archivos .psd del dueño
+    └── portadas-pendientes/  # Portadas de libros aún no cargadas al catálogo
 ```
+
+### Sobre `material/`
+
+Los archivos de diseño (.psd) y los logos que el sitio no usa vivían dentro de
+`public/`, lo que hacía que cada deploy subiera ~85 MB de archivos que el navegador
+nunca carga. Se movieron a `material/`, en la raíz del repositorio:
+
+- **Fuera de `public/`** → Cloudflare no los publica.
+- **En `.gitignore`** → no ocupan espacio en el repo de GitHub.
+
+Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
+`public/img/` y se referencia desde el HTML o el CSS.
 
 ## Secciones de la Página Web (`index.html`)
 
