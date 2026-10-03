@@ -72,4 +72,15 @@ r.check("el panel se oculta cuando tiene el atributo hidden",
 r.check("el overlay se oculta cuando tiene el atributo hidden",
   /\.carrito-overlay\[hidden\]/.test(carritoCss));
 
+r.titulo("Iconos de categorias");
+const inicio = leer("index.html");
+r.check("las tres tarjetas de categoria tienen un SVG",
+  (inicio.match(/class="card__icon"[\s\S]*?<svg/g) || []).length === 3,
+  "hay " + (inicio.match(/class="card__icon"[\s\S]*?<svg/g) || []).length);
+r.check("ya no quedan emojis en las tarjetas",
+  !/class="card__icon">[^<]*\p{Extended_Pictographic}/u.test(inicio));
+const estilos = fs.readFileSync(path.join(PUBLIC, "css", "styles.css"), "utf8");
+r.check("el CSS dimensiona el SVG del icono",
+  /\.card__icon svg/.test(estilos));
+
 r.resumen();
