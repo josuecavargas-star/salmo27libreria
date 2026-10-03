@@ -84,54 +84,36 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 
 - **HTML5** — Estructura semántica, responsive con `viewport`.
 - **CSS3** — Variables CSS personalizadas, Grid, Flexbox, media queries (mobile-first + tablet).
-- **JavaScript (vanilla)** — `main.js` con IIFE, toggle de menú móvil, año automático en footer, envío de formulario vía fetch a Google Apps Script, validación de formulario.
+- **JavaScript (vanilla)** — `main.js` con IIFE, toggle de menú móvil, año automático en footer, formulario que arma el enlace de WhatsApp, validación de formulario.
 
-## Conexión Formulario → Google Sheets (Google Apps Script)
+## Formulario de contacto → WhatsApp
 
-El formulario de contacto envía datos a un **Google Apps Script web app** que escribe en una hoja de cálculo.
+El formulario de la sección Contacto pide solo dos datos y abre WhatsApp con el
+mensaje ya escrito:
 
-### URL del Web App
+1. **Nombre** — campo de texto.
+2. **Elige lo que buscas** — desplegable con las categorías del catálogo
+   (Biblias, Literatura cristiana, Regalos) más **De todo un poco**.
+
+Al pulsar **Continuar en WhatsApp** se genera un enlace a
+`https://wa.me/50661745609` con este mensaje:
+
 ```
-https://script.google.com/macros/s/AKfycbwiBIlYGXbXgAwJJ5ugdCm70cf4W27_eW_qkEWTFVSREmKnZBbuO6dHFTIXX3NDCMkquA/exec
-```
-
-### Script de Apps Script (configurado en Google)
-```javascript
-function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
-  
-  if (!data.nombre || !data.email || !data.mensaje) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'error', msg: 'Datos incompletos' }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  if (!data.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'error', msg: 'Email inválido' }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  sheet.appendRow([new Date(), data.nombre, data.email, data.mensaje]);
-  
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: 'success' }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
+Hola, quiero consultar por productos de Salmo 27.
+Nombre: {nombre}
+Busco: {categoría}
 ```
 
-### Qué hace
-1. Recibe datos via POST desde el formulario (nombre, email, mensaje)
-2. Valida que los campos no estén vacíos y el email tenga formato válido
-3. Escribe una nueva fila en la hoja de cálculo con fecha/hora, nombre, email y mensaje
-4. Responde con JSON `{ status: 'success' }` o `{ status: 'error', msg: '...' }`
+- El texto se codifica con `URLSearchParams`, así que los acentos y la ñ viajan
+  bien.
+- Si el navegador bloquea la pestaña nueva, se abre en la pestaña actual.
+- Los valores se quedan en el formulario para que la persona pueda revisarlos.
+- **El mensaje no se envía solo**: la persona tiene que pulsar *Enviar* dentro de
+  WhatsApp. Para envío automático haría falta WhatsApp Business Platform con un
+  backend.
 
-### Seguridad
-- ✅ Solo escribe a la hoja (no lee ni elimina)
-- ✅ Valida inputs (email, campos requeridos)
-- ⚠️ Sin protección contra bots (se recomienda CAPTCHA futuro)
-- ⚠️ Sin límite de velocidad
+Ya no se usa Google Apps Script ni la hoja de cálculo. El código del formulario
+está en `public/js/main.js`, al final del archivo.
 - **SVGs** — Íconos de redes sociales en `img/iconos/` (facebook.svg, instagram.svg, whatsapp.svg).
 
 ## Estado del Repositorio Git
@@ -173,5 +155,5 @@ Los enlaces están actualizados en header, catálogo y footer.
 - No se usan librerías externas (ni Bootstrap, ni jQuery, ni Tailwind).
 - El logo `logoprincipal.png` se muestra con colores originales.
 - Los íconos SVG usan `filter: brightness(0) invert(1)` para aparecer blancos sobre fondo oscuro.
-- La validación de formulario incluye frontend + backend (Google Apps Script)
+- La validación del formulario es solo frontend: exige nombre y categoría antes de abrir WhatsApp.
 - Favicon configurado con `logoprincipal.png` y `apple-touch-icon`.
