@@ -88,12 +88,13 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 
 ## Formulario de contacto → WhatsApp
 
-El formulario de la sección Contacto pide solo dos datos y abre WhatsApp con el
+El formulario de la sección Contacto pide tres datos y abre WhatsApp con el
 mensaje ya escrito:
 
 1. **Nombre** — campo de texto.
 2. **Elige lo que buscas** — desplegable con las categorías del catálogo
    (Biblias, Literatura cristiana, Regalos) más **De todo un poco**.
+3. **Descripción del producto** — área de texto.
 
 Al pulsar **Continuar en WhatsApp** se genera un enlace a
 `https://wa.me/50661745609` con este mensaje:
@@ -102,6 +103,7 @@ Al pulsar **Continuar en WhatsApp** se genera un enlace a
 Hola, quiero consultar por productos de Salmo 27.
 Nombre: {nombre}
 Busco: {categoría}
+Descripción del producto: {descripción}
 ```
 
 - El texto se codifica con `URLSearchParams`, así que los acentos y la ñ viajan
@@ -155,5 +157,5 @@ Los enlaces están actualizados en header, catálogo y footer.
 - No se usan librerías externas (ni Bootstrap, ni jQuery, ni Tailwind).
 - El logo `logoprincipal.png` se muestra con colores originales.
 - Los íconos SVG usan `filter: brightness(0) invert(1)` para aparecer blancos sobre fondo oscuro.
-- La validación del formulario es solo frontend: exige nombre y categoría antes de abrir WhatsApp.
+- La validación del formulario es solo frontend: exige nombre, categoría y descripción antes de abrir WhatsApp.
 - Favicon configurado con `logoprincipal.png` y `apple-touch-icon`.

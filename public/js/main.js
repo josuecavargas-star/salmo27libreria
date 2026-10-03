@@ -35,10 +35,11 @@
 
       const nombre = contactForm.nombre.value.trim();
       const busqueda = contactForm.busqueda.value.trim();
+      const descripcion = contactForm.descripcion.value.trim();
 
-      if (!nombre || !busqueda) {
+      if (!nombre || !busqueda || !descripcion) {
         formNote.style.color = "#7d6b73";
-        formNote.textContent = "Por favor completa ambos campos.";
+        formNote.textContent = "Por favor completa todos los campos.";
         return;
       }
 
@@ -46,6 +47,7 @@
         "Hola, quiero consultar por productos de Salmo 27.",
         `Nombre: ${nombre}`,
         `Busco: ${busqueda}`,
+        `Descripción del producto: ${descripcion}`,
       ].join("\n");
       const whatsappUrl = new URL("https://wa.me/50661745609");
       whatsappUrl.searchParams.set("text", whatsappText);
