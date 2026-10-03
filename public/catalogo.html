@@ -8,6 +8,7 @@
   <link rel="shortcut icon" href="img/logoprincipal.png" type="image/png" />
   <link rel="apple-touch-icon" href="img/logoprincipal.png" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/carrito.css" />
   <style>
     .catalogo {
       max-width: 1200px;
@@ -210,6 +211,21 @@
       regalos: 'Regalos'
     };
 
+    function escaparHtml(texto) {
+      return String(texto == null ? '' : texto)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatearColones(numero) {
+      const valor = Number(numero);
+      if (!isFinite(valor)) return '₡0';
+      return '₡' + Math.round(valor).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
     function getStockHtml(cantidad) {
       if (cantidad === 0 || cantidad === undefined) {
         return `<span class="stock-info stock-agotado"><span class="stock-dot agotado"></span> Agotado</span>`;
@@ -232,20 +248,31 @@
         return;
       }
 
-      contenedor.innerHTML = visibles.map(libro => `
-        <article class="libro ${libro.disponible === false ? 'agotado' : ''}">
+      contenedor.innerHTML = visibles.map(libro => {
+        const agotado = libro.disponible === false || !libro.cantidad;
+        return `
+        <article class="libro ${agotado ? 'agotado' : ''}">
           ${libro.imagen ?
-            `<img src="${libro.imagen}" alt="${libro.nombre}" loading="lazy" onerror="this.style.display='none'">` :
+            `<img src="${escaparHtml(libro.imagen)}" alt="${escaparHtml(libro.nombre)}" loading="lazy" onerror="this.style.display='none'">` :
             `<div class="sin-portada"><span>Sin portada</span></div>`
           }
-          ${libro.categoria ? `<span class="categoria-badge">${categoriaLabels[libro.categoria] || libro.categoria}</span>` : ''}
-          <h3>${libro.nombre}</h3>
-          ${libro.autor ? `<p class="autor">${libro.autor}</p>` : ''}
-          <p class="precio">$${libro.precio}</p>
-          ${libro.descripcion ? `<p class="descripcion">${libro.descripcion}</p>` : ''}
+          ${libro.categoria ? `<span class="categoria-badge">${escaparHtml(categoriaLabels[libro.categoria] || libro.categoria)}</span>` : ''}
+          <h3>${escaparHtml(libro.nombre)}</h3>
+          ${libro.autor ? `<p class="autor">${escaparHtml(libro.autor)}</p>` : ''}
+          <p class="precio">${formatearColones(libro.precio)}</p>
+          ${libro.descripcion ? `<p class="descripcion">${escaparHtml(libro.descripcion)}</p>` : ''}
           ${getStockHtml(libro.cantidad)}
+          <button type="button" class="libro__agregar" ${agotado ? 'disabled' : ''}
+            data-agregar="1"
+            data-nombre="${escaparHtml(libro.nombre)}"
+            data-precio="${Number(libro.precio) || 0}"
+            data-imagen="${escaparHtml(libro.imagen || '')}"
+            data-cantidad="${Number(libro.cantidad) || 0}">
+            ${agotado ? 'Agotado' : 'Agregar al carrito'}
+          </button>
         </article>
-      `).join('');
+      `;
+      }).join('');
     }
 
     document.getElementById('filtros').addEventListener('click', function(e) {
@@ -271,6 +298,6 @@
     }).catch(() => {
       document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
     });
-  </script>
+  <script src="js/carrito.js"></script>
 </body>
 </html>

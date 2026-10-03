@@ -90,6 +90,64 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 - **CSS3** — Variables CSS personalizadas, Grid, Flexbox, media queries (mobile-first + tablet).
 - **JavaScript (vanilla)** — `main.js` con IIFE, toggle de menú móvil, año automático en footer, formulario que arma el enlace de WhatsApp, validación de formulario.
 
+## Carrito de compras
+
+El catálogo tiene un carrito que se arma en el navegador y cierra por WhatsApp.
+No hay backend ni base de datos: el carrito vive en `localStorage` del cliente.
+
+### Archivos
+
+- `public/js/carrito.js` — toda la lógica: carrito, totales, entrega y checkout.
+- `public/css/carrito.css` — estilos del panel deslizante (carga después de `styles.css`).
+- `public/catalogo.html` — cada tarjeta tiene un botón "Agregar al carrito".
+- `public/index.html` y `public/catalogo.html` cargan `carrito.js`.
+
+El botón flotante y el panel se inyectan desde JS, así que no hay markup que
+duplicar entre las dos páginas.
+
+### Entrega
+
+| Opción | Costo |
+|---|---|
+| Recojo en la librería (Barrio Condega) | ₡0 |
+| Entrega en Liberia Centro | ₡1.500 |
+| Entrega a otra dirección | a cotizar |
+
+Si se elige la tercera, el panel pide la dirección y **no** calcula un total
+cerrado: el mensaje a WhatsApp dice "se cotiza" para que la librería responda
+con el monto.
+
+### Cierre de la compra
+
+El botón "Finalizar compra por WhatsApp" abre `https://wa.me/50661745609` con el
+pedido formateado: líneas con libro, cantidad y subtotal, total, forma de entrega,
+y el número de SINPE (`6174-5609`) indicando que se adjunte el comprobante.
+
+El cliente **tiene que pulsar Enviar y adjuntar la foto del SINPE** — el sitio no
+envía nada por sí solo. El carrito se vacía al finalizar.
+
+### Límites conocidos
+
+- El stock se toma del JSON del catálogo al agregar, y **no se descuenta**: dos
+  clientes pueden agregar el mismo último ejemplar. Por eso el botón "+" se
+  bloquea al llegar al stock guardado.
+- El carrito se guarda por navegador. Si el cliente limpia datos del sitio, se
+  pierde.
+- El precio se muestra en colones con el formato `₡1.500`.
+
+### Pruebas
+
+`pruebas/` corre con Node, sin dependencias:
+
+```
+node pruebas/carrito.test.js    # lógica del carrito, stock y formato
+node pruebas/checkout.test.js   # mensaje de WhatsApp y validaciones
+```
+
+Cubren: acentos y ñ, caracteres especiales, límite de stock, productos agotados,
+los tres tipos de entrega, `localStorage` corrupto y que no se abra WhatsApp si
+falta el nombre o la dirección.
+
 ## Formulario de contacto → WhatsApp
 
 El formulario de la sección Contacto pide tres datos y abre WhatsApp con el
