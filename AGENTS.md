@@ -55,6 +55,8 @@ salmo27libreria/
 │   └── portadas-pendientes/  ← portadas de libros aún no cargadas al catálogo
 ├── guia/                  ← FUERA de public/: documentación interna, no se publica
 │   └── README.md            ← guía del proyecto
+├── pruebas/               ← FUERA de public/: pruebas del carrito, no se publica
+├── package.json           ← scripts: npm test, npm run deploy (sin dependencias)
 └── public/                ← archivos del sitio web
  ├── index.html           ← landing page principal
  ├── catalogo.html          ← página de catálogo de libros (dinámica)
@@ -125,6 +127,19 @@ sin publicar un commit completo.
 `wrangler deploy` publica **lo que hay en `public/` en ese momento**, esté
 committeado o no. Si se despliega con cambios sin commitear, el sitio los muestra
 pero GitHub no los tiene. Commitear **antes** de desplegar.
+
+## Pruebas
+
+```
+npm test
+```
+
+Requiere Node en el PATH. En PowerShell, si `npm` falla por la política de
+ejecución, usar `npm.cmd test`.
+
+Son pruebas de la lógica del carrito (`pruebas/`), sin dependencias ni navegador.
+**Hay que correrlas después de tocar `public/js/carrito.js` o
+`public/catalogo.html`** — es lo único que verifica que el carrito no se rompió.
 
 ## Vista previa local
 

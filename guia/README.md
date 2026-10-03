@@ -137,16 +137,27 @@ envía nada por sí solo. El carrito se vacía al finalizar.
 
 ### Pruebas
 
-`pruebas/` corre con Node, sin dependencias:
+La carpeta `pruebas/` corre con Node, **sin dependencias externas** (no hay
+`node_modules`) ni navegador headless. `pruebas/entorno.js` arma un DOM mínimo
+para poder ejercitar `carrito.js` tal cual se usa en el sitio.
+
+```
+npm test
+```
+
+O por separado:
 
 ```
 node pruebas/carrito.test.js    # lógica del carrito, stock y formato
 node pruebas/checkout.test.js   # mensaje de WhatsApp y validaciones
 ```
 
-Cubren: acentos y ñ, caracteres especiales, límite de stock, productos agotados,
-los tres tipos de entrega, `localStorage` corrupto y que no se abra WhatsApp si
-falta el nombre o la dirección.
+Cubren, entre otras cosas: acentos y ñ, comillas y caracteres especiales, límite
+de stock, productos agotados, los tres tipos de entrega, `localStorage` corrupto,
+y que no se abra WhatsApp si falta el nombre o la dirección.
+
+**Hay que correrlas después de tocar `carrito.js` o `catalogo.html`.** Es la
+única forma de comprobar que el carrito no se rompió.
 
 ## Formulario de contacto → WhatsApp
 
