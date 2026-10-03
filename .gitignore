@@ -1,0 +1,16 @@
+# Archivos de diseño (Pes Photoshop) — pesan decenas de MB y el navegador no los usa
+*.psd
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Material de trabajo local (portadas y logos que aún no se usan). Fuera de public/
+# para que no se despliegue, e ignorado para que no se suba al repo.
+/material/
+
+# Node / Wrangler
+node_modules/
+.wrangler/
+.dev.vars
