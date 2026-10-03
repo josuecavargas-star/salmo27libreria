@@ -291,8 +291,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
+  width: 2.25rem;
+  height: 2.25rem;
   margin: 0 auto 1rem;
   color: var(--color-accent);
 }
