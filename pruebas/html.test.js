@@ -83,4 +83,21 @@ const estilos = fs.readFileSync(path.join(PUBLIC, "css", "styles.css"), "utf8");
 r.check("el CSS dimensiona el SVG del icono",
   /\.card__icon svg/.test(estilos));
 
+r.titulo("El panel del carrito se puede desplazar en el celular");
+r.check("el cuerpo tiene min-height: 0 para que el scroll funcione",
+  /\.carrito-panel__body\s*\{[^}]*min-height:\s*0/.test(carritoCss),
+  "falta min-height: 0 en .carrito-panel__body");
+r.check("el cuerpo puede desplazarse",
+  /\.carrito-panel__body\s*\{[^}]*overflow-y:\s*auto/.test(carritoCss));
+r.check("el pie tambien puede desplazarse si no cabe",
+  /\.carrito-panel__foot\s*\{[^}]*overflow-y:\s*auto/.test(carritoCss));
+r.check("el pie tiene tope de alto para no empujarse fuera de pantalla",
+  /\.carrito-panel__foot\s*\{[^}]*max-height/.test(carritoCss));
+r.check("la cabecera no se encoge",
+  /\.carrito-panel__head\s*\{[^}]*flex:\s*0\s+0\s+auto/.test(carritoCss));
+r.check("el boton de finalizar queda fijo al desplazarse",
+  /#carritoFinalizar\s*\{[^}]*position:\s*sticky/.test(carritoCss));
+r.check("hay reglas para pantallas angostas",
+  /@media\s*\(max-width:\s*480px\)/.test(carritoCss));
+
 r.resumen();

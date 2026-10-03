@@ -101,6 +101,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex: 0 0 auto;
   padding: 1.25rem 1.25rem 1rem;
   border-bottom: 1px solid var(--color-border, #c9d2d0);
 }
@@ -119,12 +120,22 @@
 }
 
 .carrito-panel__body {
-  flex: 1;
+  /* min-height: 0 es lo que permite que el scroll funcione dentro de un hijo de
+     flex. Sin esto, el cuerpo crece con los articulos y empuja el pie de pantalla
+     sin dejarlo ver. */
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1rem 1.25rem;
 }
 
 .carrito-panel__foot {
+  /* El pie (entrega, totales y boton) tambien se desplaza si no cabe */
+  flex: 0 0 auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   border-top: 1px solid var(--color-border, #c9d2d0);
   background-color: #f7f8f6;
   padding: 1rem 1.25rem 1.25rem;
@@ -389,6 +400,13 @@
   color: var(--color-text-muted, #838c7d);
 }
 
+/* El boton de finalizar queda fijo al pie para no perderlo al desplazar */
+#carritoFinalizar {
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0 -6px 14px rgba(247, 248, 246, 0.95);
+}
+
 @media (max-width: 480px) {
   .carrito-panel {
     width: 100%;
@@ -400,5 +418,40 @@
 
   .carrito-item__subtotal {
     grid-column: 2;
+  }
+
+  /* En pantallas bajas el pie necesita mas proporcion: ahi viven las opciones
+     de entrega y el boton de finalizar */
+  .carrito-panel__foot {
+    max-height: 70vh;
+    padding: 0.85rem 1rem 1rem;
+  }
+
+  .carrito-panel__head {
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  .carrito-panel__body {
+    padding: 0.85rem 1rem;
+  }
+
+  .carrito-datos {
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .carrito-vacio {
+    padding: 1.75rem 0;
+  }
+}
+
+/* Pantallas muy bajas (telefono en horizontal) */
+@media (max-height: 520px) {
+  .carrito-panel__foot {
+    max-height: 72vh;
+  }
+
+  .carrito-panel__head h2 {
+    font-size: 1.05rem;
   }
 }
