@@ -146,7 +146,7 @@ img {
 .hero {
   background:
     linear-gradient(rgba(39, 58, 57, 0.3) 0%, rgba(59, 94, 91, 0.9) 100%),
-    url("../img/salmo 27 logos/Portada-facebook.jpg");
+    url("../img/hero-portada.jpg");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;

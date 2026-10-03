@@ -42,6 +42,7 @@ salmo27libreria/
 │   └── regalos.json
 ├── images/libros/      # Portadas de libros (subidas vía Pages CMS)
 ├── img/
+│   ├── hero-portada.jpg           # Fondo del hero (usada en styles.css)
 │   ├── logoprincipal.png          # Logo principal
 │   ├── paleta.jpg                 # Paleta de colores de referencia
 │   ├── iconos/                    # Íconos de redes sociales
@@ -49,7 +50,7 @@ salmo27libreria/
 │   │   ├── instagram.svg
 │   │   └── whatsapp.svg
 │   └── salmo 27 logos/
-│       └── Portada-facebook.jpg   # Fondo del hero (única imagen que carga el sitio)
+│       └── Portada-facebook.jpg   # Portada anterior (ya no se usa)
 ├── guia/
 │   └── README.md       # Esta guía
 └── material/           # Fuera de public/: NO se publica ni se sube al repo
