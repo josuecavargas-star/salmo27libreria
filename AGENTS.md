@@ -131,10 +131,23 @@ pero GitHub no los tiene. Commitear **antes** de desplegar.
 Desde la carpeta `public/`:
 
 ```
-python -m http.server 8000
+python -m http.server 8001
 ```
 
-Abrir `http://localhost:8000`. Ctrl+C para detener.
+Abrir `http://localhost:8001`. Ctrl+C para detener.
+
+**Salmo 27 usa el puerto 8001.** Sanitarios La Pampa usa el 8000, para poder
+levantar los dos proyectos a la vez. Si alguno cambia de puerto, actualizar aquí.
+
+Todas las páginas del proyecto comparten el mismo servidor, cambiando la ruta:
+
+| Página | Dirección |
+|---|---|
+| Inicio | `http://localhost:8001` |
+| Catálogo | `http://localhost:8001/catalogo.html` |
+
+El carrito se guarda en el navegador, así que se conserva al pasar de una
+página a otra en la misma pestaña.
 
 ## Pages CMS (Catálogo de Productos)
 
