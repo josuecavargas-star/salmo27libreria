@@ -4,7 +4,7 @@
   "private": true,
   "description": "Sitio de Salmo 27 Libreria. Sin dependencias; solo se usa Node para las pruebas.",
   "scripts": {
-    "test": "node pruebas/carrito.test.js && node pruebas/checkout.test.js",
+    "test": "node pruebas/html.test.js && node pruebas/carrito.test.js && node pruebas/checkout.test.js",
     "deploy": "wrangler deploy"
   }
 }
