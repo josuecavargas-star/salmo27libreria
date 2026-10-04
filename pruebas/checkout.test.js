@@ -98,6 +98,46 @@ env.setModo("recogo");
 C.sincronizarEntrega();
 r.check("al volver a recojo se esconde otra vez", campoDireccion.hidden === true);
 
+r.titulo("Los campos obligatorios avisan cuando faltan");
+intentar("recogo", "", "");
+r.check("sin nombre, el nombre queda marcado con error", env.conError("carritoNombre"));
+r.check("sin nombre se lee el aviso del nombre",
+  env.aviso("carritoErrorNombre") === "Escribí tu nombre para continuar.",
+  env.aviso("carritoErrorNombre"));
+r.check("la direccion no se marca con recojo, porque no aplica",
+  env.conError("carritoDireccion") === false);
+r.check("con recojo tampoco sale el aviso de la direccion",
+  env.aviso("carritoErrorDireccion") === "", env.aviso("carritoErrorDireccion"));
+r.check("el aviso queda escondido, no solo vacio",
+  env.elementos.carritoErrorNombre.hidden === false);
+
+intentar("recogo", "Ana", "");
+r.check("con nombre lleno el error se borra", env.conError("carritoNombre") === false);
+r.check("y el aviso tambien", env.aviso("carritoErrorNombre") === "");
+
+intentar("otra", "Ana", "  ");
+r.check("con otra direccion vacia se marca la direccion", env.conError("carritoDireccion"));
+r.check("se lee el aviso de la direccion",
+  env.aviso("carritoErrorDireccion") === "Escribí la dirección para que te coticemos el envío.",
+  env.aviso("carritoErrorDireccion"));
+
+intentar("otra", "", "");
+r.check("si faltan los dos se avisa de los dos",
+  env.conError("carritoNombre") && env.conError("carritoDireccion"));
+r.check("con los dos vacios se leen los dos avisos",
+  env.aviso("carritoErrorNombre") !== "" && env.aviso("carritoErrorDireccion") !== "");
+
+intentar("centro", "", "");
+r.check("con Liberia Centro vacio solo se pide el nombre",
+  env.conError("carritoNombre") && env.conError("carritoDireccion") === false);
+
+intentar("otra", "Ana", "Barrio México, calle 4");
+r.check("con todo lleno no queda ningun error marcado",
+  env.conError("carritoNombre") === false && env.conError("carritoDireccion") === false);
+r.check("con todo lleno los avisos estan escondidos",
+  env.elementos.carritoErrorNombre.hidden === true &&
+  env.elementos.carritoErrorDireccion.hidden === true);
+
 r.titulo("Acentos y caracteres especiales");
 C.vaciar();
 env.ventanas.length = 0;

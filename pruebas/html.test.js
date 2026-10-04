@@ -131,4 +131,39 @@ r.check("la direccion solo se pide en modo 'otra'",
 r.check("pintarCarrito deja el campo como corresponde al modo guardado",
   /actualizarTotales\(\);\s*actualizarCampoDireccion\(\);\s*marcarEntregaElegida\(\);/.test(carritoJs));
 
+r.titulo("El campo de direccion se esconde de verdad, no solo en el JS");
+r.check("el CSS respeta hidden en el campo de direccion",
+  /#carritoDireccionCampo\[hidden\][^{]*\{[^}]*display:\s*none/.test(carritoCss));
+r.check("display:grid de .carrito-campo no lo deja asomar",
+  /\.carrito-campo\s*\{[^}]*display:\s*grid/.test(carritoCss) &&
+  /#carritoDireccionCampo\[hidden\][^{]*\{[^}]*display:\s*none/.test(carritoCss));
+const bloquesHidden = carritoCss.match(/\[hidden\][^{]*\{[^}]*\}/g) || [];
+r.check("toda regla hidden del carrito pide display:none",
+  bloquesHidden.length > 0 &&
+  bloquesHidden.every((bloque) => /display:\s*none/.test(bloque)) &&
+  bloquesHidden.join("").split("[hidden]").length - 1 ===
+    (carritoCss.match(/\[hidden\]/g) || []).length,
+  "hay " + (carritoCss.match(/\[hidden\]/g) || []).length + " selectores hidden repartidos en " +
+    bloquesHidden.length + " regla(s)");
+r.check("el aviso de error tambien respeta hidden",
+  /\.carrito-error\[hidden\][^{]*\{[^}]*display:\s*none/.test(carritoCss));
+r.check("hidden gana contra cualquier display del autor",
+  /\[hidden\]\s*\{[^}]*display:\s*none\s*!important/.test(carritoCss));
+r.check("la red de seguridad se declara antes que los display del autor",
+  carritoCss.indexOf("[hidden] {\n  display: none !important;") <
+    carritoCss.indexOf(".carrito-campo .carrito-error"));
+
+r.titulo("Los campos obligatorios avisan cuando faltan");
+r.check("hay un aviso de error por campo",
+  /id="carritoErrorNombre"/.test(carritoJs) && /id="carritoErrorDireccion"/.test(carritoJs));
+r.check("el aviso de error tiene su estilo",
+  /\.carrito-campo \.carrito-error\s*\{[^}]*color:/.test(carritoCss));
+r.check("el campo marcado se pinta de rojo",
+  /\.carrito-campo input\.es-error/.test(carritoCss));
+r.check("la direccion solo es obligatoria cuando se cotiza el envio",
+  /MODOS_ENTREGA\[modo\]\.cotizar && !direccion/.test(carritoJs));
+r.check("el aviso se anuncia con aria-describedby",
+  /aria-describedby="carritoErrorNombre"/.test(carritoJs) &&
+  /aria-describedby="carritoErrorDireccion"/.test(carritoJs));
+
 r.resumen();

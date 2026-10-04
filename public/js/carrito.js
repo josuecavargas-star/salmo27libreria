@@ -231,7 +231,9 @@
         '<label class="carrito-campo">' +
           '<span>Tu nombre <span class="carrito-requerido">*</span></span>' +
           '<input type="text" id="carritoNombre" placeholder="Nombre de quien recibe" ' +
-            'aria-required="true" value="' + escapar(nombreGuardado) + '" />' +
+            'aria-required="true" aria-describedby="carritoErrorNombre" value="' +
+            escapar(nombreGuardado) + '" />' +
+          '<small class="carrito-error" id="carritoErrorNombre" hidden></small>' +
         "</label>" +
         '<div class="carrito-campo">' +
           "<span>Cómo lo querés recibir</span>" +
@@ -239,9 +241,11 @@
         "</div>" +
         '<label class="carrito-campo" id="carritoDireccionCampo" hidden>' +
           '<span>Dirección para la entrega <span class="carrito-requerido">*</span></span>' +
-          '<textarea id="carritoDireccion" rows="3" placeholder="Barrio, calle, referencia">' +
+          '<textarea id="carritoDireccion" rows="3" placeholder="Barrio, calle, referencia" ' +
+            'aria-describedby="carritoErrorDireccion">' +
             escapar(direccionGuardada) +
           "</textarea>" +
+          '<small class="carrito-error" id="carritoErrorDireccion" hidden></small>' +
           "<small>Nos mandás la dirección y te confirmamos quanto cuesta el envío.</small>" +
         "</label>" +
       "</div>" +
@@ -363,6 +367,47 @@
 
   /* ---------- Checkout por WhatsApp ---------- */
 
+  const ERROR_NOMBRE = "Escribí tu nombre para continuar.";
+  const ERROR_DIRECCION = "Escribí la dirección para que te coticemos el envío.";
+
+  /* Los campos obligatorios dependen de como se entregue: la direccion solo
+     hace falta cuando la entrega es a otra parte. */
+  function camposFaltantes(nombre, modo, direccion) {
+    const falta = {};
+    if (!nombre) falta.carritoNombre = true;
+    if (MODOS_ENTREGA[modo].cotizar && !direccion) falta.carritoDireccion = true;
+    return falta;
+  }
+
+  function marcarErrores(falta) {
+    [
+      ["carritoNombre", "carritoErrorNombre", ERROR_NOMBRE],
+      ["carritoDireccion", "carritoErrorDireccion", ERROR_DIRECCION],
+    ].forEach(function (fila) {
+      const id = fila[0];
+      const campo = document.getElementById(id);
+      const aviso = document.getElementById(fila[1]);
+      if (aviso) {
+        aviso.textContent = falta[id] ? fila[2] : "";
+        aviso.hidden = !falta[id];
+      }
+      if (campo) {
+        campo.classList.remove("es-error");
+        if (falta[id]) campo.classList.add("es-error");
+      }
+    });
+  }
+
+  function limpiarError(id) {
+    const aviso = document.getElementById(id.replace("carrito", "carritoError"));
+    const campo = document.getElementById(id);
+    if (aviso) {
+      aviso.textContent = "";
+      aviso.hidden = true;
+    }
+    if (campo) campo.classList.remove("es-error");
+  }
+
   function finalizarCompra() {
     const items = leerCarrito();
     if (items.length === 0) return;
@@ -373,15 +418,15 @@
     const entrega = MODOS_ENTREGA[modo];
     const direccion = campos.direccion.trim();
 
-    if (!nombre) {
-      avisar("Escribí tu nombre para continuar.");
-      document.getElementById("carritoNombre").focus();
-      return;
-    }
+    const falta = camposFaltantes(nombre, modo, direccion);
+    marcarErrores(falta);
 
-    if (entrega.cotizar && !direccion) {
-      avisar("Escribí la dirección para que te coticemos el envío.");
-      document.getElementById("carritoDireccion").focus();
+    if (falta.carritoNombre || falta.carritoDireccion) {
+      avisar(falta.carritoNombre ? ERROR_NOMBRE : ERROR_DIRECCION);
+      const primero = document.getElementById(
+        falta.carritoNombre ? "carritoNombre" : "carritoDireccion"
+      );
+      if (primero) primero.focus();
       return;
     }
 
@@ -515,6 +560,15 @@
       if (e.target.name === "carritoEntrega") {
         modoElegido = modoEntregaSeleccionado();
         sincronizarEntrega();
+        /* Si el error era por la direccion y ya no aplica, se va con el campo. */
+        if (modoElegido !== "otra") limpiarError("carritoDireccion");
+      }
+    });
+
+    document.body.addEventListener("input", function (e) {
+      const id = e.target.id;
+      if ((id === "carritoNombre" || id === "carritoDireccion") && e.target.value.trim()) {
+        limpiarError(id);
       }
     });
   }

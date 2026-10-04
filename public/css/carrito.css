@@ -71,11 +71,22 @@
   background-color: rgba(26, 26, 26, 0.5);
 }
 
-/* El atributo hidden no gana contra un display: del autor, hay que reforzarlo */
+/* El atributo hidden no gana contra un display: del autor, hay que reforzarlo.
+   Ojo con .carrito-campo: lleva display:grid, asi que sin esta regla el campo
+   de direccion se seguiria viendo aunque el JS lo marque como oculto. */
 .carrito-panel[hidden],
 .carrito-overlay[hidden],
-.carrito-fab__contador[hidden] {
+.carrito-fab__contador[hidden],
+#carritoDireccionCampo[hidden],
+.carrito-error[hidden] {
   display: none;
+}
+
+/* Red de seguridad. Un display: del autor gana contra el [hidden] del
+   navegador, y cuando el autor usa la misma especificidad depende del orden,
+   que es facil equivocarse. Con !important el atributo hidden siempre gana. */
+[hidden] {
+  display: none !important;
 }
 
 .carrito-panel {
@@ -281,6 +292,20 @@
 .carrito-requerido {
   color: var(--color-requerido, #a3392f);
   font-weight: 700;
+}
+
+/* Aviso de campo obligatorio que quedo vacio */
+.carrito-campo .carrito-error {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-requerido, #a3392f);
+}
+
+.carrito-campo input.es-error,
+.carrito-campo textarea.es-error {
+  border-color: var(--color-requerido, #a3392f);
+  background-color: #fdf5f4;
 }
 
 .carrito-campo input,
