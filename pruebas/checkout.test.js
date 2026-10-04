@@ -67,6 +67,22 @@ r.check("no abre WhatsApp sin direccion cuando hay que cotizar", intentar("otra"
 r.check("si abre con nombre y direccion completos",
   intentar("otra", "Ana", "Barrio Condega, frente a la iglesia") !== null);
 
+r.titulo("La opcion de entrega elegida se marca en pantalla");
+const MODOS = ["recogo", "centro", "otra"];
+env.crearEntregas(MODOS);
+env.setModo("recogo");
+C.marcarEntrega();
+r.check("con recojo queda marcada la primera", env.elegida(0) && !env.elegida(1) && !env.elegida(2));
+env.setModo("centro");
+C.marcarEntrega();
+r.check("al cambiar a Liberia Centro se mueve la marca",
+  !env.elegida(0) && env.elegida(1) && !env.elegida(2));
+env.setModo("otra");
+C.marcarEntrega();
+r.check("al elegir otra direccion se mueve la marca",
+  !env.elegida(0) && !env.elegida(1) && env.elegida(2));
+r.check("el modo elegido se lee correctamente", C.modoEntrega() === "otra", C.modoEntrega());
+
 r.titulo("Acentos y caracteres especiales");
 C.vaciar();
 env.ventanas.length = 0;

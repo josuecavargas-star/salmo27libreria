@@ -251,6 +251,7 @@
       '<button type="button" class="carrito-vaciar" id="carritoVaciar">Vaciar el carrito</button>';
 
     actualizarTotales();
+    marcarEntregaElegida();
   }
 
   function leerCamposFormulario() {
@@ -263,6 +264,21 @@
   function modoEntregaSeleccionado() {
     const marcado = document.querySelector('input[name="carritoEntrega"]:checked');
     return marcado ? marcado.value : "recogo";
+  }
+
+  /* Marca visualmente la opcion elegida. Se hace con una clase y no con :has()
+     porque :has() no funciona en navegadores mas viejos de Android. */
+  function marcarEntregaElegida() {
+    const etiquetas = document.querySelectorAll(".carrito-entrega");
+    const valor = modoEntregaSeleccionado();
+    etiquetas.forEach(function (etiqueta) {
+      const input = etiqueta.querySelector("input");
+      if (input && input.value === valor) {
+        etiqueta.classList.add("carrito-entrega--elegida");
+      } else {
+        etiqueta.classList.remove("carrito-entrega--elegida");
+      }
+    });
   }
 
   function actualizarTotales() {
@@ -478,6 +494,7 @@
       if (e.target.name === "carritoEntrega") {
         const campo = document.getElementById("carritoDireccionCampo");
         if (campo) campo.hidden = modoEntregaSeleccionado() !== "otra";
+        marcarEntregaElegida();
         actualizarTotales();
       }
     });
@@ -489,6 +506,8 @@
     vaciar: vaciarCarrito,
     finalizar: finalizarCompra,
     formatoColones: formatearColones,
+    modoEntrega: modoEntregaSeleccionado,
+    marcarEntrega: marcarEntregaElegida,
   };
 
   if (document.readyState === "loading") {

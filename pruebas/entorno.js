@@ -12,12 +12,30 @@ function crearEntorno() {
   const elementos = {};
   const ventanas = [];
   let modoEntrega = { value: "recogo" };
+  let etiquetasEntrega = [];
 
   function crear(id, extra) {
     elementos[id] = Object.assign(
       { value: "", hidden: false, textContent: "", offsetWidth: 0, focus() {} },
       extra || {}
     );
+  }
+
+  /* Simula las filas de entrega para poder comprobar el marcado de la elegida */
+  function crearEntregas(valores) {
+    etiquetasEntrega = valores.map(function (valor) {
+      const etiqueta = {
+        valor: valor,
+        clases: new Set(),
+        querySelector: function () { return { value: valor }; },
+      };
+      etiqueta.classList = {
+        add: function (c) { etiqueta.clases.add(c); },
+        remove: function (c) { etiqueta.clases.delete(c); },
+        contains: function (c) { return etiqueta.clases.has(c); },
+      };
+      return etiqueta;
+    });
   }
 
   crear("carritoFab", {
@@ -52,7 +70,9 @@ function crearEntorno() {
       querySelector: function (sel) {
         return sel.indexOf("carritoEntrega") !== -1 ? modoEntrega : null;
       },
-      querySelectorAll: function () { return []; },
+      querySelectorAll: function (sel) {
+        return sel === ".carrito-entrega" ? etiquetasEntrega : [];
+      },
       addEventListener: function () {},
       body: {
         classList: { add() {}, remove() {} },
@@ -77,6 +97,10 @@ function crearEntorno() {
     ventanas: ventanas,
     ultimaVentana: function () { return ventanas[ventanas.length - 1] || null; },
     setModo: function (v) { modoEntrega = { value: v }; },
+    crearEntregas: crearEntregas,
+    elegida: function (indice) {
+      return etiquetasEntrega[indice].clases.has("carrito-entrega--elegida");
+    },
     leerCarrito: function () { return JSON.parse(almacen.salmo27_carrito || "[]"); },
   };
 }

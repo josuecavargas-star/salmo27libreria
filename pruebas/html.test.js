@@ -100,4 +100,19 @@ r.check("el boton de finalizar queda fijo al desplazarse",
 r.check("hay reglas para pantallas angostas",
   /@media\s*\(max-width:\s*480px\)/.test(carritoCss));
 
+r.titulo("Las opciones de entrega se ven bien en el celular");
+r.check("cada opcion es una fila con borde",
+  /\.carrito-entrega\s*\{[^}]*border:/.test(carritoCss));
+r.check("cada opcion tiene alto minimo para tocarla facil",
+  /\.carrito-entrega\s*\{[^}]*min-height:\s*2\.75rem/.test(carritoCss));
+r.check("existe un estado visual para la opcion elegida",
+  /\.carrito-entrega--elegida\s*\{/.test(carritoCss));
+r.check("el marcado lo hace el JS, no :has()",
+  !/\.carrito-entrega:has\(/.test(carritoCss));
+const carritoJs = fs.readFileSync(path.join(PUBLIC, "js", "carrito.js"), "utf8");
+r.check("el JS agrega y quita la clase de elegida",
+  /marcarEntregaElegida/.test(carritoJs) &&
+  /classList\.add\("carrito-entrega--elegida"\)/.test(carritoJs) &&
+  /classList\.remove\("carrito-entrega--elegida"\)/.test(carritoJs));
+
 r.resumen();
