@@ -115,4 +115,20 @@ r.check("el JS agrega y quita la clase de elegida",
   /classList\.add\("carrito-entrega--elegida"\)/.test(carritoJs) &&
   /classList\.remove\("carrito-entrega--elegida"\)/.test(carritoJs));
 
+r.titulo("Los campos obligatorios se senalan");
+r.check("el nombre lleva asterisco",
+  /Tu nombre <span class="carrito-requerido">\*<\/span>/.test(carritoJs));
+r.check("la direccion lleva asterisco",
+  /Dirección para la entrega <span class="carrito-requerido">\*<\/span>/.test(carritoJs));
+r.check("el asterisco tiene su propio estilo",
+  /\.carrito-requerido\s*\{[^}]*color:/.test(carritoCss));
+r.check("la direccion arranca escondida",
+  /id="carritoDireccionCampo" hidden/.test(carritoJs));
+r.check("el nombre se marca obligatorio para lectores de pantalla",
+  /id="carritoNombre"[^>]*aria-required="true"/.test(carritoJs));
+r.check("la direccion solo se pide en modo 'otra'",
+  /campo\.hidden = modoEntregaSeleccionado\(\) !== "otra"/.test(carritoJs));
+r.check("pintarCarrito deja el campo como corresponde al modo guardado",
+  /actualizarTotales\(\);\s*actualizarCampoDireccion\(\);\s*marcarEntregaElegida\(\);/.test(carritoJs));
+
 r.resumen();

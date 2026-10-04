@@ -12,6 +12,11 @@
     otra: { etiqueta: "Entrega a otra dirección", costo: 0, cotizar: true },
   };
 
+  /* La opcion de entrega que eligio el cliente. Se guarda aparte porque
+     pintarCarrito() vuelve a dibujar las opciones y el radio marcado se
+     perderia si la eleccion viviera solo en el DOM. */
+  let modoElegido = "recogo";
+
   /* ---------- Almacenamiento ---------- */
 
   function leerCarrito() {
@@ -158,7 +163,7 @@
         return (
           '<label class="carrito-entrega">' +
             '<input type="radio" name="carritoEntrega" value="' + clave + '"' +
-              (clave === "recogo" ? " checked" : "") + " />" +
+              (clave === modoElegido ? " checked" : "") + " />" +
             "<span>" + escapar(modo.etiqueta) + " — " + costo + "</span>" +
           "</label>"
         );
@@ -224,20 +229,20 @@
     foot.innerHTML =
       '<div class="carrito-datos">' +
         '<label class="carrito-campo">' +
-          "<span>Tu nombre</span>" +
-          '<input type="text" id="carritoNombre" placeholder="Nombre de quien recibe" value="' +
-            escapar(nombreGuardado) + '" />' +
+          '<span>Tu nombre <span class="carrito-requerido">*</span></span>' +
+          '<input type="text" id="carritoNombre" placeholder="Nombre de quien recibe" ' +
+            'aria-required="true" value="' + escapar(nombreGuardado) + '" />' +
         "</label>" +
         '<div class="carrito-campo">' +
           "<span>Cómo lo querés recibir</span>" +
           '<div class="carrito-entregas">' + opcionesEntrega() + "</div>" +
         "</div>" +
         '<label class="carrito-campo" id="carritoDireccionCampo" hidden>' +
-          "<span>Dirección para la entrega</span>" +
+          '<span>Dirección para la entrega <span class="carrito-requerido">*</span></span>' +
           '<textarea id="carritoDireccion" rows="3" placeholder="Barrio, calle, referencia">' +
             escapar(direccionGuardada) +
           "</textarea>" +
-          '<small>Nos mandás la dirección y te confirmamos quanto cuesta el envío.</small>' +
+          "<small>Nos mandás la dirección y te confirmamos quanto cuesta el envío.</small>" +
         "</label>" +
       "</div>" +
       '<dl class="carrito-totales">' +
@@ -251,6 +256,7 @@
       '<button type="button" class="carrito-vaciar" id="carritoVaciar">Vaciar el carrito</button>';
 
     actualizarTotales();
+    actualizarCampoDireccion();
     marcarEntregaElegida();
   }
 
@@ -263,7 +269,22 @@
 
   function modoEntregaSeleccionado() {
     const marcado = document.querySelector('input[name="carritoEntrega"]:checked');
-    return marcado ? marcado.value : "recogo";
+    return marcado ? marcado.value : modoElegido;
+  }
+
+  /* La direccion solo se pide cuando la entrega es a otra parte. Con recojo en
+     la libreria o con Liberia Centro ya sabemos a donde va, asi que el campo
+     se queda escondido hasta que el cliente marque "otra direccion". */
+  function actualizarCampoDireccion() {
+    const campo = document.getElementById("carritoDireccionCampo");
+    if (campo) campo.hidden = modoEntregaSeleccionado() !== "otra";
+  }
+
+  /* Un solo lugar donde se aplica el cambio de opcion de entrega. */
+  function sincronizarEntrega() {
+    actualizarCampoDireccion();
+    marcarEntregaElegida();
+    actualizarTotales();
   }
 
   /* Marca visualmente la opcion elegida. Se hace con una clase y no con :has()
@@ -492,10 +513,8 @@
 
     document.body.addEventListener("change", function (e) {
       if (e.target.name === "carritoEntrega") {
-        const campo = document.getElementById("carritoDireccionCampo");
-        if (campo) campo.hidden = modoEntregaSeleccionado() !== "otra";
-        marcarEntregaElegida();
-        actualizarTotales();
+        modoElegido = modoEntregaSeleccionado();
+        sincronizarEntrega();
       }
     });
   }
@@ -508,6 +527,7 @@
     formatoColones: formatearColones,
     modoEntrega: modoEntregaSeleccionado,
     marcarEntrega: marcarEntregaElegida,
+    sincronizarEntrega: sincronizarEntrega,
   };
 
   if (document.readyState === "loading") {

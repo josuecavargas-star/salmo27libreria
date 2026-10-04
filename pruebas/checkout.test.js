@@ -83,6 +83,21 @@ r.check("al elegir otra direccion se mueve la marca",
   !env.elegida(0) && !env.elegida(1) && env.elegida(2));
 r.check("el modo elegido se lee correctamente", C.modoEntrega() === "otra", C.modoEntrega());
 
+r.titulo("El campo de direccion solo se pide cuando de verdad hace falta");
+const campoDireccion = env.elementos.carritoDireccionCampo;
+env.setModo("recogo");
+C.sincronizarEntrega();
+r.check("con recojo en la libreria no se pide direccion", campoDireccion.hidden === true);
+env.setModo("centro");
+C.sincronizarEntrega();
+r.check("con entrega en Liberia Centro tampoco", campoDireccion.hidden === true);
+env.setModo("otra");
+C.sincronizarEntrega();
+r.check("con entrega a otra direccion si se pide", campoDireccion.hidden === false);
+env.setModo("recogo");
+C.sincronizarEntrega();
+r.check("al volver a recojo se esconde otra vez", campoDireccion.hidden === true);
+
 r.titulo("Acentos y caracteres especiales");
 C.vaciar();
 env.ventanas.length = 0;

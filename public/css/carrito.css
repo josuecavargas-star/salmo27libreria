@@ -278,6 +278,11 @@
   color: var(--color-primary, #273a39);
 }
 
+.carrito-requerido {
+  color: var(--color-requerido, #a3392f);
+  font-weight: 700;
+}
+
 .carrito-campo input,
 .carrito-campo textarea {
   width: 100%;
