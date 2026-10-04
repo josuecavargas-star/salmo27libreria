@@ -1,5 +1,5 @@
 ---
-name: buenas noches
+name: buenas-noches
 description: Usar al terminar de cambiar el comportamiento del sitio, antes de commitear o desplegar, para actualizar la guia del proyecto. Revisa si guia/README.md y AGENTS.md quedaron describiendo lo que el sitio ahora hace.
 ---
 
