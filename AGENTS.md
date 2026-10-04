@@ -144,6 +144,16 @@ comportamiento para el usuario está en `guia/README.md`.
 
 Antes de tocar `carrito.js` o `catalogo.html`, correr `npm test`.
 
+### Trampa del atributo `hidden`
+
+Un `display` en el CSS del autor le gana al `[hidden]` del navegador. `.carrito-campo`
+usa `display: grid`, así que un campo con `hidden` se sigue viendo si no se refuerza.
+`carrito.css` lo resuelve con `[hidden] { display: none !important; }`.
+
+**No comprobar visibility solo con `elemento.hidden` en las pruebas**: eso da `true`
+aunque el campo siga a la vista. Hay que revisar también el CSS, como hace
+`pruebas/html.test.js`.
+
 ## Vista previa local
 
 Desde la carpeta `public/`:

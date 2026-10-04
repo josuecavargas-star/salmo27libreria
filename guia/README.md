@@ -115,15 +115,63 @@ duplicar entre las dos páginas.
 
 ### Entrega
 
-| Opción | Costo |
-|---|---|
-| Recojo en la librería (Barrio Condega) | ₡0 |
-| Entrega en Liberia Centro | ₡1.500 |
-| Entrega a otra dirección | a cotizar |
+| Opción | Costo | ¿Pide lugar? | ¿Obligatorio? |
+|---|---|---|---|
+| Recojo en la librería (Barrio Condega) | ₡0 | No | — |
+| Entrega en Liberia Centro | ₡1.500 | Sí, opcional | No |
+| Entrega a otra dirección | a cotizar | Sí | **Sí** |
 
-Si se elige la tercera, el panel pide la dirección y **no** calcula un total
-cerrado: el mensaje a WhatsApp dice "se cotiza" para que la librería responda
-con el monto.
+El campo de dirección **solo aparece en Liberia Centro y en otra dirección**, y su
+regla depende del modo, no del precio:
+
+- **Recojo en la librería**: no se muestra. Ya sabemos dónde queda.
+- **Liberia Centro**: se muestra pero es **opcional**, sin asterisco, con un texto
+  que lo dice. El precio ya está fijo, así que la referencia no hace falta para
+  cotizar; es solo una ayuda para que la librería llegue. Si el cliente la
+  escribe, viaja al pedido como `Referencias: …`.
+- **Entrega a otra dirección**: se muestra y es **obligatoria**, con asterisco.
+  El panel **no** calcula un total cerrado: el mensaje a WhatsApp dice "se cotiza"
+  para que la librería responda con el monto.
+
+El texto de ayuda bajo el campo también cambia según el modo.
+
+La opción elegida se guarda en una variable aparte (`modoElegido`), no solo en el
+radio marcado. Si viviera solo en el DOM, `pintarCarrito()` la perdería cada vez
+que el carrito se redibuja — al cambiar una cantidad, quitar un libro, o cerrar y
+reabrir el panel.
+
+### Campos obligatorios y avisos
+
+- **Tu nombre** siempre es obligatorio. Lleva asterisco.
+- **Dirección** solo es obligatoria cuando la entrega se cotiza (ver tabla).
+
+Si al pulsar "Finalizar compra" faltan campos obligatorios, el panel **no** abre
+WhatsApp: marca en rojo cada campo vacío y escribe debajo el aviso
+("Escribí tu nombre para continuar." / "Escribí la dirección para que te
+coticemos el envío."). Si faltan varios, aparecen todos a la vez.
+
+El aviso se borra solo cuando el cliente empieza a escribir, y también cuando
+cambia a un modo donde el campo ya no aplica.
+
+### El atributo `hidden` y `display` del autor
+
+El navegador solo esconde un elemento con `hidden` si el CSS del autor **no**
+declara `display` para él: cualquier `display` del autor le gana. Como
+`.carrito-campo` usa `display: grid`, `#carritoDireccionCampo` se seguía viendo
+aunque el JavaScript lo marcara como oculto.
+
+Por eso `carrito.css` refuerza los `[hidden]` que necesita y además trae una red
+de seguridad:
+
+```css
+[hidden] {
+  display: none !important;
+}
+```
+
+**Al agregar cualquier elemento nuevo que se oculte con `hidden`, no hay que hacer
+nada más: esa regla lo cubre.** Al agregar un `display` a un elemento que ya usa
+`hidden`, esa regla sigue ganándole.
 
 ### Cierre de la compra
 
