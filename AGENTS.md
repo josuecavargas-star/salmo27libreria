@@ -64,6 +64,8 @@ salmo27libreria/
 ├── guia/                  ← FUERA de public/: documentación interna, no se publica
 │   └── README.md            ← guía del proyecto
 ├── pruebas/               ← FUERA de public/: pruebas del carrito, no se publica
+├── .kilo/                 ← FUERA de public/: config de Kilo, no se publica
+│   └── skills/buenas-noches/  ← skill de cierre: revisar la guía tras cada cambio
 ├── package.json           ← scripts: npm test, npm run deploy (sin dependencias)
 └── public/                ← archivos del sitio web
  ├── index.html           ← landing page principal
@@ -84,7 +86,12 @@ salmo27libreria/
 ```
 
 `guia/` está **fuera** de `public/`, en la raíz del repo, para que la
-documentación no se publique en el sitio web.
+documentación no se publique en el sitio web. Lo mismo con `pruebas/` y `.kilo/`:
+nada de eso llega al sitio.
+
+Las skills de `.kilo/skills/` solo se recargan al iniciar sesión o con `/reload`.
+Para probarlas hay que abrir la sesión **en la carpeta del repo**: si la sesión
+arranca en otro proyecto, no se descubren.
 
 ## Configuración Clave
 

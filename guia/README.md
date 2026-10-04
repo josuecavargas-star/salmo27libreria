@@ -179,6 +179,15 @@ El botón "Finalizar compra por WhatsApp" abre `https://wa.me/50661745609` con e
 pedido formateado: líneas con libro, cantidad y subtotal, total, forma de entrega,
 y el número de SINPE (`6174-5609`) indicando que se adjunte el comprobante.
 
+Según el modo, el mensaje lleva una línea de lugar distinta:
+
+| Modo | Línea en el mensaje |
+|---|---|
+| Recojo en la librería | Ninguna: ya se sabe dónde queda |
+| Liberia Centro, sin referencia | Ninguna |
+| Liberia Centro, con referencia | `Referencias: …` |
+| Otra dirección | `Dirección: …` (siempre, porque es obligatoria) |
+
 El cliente **tiene que pulsar Enviar y adjuntar la foto del SINPE** — el sitio no
 envía nada por sí solo. El carrito se vacía al finalizar.
 
