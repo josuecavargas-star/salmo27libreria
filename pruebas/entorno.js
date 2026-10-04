@@ -55,6 +55,7 @@ function crearEntorno() {
     "carritoSubtotal", "carritoEnvio", "carritoEnvioLabel", "carritoTotal",
     "carritoNombre", "carritoErrorNombre", "carritoDireccionCampo",
     "carritoDireccion", "carritoErrorDireccion",
+    "carritoDireccionRequerido", "carritoDireccionAyuda",
   ].forEach(function (id) { crear(id); });
 
   const sandbox = {

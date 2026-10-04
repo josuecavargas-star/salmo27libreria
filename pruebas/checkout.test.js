@@ -85,18 +85,41 @@ r.check("el modo elegido se lee correctamente", C.modoEntrega() === "otra", C.mo
 
 r.titulo("El campo de direccion solo se pide cuando de verdad hace falta");
 const campoDireccion = env.elementos.carritoDireccionCampo;
+const asteriscoDireccion = env.elementos.carritoDireccionRequerido;
+const ayudaDireccion = env.elementos.carritoDireccionAyuda;
 env.setModo("recogo");
 C.sincronizarEntrega();
 r.check("con recojo en la libreria no se pide direccion", campoDireccion.hidden === true);
+r.check("con recojo no hay ni asterisco", asteriscoDireccion.hidden === true);
 env.setModo("centro");
 C.sincronizarEntrega();
-r.check("con entrega en Liberia Centro tampoco", campoDireccion.hidden === true);
+r.check("con Liberia Centro si se puede especificar donde", campoDireccion.hidden === false);
+r.check("en Liberia Centro es opcional, asi que sin asterisco", asteriscoDireccion.hidden === true);
+r.check("en Liberia Centro la ayuda dice que es opcional",
+  /Opcional/.test(ayudaDireccion.textContent), ayudaDireccion.textContent);
 env.setModo("otra");
 C.sincronizarEntrega();
 r.check("con entrega a otra direccion si se pide", campoDireccion.hidden === false);
+r.check("a otra direccion si es obligatorio, con asterisco", asteriscoDireccion.hidden === false);
+r.check("a otra direccion la ayuda habla de cotizar",
+  /confirmamos quanto cuesta/.test(ayudaDireccion.textContent), ayudaDireccion.textContent);
 env.setModo("recogo");
 C.sincronizarEntrega();
 r.check("al volver a recojo se esconde otra vez", campoDireccion.hidden === true);
+r.check("y la ayuda se limpia", ayudaDireccion.textContent === "", ayudaDireccion.textContent);
+
+r.titulo("En Liberia Centro la referencia es un extra, no un requisito");
+r.check("con Liberia Centro y sin referencia igual abre WhatsApp",
+  intentar("centro", "Ana", "") !== null);
+r.check("y no marca error de direccion", env.conError("carritoDireccion") === false);
+const conRef = decodificar(intentar("centro", "Ana", "Frente al parque, casa 5"));
+r.check("si la deja, la referencia viaja al pedido",
+  conRef.includes("Referencias: Frente al parque, casa 5"), conRef);
+r.check("y el envio sigue con el precio fijo",
+  conRef.includes("Entrega en Liberia Centro"), conRef);
+const sinRef = decodificar(intentar("centro", "Ana", ""));
+r.check("sin referencia no se manda una linea en blanco",
+  sinRef.indexOf("Referencias:") === -1, sinRef);
 
 r.titulo("Los campos obligatorios avisan cuando faltan");
 intentar("recogo", "", "");

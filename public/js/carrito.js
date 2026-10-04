@@ -6,10 +6,17 @@
   const SINPE = "6174-5609";
   const COSTO_CENTRO = 1500;
 
+  /* pideLugar: si el cliente puede dejar una referencia.
+     cotizar: si la direccion es obligatoria porque el envio hay que cotizarlo. */
   const MODOS_ENTREGA = {
     recogo: { etiqueta: "Recojo en la librería (Barrio Condega)", costo: 0 },
-    centro: { etiqueta: "Entrega en Liberia Centro", costo: COSTO_CENTRO },
-    otra: { etiqueta: "Entrega a otra dirección", costo: 0, cotizar: true },
+    centro: { etiqueta: "Entrega en Liberia Centro", costo: COSTO_CENTRO, pideLugar: true },
+    otra: { etiqueta: "Entrega a otra dirección", costo: 0, cotizar: true, pideLugar: true },
+  };
+
+  const AYUDA_ENTREGA = {
+    centro: "Opcional: si nos decís a qué altura o cerca de qué queda, te lo dejamos más fácil.",
+    otra: "Nos mandás la dirección y te confirmamos quanto cuesta el envío.",
   };
 
   /* La opcion de entrega que eligio el cliente. Se guarda aparte porque
@@ -240,13 +247,15 @@
           '<div class="carrito-entregas">' + opcionesEntrega() + "</div>" +
         "</div>" +
         '<label class="carrito-campo" id="carritoDireccionCampo" hidden>' +
-          '<span>Dirección para la entrega <span class="carrito-requerido">*</span></span>' +
+          '<span>Dirección para la entrega ' +
+            '<span class="carrito-requerido" id="carritoDireccionRequerido" hidden>*</span>' +
+          "</span>" +
           '<textarea id="carritoDireccion" rows="3" placeholder="Barrio, calle, referencia" ' +
             'aria-describedby="carritoErrorDireccion">' +
             escapar(direccionGuardada) +
           "</textarea>" +
           '<small class="carrito-error" id="carritoErrorDireccion" hidden></small>' +
-          "<small>Nos mandás la dirección y te confirmamos quanto cuesta el envío.</small>" +
+          '<small id="carritoDireccionAyuda"></small>' +
         "</label>" +
       "</div>" +
       '<dl class="carrito-totales">' +
@@ -276,12 +285,21 @@
     return marcado ? marcado.value : modoElegido;
   }
 
-  /* La direccion solo se pide cuando la entrega es a otra parte. Con recojo en
-     la libreria o con Liberia Centro ya sabemos a donde va, asi que el campo
-     se queda escondido hasta que el cliente marque "otra direccion". */
+  /* Recoger en la libreria ya tiene la direccion conocida, asi que ahi el campo
+     no aparece. En Liberia Centro y en otra direccion si aparece, pero solo es
+     obligatorio cuando hay que cotizar el envio: en Liberia Centro el precio ya
+     esta fijo y la referencia es un extra que le sirve a la libreria. */
   function actualizarCampoDireccion() {
+    const modo = modoEntregaSeleccionado();
+    const entrega = MODOS_ENTREGA[modo];
     const campo = document.getElementById("carritoDireccionCampo");
-    if (campo) campo.hidden = modoEntregaSeleccionado() !== "otra";
+    const asterisco = document.getElementById("carritoDireccionRequerido");
+    const ayuda = document.getElementById("carritoDireccionAyuda");
+    const visible = Boolean(entrega.pideLugar);
+
+    if (campo) campo.hidden = !visible;
+    if (asterisco) asterisco.hidden = !entrega.cotizar;
+    if (ayuda) ayuda.textContent = visible ? AYUDA_ENTREGA[modo] || "" : "";
   }
 
   /* Un solo lugar donde se aplica el cambio de opcion de entrega. */
@@ -450,6 +468,7 @@
       partes.push("Dirección: " + direccion);
     } else {
       partes.push(entrega.etiqueta + ": " + (entrega.costo > 0 ? formatearColones(entrega.costo) : "gratis"));
+      if (direccion) partes.push("Referencias: " + direccion);
     }
 
     partes.push("");

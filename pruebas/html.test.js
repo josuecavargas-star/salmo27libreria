@@ -118,16 +118,26 @@ r.check("el JS agrega y quita la clase de elegida",
 r.titulo("Los campos obligatorios se senalan");
 r.check("el nombre lleva asterisco",
   /Tu nombre <span class="carrito-requerido">\*<\/span>/.test(carritoJs));
-r.check("la direccion lleva asterisco",
-  /Dirección para la entrega <span class="carrito-requerido">\*<\/span>/.test(carritoJs));
+r.check("la direccion lleva un asterisco que se puede esconder",
+  /id="carritoDireccionRequerido"[^>]*hidden>\*</.test(carritoJs));
+r.check("ese asterisco solo sale cuando hay que cotizar",
+  /asterisco\.hidden = !entrega\.cotizar/.test(carritoJs));
+r.check("la ayuda de la direccion cambia segun el modo",
+  /AYUDA_ENTREGA\[modo\]/.test(carritoJs) && /id="carritoDireccionAyuda"/.test(carritoJs));
 r.check("el asterisco tiene su propio estilo",
   /\.carrito-requerido\s*\{[^}]*color:/.test(carritoCss));
 r.check("la direccion arranca escondida",
   /id="carritoDireccionCampo" hidden/.test(carritoJs));
 r.check("el nombre se marca obligatorio para lectores de pantalla",
   /id="carritoNombre"[^>]*aria-required="true"/.test(carritoJs));
-r.check("la direccion solo se pide en modo 'otra'",
-  /campo\.hidden = modoEntregaSeleccionado\(\) !== "otra"/.test(carritoJs));
+r.check("Liberia Centro y otra direccion admiten dejar un lugar; recojo no",
+  /recogo: \{ etiqueta: [^}]*costo: 0 \}/.test(carritoJs) &&
+  /centro: \{[^}]*pideLugar: true/.test(carritoJs) &&
+  /otra: \{[^}]*cotizar: true, pideLugar: true/.test(carritoJs));
+r.check("el campo se esconde cuando el modo no pide lugar",
+  /campo\.hidden = !visible/.test(carritoJs));
+r.check("la referencia de Liberia Centro viaja al pedido",
+  /if \(direccion\) partes\.push\("Referencias: " \+ direccion\)/.test(carritoJs));
 r.check("pintarCarrito deja el campo como corresponde al modo guardado",
   /actualizarTotales\(\);\s*actualizarCampoDireccion\(\);\s*marcarEntregaElegida\(\);/.test(carritoJs));
 
