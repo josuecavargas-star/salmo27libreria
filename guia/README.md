@@ -112,6 +112,24 @@ Escribir siempre igual una misma categoría: el catálogo agrupa sin
 importar mayúsculas o espacios, pero la etiqueta que se muestra es la
 que se escribió primero.
 
+**Cómo se agrega una categoría nueva**
+
+1. En Pages CMS, al cargar un producto, escribir la categoría
+   en el campo **Categoría** (texto libre).
+2. Guardar. El catálogo le agrega un botón de filtro solo, y
+   el formulario de contacto la ofrece en su desplegable.
+3. En la computadora: `git pull` y `npx.cmd wrangler deploy`
+   para que se vea en el sitio.
+
+**Lo que NO hay que hacer** (así se trabó todo antes):
+
+- No crear archivos JSON por categoría: el catálogo lee un
+  solo `libros.json`; un archivo nuevo no se muestra nunca.
+- No agregar categorías "a mano" en el HTML del catálogo:
+  los filtros se generan solos desde el inventario.
+- Si una categoría nueva no aparece, es porque ningún
+  producto la tiene todavía.
+
 ## Carrito de compras
 
 El catálogo tiene un carrito que se arma en el navegador y cierra por WhatsApp.

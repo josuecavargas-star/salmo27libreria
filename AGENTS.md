@@ -216,6 +216,30 @@ arma un enlace a `https://wa.me/50661745609`. El código está al final de
 - **`guia/` NO se publica**: la documentación vive fuera de `public/`, así que no es accesible por URL. No moverla adentro.
 - **Los .psd y logos sin uso están en `material/`**: fuera de `public/` (no se publican) y en `.gitignore` (no van al repo). Si el sitio necesita un logo, copiarlo a `public/img/` y referenciarlo.
 
+## Trampas conocidas (lo que pasó antes, para que no se repita)
+
+- **Nunca crear JSON por categoría** (ej. `biblias-nvi.json`):
+  el catálogo lee un solo `libros.json`. Un archivo nuevo en
+  `public/data/` **no se ve en la página nunca**, por más que
+  exista. Así se trabó todo antes.
+- **Las categorías no viven en una lista**: los botones de
+  filtro y el desplegable de contacto se generan solos desde
+  el inventario. Si una categoría nueva no aparece, es porque
+  ningún producto la tiene todavía.
+- **El push no despliega**: después de cada cambio hecho en
+  Pages CMS hay que hacer `git pull` y `npx.cmd wrangler
+  deploy` desde la raíz del repo.
+- **Commit antes de deploy**: `wrangler deploy` sube lo que
+  hay en disco, no lo que está commiteado.
+- **No editar las guías con PowerShell**: rompe el UTF-8 (se
+  pierden acentos y la ñ). Usar un editor de texto normal.
+- **Probar antes de desplegar**: si se toca `catalogo.html`,
+  `carrito.js` o los datos, correr los 3 archivos de
+  `pruebas/` con node (ver "Vista previa local").
+- **Cuidado con los `<script>` sin cerrar** en el HTML: el
+  navegador ignora todo lo que viene después, y deja la página
+  rota sin que ninguna prueba lo note (ya pasó una vez).
+
 ## Próximos Pasos (para el owner)
 
 1. Ir a https://app.pagescms.org
