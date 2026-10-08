@@ -7,10 +7,103 @@ content:
   # agrega el producto en la sección correcta.
   # Agregar una categoría nueva = crear una colección
   # acá + una línea en public/data/index.json.
-  - name: biblias-rv1960
-    label: Biblias RV1960
+  - name: biblias-reina-valera-1960
+    label: Biblias Reina Valera 1960
     type: file
-    path: public/data/biblias-rv1960.json
+    path: public/data/biblias-reina-valera-1960.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: biblias-ntv
+    label: Biblias Nueva Traducción Viviente
+    type: file
+    path: public/data/biblias-ntv.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: biblias-nvi
+    label: Biblias Nueva Versión Internacional
+    type: file
+    path: public/data/biblias-nvi.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: biblias-nbla
+    label: Biblias Nueva Biblia Las Américas
+    type: file
+    path: public/data/biblias-nbla.json
     format: json
     list: true
     fields:
@@ -39,9 +132,195 @@ content:
         type: boolean
         default: true
   - name: libros-hombres
-    label: Libros para hombres
+    label: Libros Hombres
     type: file
     path: public/data/libros-hombres.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: libros-mujeres
+    label: Libros Mujeres
+    type: file
+    path: public/data/libros-mujeres.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: libros-jovenes
+    label: Libros Jóvenes
+    type: file
+    path: public/data/libros-jovenes.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: libros-familia
+    label: Libros Familia
+    type: file
+    path: public/data/libros-familia.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: libros-ninos
+    label: Libros Niños
+    type: file
+    path: public/data/libros-ninos.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: devocionales
+    label: Devocionales
+    type: file
+    path: public/data/devocionales.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: articulos-2027
+    label: Artículos 2027
+    type: file
+    path: public/data/articulos-2027.json
     format: json
     list: true
     fields:

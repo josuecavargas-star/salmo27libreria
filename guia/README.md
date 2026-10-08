@@ -46,8 +46,17 @@ salmo27libreria/
 │   └── main.js         # Funcionalidades (menú móvil, formulario, año dinámico)
 ├── data/               # Inventario (editado vía Pages CMS)
 │   ├── index.json      # Índice de categorías (el catálogo lo lee primero)
-│   ├── biblias-rv1960.json
+│   ├── biblias-reina-valera-1960.json
+│   ├── biblias-ntv.json
+│   ├── biblias-nvi.json
+│   ├── biblias-nbla.json
 │   ├── libros-hombres.json
+│   ├── libros-mujeres.json
+│   ├── libros-jovenes.json
+│   ├── libros-familia.json
+│   ├── libros-ninos.json
+│   ├── devocionales.json
+│   ├── articulos-2027.json
 │   └── regalos.json
 ├── images/libros/      # Portadas de libros (subidas vía Pages CMS)
 ├── img/

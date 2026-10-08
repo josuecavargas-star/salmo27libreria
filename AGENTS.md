@@ -73,10 +73,19 @@ salmo27libreria/
  ├── css/styles.css       ← estilos
  ├── js/main.js           ← scripts
   ├── data/
-  │   ├── index.json           ← índice de categorías (el catálogo lo lee primero)
-  │   ├── biblias-rv1960.json  ← Biblias RV1960 (editado vía Pages CMS)
-  │   ├── libros-hombres.json  ← Libros para hombres (editado vía Pages CMS)
-  │   └── regalos.json         ← Regalos (editado vía Pages CMS)
+  │   ├── index.json                  ← índice de categorías (el catálogo lo lee primero)
+  │   ├── biblias-reina-valera-1960.json  ┐
+  │   ├── biblias-ntv.json            │
+  │   ├── biblias-nvi.json            │  un archivo por
+  │   ├── biblias-nbla.json           │  categoría (12 en
+  │   ├── libros-hombres.json         │  total, editados
+  │   ├── libros-mujeres.json         │  vía Pages CMS)
+  │   ├── libros-jovenes.json         │
+  │   ├── libros-familia.json         │
+  │   ├── libros-ninos.json           │
+  │   ├── devocionales.json           │
+  │   ├── articulos-2027.json         ┘
+  │   └── regalos.json
  ├── img/                 ← imágenes y logos del sitio
  │   ├── hero-portada.jpg  ← fondo del hero (la usa styles.css)
  │   ├── logoprincipal.png
@@ -191,7 +200,7 @@ Permite al dueño agregar/editar productos sin tocar código. Hay **una colecci�
 
 1. Ir a https://app.pagescms.org y hacer login con GitHub
 2. Seleccionar el repo `salmo27libreria`, rama `main`
-3. En el menú lateral verás **una sección por categoría** (Biblias RV1960, Libros para hombres, Regalos)
+3. En el menú lateral verás **12 secciones** (una por categoría: Biblias Reina Valera 1960, Biblias NTV, Biblias NVI, Biblias NBLA, Libros Hombres, Libros Mujeres, Libros Jóvenes, Libros Familia, Libros Niños, Devocionales, Artículos 2027, Regalos)
 4. Cada sección tiene su formulario para agregar/editar productos
 5. Al guardar, Pages CMS escribe en `public/data/{categoria}.json` y sube portadas a `public/images/libros/`
 6. Cada cambio queda en un commit de Pages CMS. **El deploy hay que hacerlo a mano** con `npx.cmd wrangler deploy`

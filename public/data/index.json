@@ -1,11 +1,47 @@
 [
   {
-    "archivo": "biblias-rv1960.json",
-    "categoria": "Biblias RV1960"
+    "archivo": "biblias-reina-valera-1960.json",
+    "categoria": "Biblias Reina Valera 1960"
+  },
+  {
+    "archivo": "biblias-ntv.json",
+    "categoria": "Biblias Nueva Traducción Viviente"
+  },
+  {
+    "archivo": "biblias-nvi.json",
+    "categoria": "Biblias Nueva Versión Internacional"
+  },
+  {
+    "archivo": "biblias-nbla.json",
+    "categoria": "Biblias Nueva Biblia Las Américas"
   },
   {
     "archivo": "libros-hombres.json",
-    "categoria": "Libros para hombres"
+    "categoria": "Libros Hombres"
+  },
+  {
+    "archivo": "libros-mujeres.json",
+    "categoria": "Libros Mujeres"
+  },
+  {
+    "archivo": "libros-jovenes.json",
+    "categoria": "Libros Jóvenes"
+  },
+  {
+    "archivo": "libros-familia.json",
+    "categoria": "Libros Familia"
+  },
+  {
+    "archivo": "libros-ninos.json",
+    "categoria": "Libros Niños"
+  },
+  {
+    "archivo": "devocionales.json",
+    "categoria": "Devocionales"
+  },
+  {
+    "archivo": "articulos-2027.json",
+    "categoria": "Artículos 2027"
   },
   {
     "archivo": "regalos.json",

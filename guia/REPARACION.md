@@ -75,10 +75,19 @@ colaborador saber dónde cargar cada producto.
 
 ### Estado
 
-- Probado: las 3 suites pasan, y una simulación con los
-  archivos reales renderiza los filtros, badges y
-  tarjetas correctamente.
-- **Rollback**: main sigue en el tag
-  `checkpoint-categorias-dinamicas` (versión con un solo
-  `libros.json`). Para volver: `git checkout main`. El
-  deploy solo se hace desde main, con permiso.
+- Categorías finales (12): Biblias Reina Valera 1960, Biblias
+  Nueva Traducción Viviente, Biblias Nueva Versión Internacional,
+  Biblias Nueva Biblia Las Américas, Libros Hombres, Libros
+  Mujeres, Libros Jóvenes, Libros Familia, Libros Niños,
+  Devocionales, Artículos 2027 y Regalos — una colección por
+  cada una en `.pages.yml` y su línea en `index.json`.
+- Probado: las 3 suites pasan (incluyendo que cada entrada del
+  índice apunte a un archivo que existe), y una simulación con
+  los archivos reales renderiza los filtros, badges y tarjetas
+  correctamente; con todo vacío muestra "No hay libros
+  disponibles en esta categoría."
+- **Rollback**: main tiene el tag `checkpoint-categorias-dinamicas`
+  (versión con un solo `libros.json`). Para volver:
+  `git reset --hard checkpoint-categorias-dinamicas` (+ force
+  push si el CMS ya agregó commits). El deploy solo se hace
+  desde main, con permiso.
