@@ -45,9 +45,7 @@ salmo27libreria/
 ├── js/
 │   └── main.js         # Funcionalidades (menú móvil, formulario, año dinámico)
 ├── data/               # Inventario (editado vía Pages CMS)
-│   ├── biblias.json
-│   ├── literatura.json
-│   └── regalos.json
+│   └── libros.json     # Todo el inventario; cada producto lleva su categoría
 ├── images/libros/      # Portadas de libros (subidas vía Pages CMS)
 ├── img/
 │   ├── hero-portada.jpg           # Fondo del hero (usada en styles.css)
@@ -97,6 +95,22 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 - **HTML5** — Estructura semántica, responsive con `viewport`.
 - **CSS3** — Variables CSS personalizadas, Grid, Flexbox, media queries (mobile-first + tablet).
 - **JavaScript (vanilla)** — `main.js` con IIFE, toggle de menú móvil, año automático en footer, formulario que arma el enlace de WhatsApp, validación de formulario.
+
+## Categorías
+
+Las categorías son **texto libre**: al agregar un producto en Pages CMS
+se escribe su campo Categoría (ej. Biblias, Devocionales, Regalos) y
+listo:
+
+- El catálogo (`catalogo.html`) muestra un botón de filtro por cada
+  categoría que haya en el inventario — una categoría nueva aparece
+  sola, sin tocar código.
+- El formulario de contacto ofrece las categorías en su desplegable
+  "Elige lo que buscas", también alimentado desde el inventario.
+
+Escribir siempre igual una misma categoría: el catálogo agrupa sin
+importar mayúsculas o espacios, pero la etiqueta que se muestra es la
+que se escribió primero.
 
 ## Carrito de compras
 
@@ -206,8 +220,8 @@ El formulario de la sección Contacto pide tres datos y abre WhatsApp con el
 mensaje ya escrito:
 
 1. **Nombre** — campo de texto.
-2. **Elige lo que buscas** — desplegable con las categorías del catálogo
-   (Biblias, Literatura cristiana, Regalos) más **De todo un poco**.
+2. **Elige lo que buscas** — desplegable que se llena solo con las
+   categorías del catálogo (desde `data/libros.json`) más **De todo un poco**.
 3. **Descripción del producto** — área de texto.
 
 Al pulsar **Continuar en WhatsApp** se genera un enlace a
@@ -252,16 +266,18 @@ Los enlaces están actualizados en header, catálogo y footer.
 
 ## Servir el Sitio Localmente
 
-Para ver el sitio en tu navegador sin desplegar a Cloudflare:
+Desde la carpeta `public/`:
 
 ```
-python -m http.server 8080
+python -m http.server 8002
 ```
 
-Luego abre `http://localhost:8080/public/` en tu navegador.
+Abrir `http://localhost:8002`. Ctrl+C para detener.
 
-El puerto **8080** es el predeterminado para este proyecto. Si necesitas otro puerto,
-cámbialo en el comando (por ejemplo `python -m http.server 8000`).
+**Salmo 27 usa el puerto 8002** (el 8000 y el 8001 los ocupan los
+sanitarios). Todas las páginas del proyecto comparten el mismo servidor,
+cambiando la ruta: Inicio en `http://localhost:8002`, catálogo en
+`http://localhost:8002/catalogo.html`.
 
 ## Notas
 

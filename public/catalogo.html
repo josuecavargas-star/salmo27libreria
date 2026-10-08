@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Catálogo de productos de Salmo 27 - Librería Cristiana en Liberia, Guanacaste. Explora nuestra colección de Biblias, literatura cristiana y artículos cristianos." />
-  <title>Catálogo - Salmo 27 Librería [EDITADO]</title>
+  <title>Catálogo - Salmo 27 Librería</title>
   <link rel="shortcut icon" href="img/logoprincipal.png" type="image/png" />
   <link rel="apple-touch-icon" href="img/logoprincipal.png" />
   <link rel="stylesheet" href="css/styles.css" />
@@ -191,12 +191,7 @@
     <section class="catalogo">
       <h1 class="catalogo__title">Catálogo de Productos</h1>
       <p class="catalogo__subtitle">Explora nuestra colección de libros cristianos</p>
-      <div class="filtros" id="filtros">
-        <button class="filtro-btn activo" data-filtro="todos">Todos</button>
-        <button class="filtro-btn" data-filtro="biblias">Biblias</button>
-        <button class="filtro-btn" data-filtro="literatura">Literatura cristiana</button>
-        <button class="filtro-btn" data-filtro="regalos">Regalos</button>
-      </div>
+      <div class="filtros" id="filtros"></div>
       <div id="catalogo" class="grid">Cargando libros...</div>
     </section>
   </main>
@@ -205,11 +200,34 @@
     let librosData = [];
     let filtroActivo = 'todos';
 
-    const categoriaLabels = {
-      biblias: 'Biblias',
-      literatura: 'Literatura cristiana',
-      regalos: 'Regalos'
-    };
+    /* Compara categorías sin importar mayúsculas ni espacios
+       extra, para que "Biblias" y "biblias" caigan en el
+       mismo filtro. */
+    function normalizarCategoria(texto) {
+      return String(texto == null ? '' : texto)
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, ' ');
+    }
+
+    /* Los botones de filtro se arman solos con las categorías
+       que hay en el inventario: una categoría nueva agregada
+       desde Pages CMS aparece acá sin tocar código. */
+    function renderFiltros() {
+      const vistos = new Map();
+      vistos.set('todos', 'Todos');
+      for (const libro of librosData) {
+        const clave = normalizarCategoria(libro.categoria);
+        if (clave && !vistos.has(clave)) {
+          vistos.set(clave, String(libro.categoria).trim());
+        }
+      }
+      document.getElementById('filtros').innerHTML = [...vistos.entries()]
+        .map(([clave, etiqueta]) =>
+          `<button type="button" class="filtro-btn${clave === filtroActivo ? ' activo' : ''}" data-filtro="${escaparHtml(clave)}">${escaparHtml(etiqueta)}</button>`
+        )
+        .join('');
+    }
 
     function escaparHtml(texto) {
       return String(texto == null ? '' : texto)
@@ -239,7 +257,7 @@
     function renderLibros() {
       const visibles = librosData.filter(libro =>
         libro.disponible !== false &&
-        (filtroActivo === 'todos' || libro.categoria === filtroActivo)
+        (filtroActivo === 'todos' || normalizarCategoria(libro.categoria) === filtroActivo)
       );
       const contenedor = document.getElementById('catalogo');
 
@@ -256,7 +274,7 @@
             `<img src="${escaparHtml(libro.imagen)}" alt="${escaparHtml(libro.nombre)}" loading="lazy" onerror="this.style.display='none'">` :
             `<div class="sin-portada"><span>Sin portada</span></div>`
           }
-          ${libro.categoria ? `<span class="categoria-badge">${escaparHtml(categoriaLabels[libro.categoria] || libro.categoria)}</span>` : ''}
+          ${libro.categoria ? `<span class="categoria-badge">${escaparHtml(String(libro.categoria).trim())}</span>` : ''}
           <h3>${escaparHtml(libro.nombre)}</h3>
           ${libro.autor ? `<p class="autor">${escaparHtml(libro.autor)}</p>` : ''}
           <p class="precio">${formatearColones(libro.precio)}</p>
@@ -277,27 +295,27 @@
 
     document.getElementById('filtros').addEventListener('click', function(e) {
       if (e.target.classList.contains('filtro-btn')) {
-        document.querySelector('.filtro-btn.activo').classList.remove('activo');
+        const activo = document.querySelector('.filtro-btn.activo');
+        if (activo) activo.classList.remove('activo');
         e.target.classList.add('activo');
         filtroActivo = e.target.dataset.filtro;
         renderLibros();
       }
     });
 
-    Promise.all([
-      fetch('/data/biblias.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('/data/literatura.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('/data/regalos.json').then(r => r.ok ? r.json() : []).catch(() => [])
-    ]).then(([biblias, literatura, regalos]) => {
-      librosData = [
-        ...biblias.map(item => ({ ...item, categoria: 'biblias' })),
-        ...literatura.map(item => ({ ...item, categoria: 'literatura' })),
-        ...regalos.map(item => ({ ...item, categoria: 'regalos' }))
-      ];
-      renderLibros();
-    }).catch(() => {
-      document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
-    });
+    fetch('/data/libros.json')
+      .then(respuesta => {
+        if (!respuesta.ok) throw new Error('HTTP ' + respuesta.status);
+        return respuesta.json();
+      })
+      .then(data => {
+        librosData = Array.isArray(data) ? data : [];
+        renderFiltros();
+        renderLibros();
+      })
+      .catch(() => {
+        document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
+      });
   </script>
   <script src="js/carrito.js"></script>
 </body>

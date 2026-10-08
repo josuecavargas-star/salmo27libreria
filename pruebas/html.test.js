@@ -60,10 +60,12 @@ const catalogo = leer("catalogo.html");
 r.check("catalogo.html incluye js/carrito.js", /<script[^>]*src="js\/carrito\.js"/.test(catalogo));
 r.check("catalogo.html cierra el script antes de cargar carrito.js",
   catalogo.indexOf("</script>") < catalogo.indexOf("js/carrito.js"));
-r.check("catalogo.html pide los tres JSON del inventario",
-  /data\/biblias\.json/.test(catalogo) &&
-  /data\/literatura\.json/.test(catalogo) &&
-  /data\/regalos\.json/.test(catalogo));
+r.check("catalogo.html pide el JSON del inventario",
+  /data\/libros\.json/.test(catalogo));
+r.check("catalogo.html no trae categorias codificadas a mano",
+  !/data-filtro="(biblias|literatura|regalos)"/.test(catalogo));
+r.check("el catalogo arma los filtros desde las categorias del JSON",
+  /function renderFiltros/.test(catalogo) && /normalizarCategoria/.test(catalogo));
 
 r.titulo("El CSS del carrito respeta hidden");
 const carritoCss = fs.readFileSync(path.join(PUBLIC, "css", "carrito.css"), "utf8");
@@ -82,6 +84,15 @@ r.check("ya no quedan emojis en las tarjetas",
 const estilos = fs.readFileSync(path.join(PUBLIC, "css", "styles.css"), "utf8");
 r.check("el CSS dimensiona el SVG del icono",
   /\.card__icon svg/.test(estilos));
+
+r.titulo("El formulario de contacto usa las categorias del catalogo");
+const mainJs = fs.readFileSync(path.join(PUBLIC, "js", "main.js"), "utf8");
+r.check("index.html no codifica las categorias en el desplegable",
+  !/<option value="Biblias">/.test(inicio) &&
+  !/<option value="Literatura cristiana">/.test(inicio) &&
+  !/<option value="Regalos">/.test(inicio));
+r.check("main.js llena el desplegable desde el JSON del catalogo",
+  /busquedaSelect/.test(mainJs) && /data\/libros\.json/.test(mainJs));
 
 r.titulo("El panel del carrito se puede desplazar en el celular");
 r.check("el cuerpo tiene min-height: 0 para que el scroll funcione",
