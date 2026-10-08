@@ -571,6 +571,7 @@
           precio: agregar.dataset.precio,
           imagen: agregar.dataset.imagen,
           cantidad: agregar.dataset.cantidad,
+          categoria: agregar.dataset.categoria,
         });
       }
     });

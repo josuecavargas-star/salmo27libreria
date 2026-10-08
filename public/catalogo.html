@@ -285,6 +285,7 @@
             data-nombre="${escaparHtml(libro.nombre)}"
             data-precio="${Number(libro.precio) || 0}"
             data-imagen="${escaparHtml(libro.imagen || '')}"
+            data-categoria="${escaparHtml(String(libro.categoria).trim())}"
             data-cantidad="${Number(libro.cantidad) || 0}">
             ${agotado ? 'Agotado' : 'Agregar al carrito'}
           </button>
@@ -303,13 +304,30 @@
       }
     });
 
-    fetch('/data/libros.json')
+    /* El índice (data/index.json) dice qué archivos de
+       categoría existen y cómo se llaman. El catálogo los
+       carga a todos y a cada producto le pone la categoría
+       de su colección: agregar una categoría nueva es
+       configuración (.pages.yml + index.json), no código. */
+    fetch('/data/index.json')
       .then(respuesta => {
         if (!respuesta.ok) throw new Error('HTTP ' + respuesta.status);
         return respuesta.json();
       })
-      .then(data => {
-        librosData = Array.isArray(data) ? data : [];
+      .then(indice => {
+        if (!Array.isArray(indice)) throw new Error('Índice inválido');
+        return Promise.all(indice.map(entrada =>
+          fetch('/data/' + entrada.archivo)
+            .then(r => r.ok ? r.json() : [])
+            .catch(() => [])
+            .then(items =>
+              (Array.isArray(items) ? items : [])
+                .map(item => ({ ...item, categoria: entrada.categoria }))
+            )
+        ));
+      })
+      .then(grupos => {
+        librosData = grupos.flat();
         renderFiltros();
         renderLibros();
       })

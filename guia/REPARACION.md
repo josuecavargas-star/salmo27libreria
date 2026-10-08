@@ -40,6 +40,45 @@ los 3 archivos originales.
 
 Escribirla en el campo **Categoría** de un producto en
 Pages CMS (app.pagescms.org → repo `salmo27libreria` →
-"Inventario de libros"). Aparece sola en el catálogo y en el
-formulario de contacto. Después: `git pull` + `npx.cmd
+"Inventario de libros"). Aparece sola en el catálogo y en
+el formulario de contacto. Después: `git pull` + `npx.cmd
 wrangler deploy` para que se vea en vivo.
+
+## Segunda versión: colecciones por categoría (2026-10-08)
+
+### Por qué
+
+Con una sola colección, el CMS mostraba todo en una lista
+plana ("item 1, item 2…") y era difícil para el
+colaborador saber dónde cargar cada producto.
+
+### Qué cambió
+
+- **Una colección por categoría** en `.pages.yml`
+  (Biblias RV1960, Libros para hombres, Regalos), cada
+  una escribiendo su propio JSON en `public/data/`. El
+  CMS muestra cada categoría como sección en el menú.
+- **`public/data/index.json`**: lista los archivos de
+  categoría con sus nombres. El catálogo lo lee primero,
+  carga todos los archivos con `Promise.all` y le pone a
+  cada producto la categoría de su colección.
+- **Filtros y desplegable de contacto**: se generan
+  solos desde el índice (igual que antes, sin código por
+  categoría).
+- El botón "Agregar al carrito" ahora lleva la categoría
+  (`data-categoria`), para que dos productos con el
+  mismo nombre en categorías distintas no se mezclen en
+  el carrito.
+- **Agregar una categoría nueva**: crear la colección en
+  `.pages.yml` + una línea en `index.json`. Configuración,
+  no código. `index.json` **no** lo edita el CMS.
+
+### Estado
+
+- Probado: las 3 suites pasan, y una simulación con los
+  archivos reales renderiza los filtros, badges y
+  tarjetas correctamente.
+- **Rollback**: main sigue en el tag
+  `checkpoint-categorias-dinamicas` (versión con un solo
+  `libros.json`). Para volver: `git checkout main`. El
+  deploy solo se hace desde main, con permiso.

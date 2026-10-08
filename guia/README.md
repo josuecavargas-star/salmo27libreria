@@ -45,7 +45,10 @@ salmo27libreria/
 ├── js/
 │   └── main.js         # Funcionalidades (menú móvil, formulario, año dinámico)
 ├── data/               # Inventario (editado vía Pages CMS)
-│   └── libros.json     # Todo el inventario; cada producto lleva su categoría
+│   ├── index.json      # Índice de categorías (el catálogo lo lee primero)
+│   ├── biblias-rv1960.json
+│   ├── libros-hombres.json
+│   └── regalos.json
 ├── images/libros/      # Portadas de libros (subidas vía Pages CMS)
 ├── img/
 │   ├── hero-portada.jpg           # Fondo del hero (usada en styles.css)
@@ -98,37 +101,36 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 
 ## Categorías
 
-Las categorías son **texto libre**: al agregar un producto en Pages CMS
-se escribe su campo Categoría (ej. Biblias, Devocionales, Regalos) y
-listo:
+Las categorías son **secciones del CMS**: hay una
+colección por categoría en `.pages.yml`, y cada una
+escribe su propio JSON en `public/data/`. El
+colaborador ve cada categoría en el menú lateral de
+Pages CMS y agrega el producto en la sección correcta.
 
-- El catálogo (`catalogo.html`) muestra un botón de filtro por cada
-  categoría que haya en el inventario — una categoría nueva aparece
-  sola, sin tocar código.
-- El formulario de contacto ofrece las categorías en su desplegable
-  "Elige lo que buscas", también alimentado desde el inventario.
+El catálogo (`catalogo.html`) lee `data/index.json`
+— una lista que dice qué archivos existen y cómo se
+llaman — y de ahí carga todos los productos y genera
+los botones de filtro solo. El formulario de contacto
+llena su desplegable desde el mismo índice.
 
-Escribir siempre igual una misma categoría: el catálogo agrupa sin
-importar mayúsculas o espacios, pero la etiqueta que se muestra es la
-que se escribió primero.
+**Para agregar una categoría nueva** (configuración,
+no código):
 
-**Cómo se agrega una categoría nueva**
-
-1. En Pages CMS, al cargar un producto, escribir la categoría
-   en el campo **Categoría** (texto libre).
-2. Guardar. El catálogo le agrega un botón de filtro solo, y
-   el formulario de contacto la ofrece en su desplegable.
-3. En la computadora: `git pull` y `npx.cmd wrangler deploy`
-   para que se vea en el sitio.
+1. Crear una colección en `.pages.yml` (copiar un
+   bloque y cambiar `name`, `label` y `path`).
+2. Agregar una línea a `data/index.json`:
+   `{ "archivo": "nueva.json", "categoria": "Nombre" }`.
+3. El catálogo la muestra sola.
 
 **Lo que NO hay que hacer** (así se trabó todo antes):
 
-- No crear archivos JSON por categoría: el catálogo lee un
-  solo `libros.json`; un archivo nuevo no se muestra nunca.
-- No agregar categorías "a mano" en el HTML del catálogo:
-  los filtros se generan solos desde el inventario.
-- Si una categoría nueva no aparece, es porque ningún
-  producto la tiene todavía.
+- No crear archivos JSON que no estén listados en
+  `index.json`: no se ven en la página nunca.
+- No agregar categorías "a mano" en el HTML del
+  catálogo: los filtros se generan solos desde el
+  índice.
+- `index.json` **no** lo edita Pages CMS: hay que
+  mantenerlo a mano cuando se crea una colección.
 
 ## Carrito de compras
 
@@ -239,7 +241,7 @@ mensaje ya escrito:
 
 1. **Nombre** — campo de texto.
 2. **Elige lo que buscas** — desplegable que se llena solo con las
-   categorías del catálogo (desde `data/libros.json`) más **De todo un poco**.
+   categorías del índice (`data/index.json`) más **De todo un poco**.
 3. **Descripción del producto** — área de texto.
 
 Al pulsar **Continuar en WhatsApp** se genera un enlace a

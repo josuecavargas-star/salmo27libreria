@@ -60,8 +60,10 @@ const catalogo = leer("catalogo.html");
 r.check("catalogo.html incluye js/carrito.js", /<script[^>]*src="js\/carrito\.js"/.test(catalogo));
 r.check("catalogo.html cierra el script antes de cargar carrito.js",
   catalogo.indexOf("</script>") < catalogo.indexOf("js/carrito.js"));
-r.check("catalogo.html pide el JSON del inventario",
-  /data\/libros\.json/.test(catalogo));
+r.check("catalogo.html pide el índice de categorías",
+  /data\/index\.json/.test(catalogo));
+r.check("el catálogo carga los archivos que lista el índice",
+  /entrada\.archivo/.test(catalogo) && /Promise\.all/.test(catalogo));
 r.check("catalogo.html no trae categorias codificadas a mano",
   !/data-filtro="(biblias|literatura|regalos)"/.test(catalogo));
 r.check("el catalogo arma los filtros desde las categorias del JSON",
@@ -91,8 +93,18 @@ r.check("index.html no codifica las categorias en el desplegable",
   !/<option value="Biblias">/.test(inicio) &&
   !/<option value="Literatura cristiana">/.test(inicio) &&
   !/<option value="Regalos">/.test(inicio));
-r.check("main.js llena el desplegable desde el JSON del catalogo",
-  /busquedaSelect/.test(mainJs) && /data\/libros\.json/.test(mainJs));
+r.check("main.js llena el desplegable desde el índice de categorías",
+  /busquedaSelect/.test(mainJs) && /data\/index\.json/.test(mainJs));
+
+r.titulo("El índice de categorías apunta a archivos que existen");
+const indice = JSON.parse(fs.readFileSync(path.join(PUBLIC, "data", "index.json"), "utf8"));
+r.check("el índice es una lista", Array.isArray(indice));
+for (const entrada of indice) {
+  r.check("existe " + entrada.archivo,
+    fs.existsSync(path.join(PUBLIC, "data", entrada.archivo)));
+  r.check("la entrada tiene categoría",
+    String(entrada.categoria || "").trim().length > 0);
+}
 
 r.titulo("El panel del carrito se puede desplazar en el celular");
 r.check("el cuerpo tiene min-height: 0 para que el scroll funcione",

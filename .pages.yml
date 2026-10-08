@@ -2,13 +2,15 @@ media:
   input: public/images/libros
   output: /images/libros
 content:
-  # Un solo inventario. Cada producto lleva su categoría como texto
-  # libre: una categoría nueva aparece sola en el catálogo, sin tocar
-  # código ni esta configuración.
-  - name: libros
-    label: Inventario de libros
+  # Una colección por categoría: el colaborador ve cada
+  # categoría como sección en el menú de Pages CMS y
+  # agrega el producto en la sección correcta.
+  # Agregar una categoría nueva = crear una colección
+  # acá + una línea en public/data/index.json.
+  - name: biblias-rv1960
+    label: Biblias RV1960
     type: file
-    path: public/data/libros.json
+    path: public/data/biblias-rv1960.json
     format: json
     list: true
     fields:
@@ -19,8 +21,63 @@ content:
       - name: autor
         label: Autor
         type: string
-      - name: categoria
-        label: Categoría
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: libros-hombres
+    label: Libros para hombres
+    type: file
+    path: public/data/libros-hombres.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+      - name: autor
+        label: Autor
+        type: string
+      - name: cantidad
+        label: Cantidad en stock
+        type: number
+        default: 0
+      - name: precio
+        label: Precio
+        type: number
+      - name: imagen
+        label: Portada
+        type: image
+      - name: descripcion
+        label: Descripción
+        type: text
+      - name: disponible
+        label: Disponible
+        type: boolean
+        default: true
+  - name: regalos
+    label: Regalos
+    type: file
+    path: public/data/regalos.json
+    format: json
+    list: true
+    fields:
+      - name: nombre
+        label: Nombre del producto
         type: string
         required: true
       - name: cantidad

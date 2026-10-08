@@ -1,0 +1,14 @@
+[
+  {
+    "archivo": "biblias-rv1960.json",
+    "categoria": "Biblias RV1960"
+  },
+  {
+    "archivo": "libros-hombres.json",
+    "categoria": "Libros para hombres"
+  },
+  {
+    "archivo": "regalos.json",
+    "categoria": "Regalos"
+  }
+]

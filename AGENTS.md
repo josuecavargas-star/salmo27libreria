@@ -17,7 +17,7 @@ Sitio web estático para **Salmo 27 Librería Cristiana** (librería en Liberia,
 
 URL: `https://salmo27libreria.josuecavargas.workers.dev`
 Catálogo libros: `https://salmo27libreria.josuecavargas.workers.dev/catalogo.html`
-JSON inventario: `/data/libros.json`
+JSON inventario: `/data/index.json` (índice de categorías) + un archivo por categoría en `/data/`
 
 ## Estado Actual
 
@@ -28,7 +28,7 @@ JSON inventario: `/data/libros.json`
 - ✅ Catálogo dinámico (`catalogo.html`) conectado desde el menú "Catálogo" de la landing
 - ✅ Catálogo de libros (`catalogo.html`) desplegado y funcionando (HTTP 200)
 - ✅ JSON de inventario accesibles (los 3, HTTP 200)
-- ✅ Pages CMS configurado (`.pages.yml` con 1 colección: Inventario de libros, con categoría de texto libre)
+- ✅ Pages CMS configurado (`.pages.yml` con 1 colección por categoría + `/data/index.json` que las lista)
 - ✅ Sistema de inventario (cantidad) activo: muestra Agotado / Últimas unidades / En stock
 - ✅ Formulario de contacto abre WhatsApp con el mensaje armado (nombre + categoría + descripción)
 - ✅ Hero usa `img/hero-portada.jpg` (la portada anterior quedó sin uso en `img/salmo 27 logos/`)
@@ -73,7 +73,10 @@ salmo27libreria/
  ├── css/styles.css       ← estilos
  ├── js/main.js           ← scripts
   ├── data/
-  │   └── libros.json     ← inventario completo (editado vía Pages CMS; cada producto lleva su categoría)
+  │   ├── index.json           ← índice de categorías (el catálogo lo lee primero)
+  │   ├── biblias-rv1960.json  ← Biblias RV1960 (editado vía Pages CMS)
+  │   ├── libros-hombres.json  ← Libros para hombres (editado vía Pages CMS)
+  │   └── regalos.json         ← Regalos (editado vía Pages CMS)
  ├── img/                 ← imágenes y logos del sitio
  │   ├── hero-portada.jpg  ← fondo del hero (la usa styles.css)
  │   ├── logoprincipal.png
@@ -184,16 +187,21 @@ página a otra en la misma pestaña.
 
 ## Pages CMS (Catálogo de Productos)
 
-Permite al dueño agregar/editar productos sin tocar código. Hay **un solo inventario** (`public/data/libros.json`):
+Permite al dueño agregar/editar productos sin tocar código. Hay **una colección por categoría**, así el colaborador ve cada categoría como sección en el menú del CMS y agrega el producto en la sección correcta:
 
 1. Ir a https://app.pagescms.org y hacer login con GitHub
 2. Seleccionar el repo `salmo27libreria`, rama `main`
-3. En el menú lateral verás **una sección**: "Inventario de libros"
-4. Cada producto tiene un campo **Categoría** de texto libre: se escribe como se quiere que aparezca (ej. Biblias, Devocionales, Regalos)
-5. Al guardar, Pages CMS escribe en `public/data/libros.json` y sube portadas a `public/images/libros/`
+3. En el menú lateral verás **una sección por categoría** (Biblias RV1960, Libros para hombres, Regalos)
+4. Cada sección tiene su formulario para agregar/editar productos
+5. Al guardar, Pages CMS escribe en `public/data/{categoria}.json` y sube portadas a `public/images/libros/`
 6. Cada cambio queda en un commit de Pages CMS. **El deploy hay que hacerlo a mano** con `npx.cmd wrangler deploy`
 
-**Categorías nuevas:** no hay que crear nada. Al escribir una categoría nueva en el campo Categoría de un producto, el catálogo (`catalogo.html`) le agrega un botón de filtro solo, y el formulario de contacto la ofrece en su desplegable. Escribir siempre igual la misma categoría: el catálogo agrupa sin importar mayúsculas, pero la etiqueta que se muestra es la que se escribió primero.
+**Agregar una categoría nueva** (configuración, no código):
+1. Crear una colección en `.pages.yml` (copiar un bloque, cambiar `name`, `label` y `path`)
+2. Agregar una línea a `public/data/index.json`: `{ "archivo": "{nueva}.json", "categoria": "{Nombre}" }`
+3. El catálogo la muestra sola: lee `index.json` y carga los archivos que lista
+
+**Ojo:** `index.json` **no** lo edita el CMS — hay que mantenerlo a mano. Si una categoría nueva no aparece en el sitio, revisar que la línea esté en `index.json`.
 
 ## Formulario de Contacto
 
@@ -211,21 +219,20 @@ arma un enlace a `https://wa.me/50661745609`. El código está al final de
 - **Commit después de cada cambio**: usar `git add .` y `git commit` para registrar cada cambio antes de push. `material/` está en `.gitignore`, así que `git add .` es seguro.
 - **Mensaje de commit en lenguaje natural**: usar frases descriptivas en español (ej. "Agregué las instrucciones de deploy al documento de guía") en lugar de formatos técnicos como `docs: algo`. El mensaje debe explicar claramente qué se cambió y por qué.
 - **El push debe ser a `main`**: es la rama que está conectada a Cloudflare.
-- **Catálogo dinámico**: la página `catalogo.html` hace `fetch` de un solo JSON (`libros.json`) y **genera los botones de filtro** con las categorías que encuentra: una categoría nueva agregada desde Pages CMS aparece sola, sin tocar código. El formulario de contacto de `index.html` llena su desplegable de categorías desde el mismo JSON. El link "Catálogo" en la landing page (`index.html`) y el botón "Ver catálogo" del hero apuntan a `catalogo.html`.
+- **Catálogo dinámico**: la página `catalogo.html` lee `/data/index.json` y de ahí carga todos los archivos de categoría con `Promise.all`, poniéndole a cada producto la categoría de su colección. Los filtros se generan solos. El formulario de contacto de `index.html` llena su desplegable desde el mismo índice. El link "Catálogo" en la landing page (`index.html`) y el botón "Ver catálogo" del hero apuntan a `catalogo.html`.
 - **La carpeta `public/` es invisible en la URL**: en GitHub el repo tiene `public/` como subcarpeta, pero Cloudflare Workers sirve su contenido como raíz. Así `/data/biblias.json` mapea a `public/data/biblias.json`.
 - **`guia/` NO se publica**: la documentación vive fuera de `public/`, así que no es accesible por URL. No moverla adentro.
 - **Los .psd y logos sin uso están en `material/`**: fuera de `public/` (no se publican) y en `.gitignore` (no van al repo). Si el sitio necesita un logo, copiarlo a `public/img/` y referenciarlo.
 
 ## Trampas conocidas (lo que pasó antes, para que no se repita)
 
-- **Nunca crear JSON por categoría** (ej. `biblias-nvi.json`):
-  el catálogo lee un solo `libros.json`. Un archivo nuevo en
-  `public/data/` **no se ve en la página nunca**, por más que
-  exista. Así se trabó todo antes.
-- **Las categorías no viven en una lista**: los botones de
+- **`index.json` no lo edita el CMS**: al crear una colección nueva en `.pages.yml` hay que agregar la línea correspondiente a `public/data/index.json` a mano. Sin esa línea, el catálogo no muestra la categoría nueva (los tests revisan que el índice apunte a archivos que existen).
+- **Una colección = un archivo**: no poner dos colecciones apuntando al mismo JSON, se pisarían.
+- **Nunca crear JSON sueltos** que no estén en `index.json`: no se ven en la página nunca (ya pasó antes con `biblias-nvi.json` y similares).
+- **Las categorías no están en una lista en el código**: los botones de
   filtro y el desplegable de contacto se generan solos desde
-  el inventario. Si una categoría nueva no aparece, es porque
-  ningún producto la tiene todavía.
+  `index.json`. Si una categoría nueva no aparece, es porque
+  falta la línea en el índice.
 - **El push no despliega**: después de cada cambio hecho en
   Pages CMS hay que hacer `git pull` y `npx.cmd wrangler
   deploy` desde la raíz del repo.
@@ -244,7 +251,7 @@ arma un enlace a `https://wa.me/50661745609`. El código está al final de
 
 1. Ir a https://app.pagescms.org
 2. Sign in with GitHub → autorizar la app → seleccionar repo `salmo27libreria`
-3. En el menú lateral → "Inventario de libros" → agregar/editar productos (la categoría es un campo de texto libre)
+3. En el menú lateral → una sección por categoría → agregar/editar productos en la sección correcta
 4. Cada cambio guardado genera un commit; hay que correr `npx.cmd wrangler deploy` para publicarlo
 5. Avisar que las consultas del formulario llegan por **WhatsApp**, ya no por correo
 

@@ -1,0 +1,11 @@
+[
+  {
+    "nombre": "test",
+    "autor": "test",
+    "cantidad": 0,
+    "precio": 1500,
+    "imagen": "/images/libros/512WQ56W8VL._AC_UF1000,1000_QL80_.jpg",
+    "descripcion": "test",
+    "disponible": true
+  }
+]

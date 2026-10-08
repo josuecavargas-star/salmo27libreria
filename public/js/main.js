@@ -25,35 +25,27 @@
     yearSpan.textContent = new Date().getFullYear();
   }
 
-  /* ===== CATEGORÍAS DEL FORMULARIO (se llenan solas del catálogo) ===== */
+  /* ===== CATEGORÍAS DEL FORMULARIO (se llenan solas del índice) ===== */
   const busquedaSelect = document.getElementById("busqueda");
   if (busquedaSelect) {
-    fetch("/data/libros.json")
+    fetch("/data/index.json")
       .then(function (respuesta) {
         if (!respuesta.ok) throw new Error("HTTP " + respuesta.status);
         return respuesta.json();
       })
-      .then(function (data) {
-        const vistos = new Set();
-        const opciones = [];
-        (Array.isArray(data) ? data : []).forEach(function (item) {
-          const categoria = String(item.categoria || "").trim();
-          const clave = categoria.toLowerCase();
-          if (categoria && !vistos.has(clave)) {
-            vistos.add(clave);
-            const opcion = document.createElement("option");
-            opcion.value = categoria;
-            opcion.textContent = categoria;
-            opciones.push(opcion);
-          }
-        });
-        const deTodo = busquedaSelect.querySelector('option[value="De todo un poco"]');
-        opciones.forEach(function (opcion) {
+      .then(function (indice) {
+        (Array.isArray(indice) ? indice : []).forEach(function (entrada) {
+          const categoria = String(entrada.categoria || "").trim();
+          if (!categoria) return;
+          const opcion = document.createElement("option");
+          opcion.value = categoria;
+          opcion.textContent = categoria;
+          const deTodo = busquedaSelect.querySelector('option[value="De todo un poco"]');
           busquedaSelect.insertBefore(opcion, deTodo);
         });
       })
       .catch(function () {
-        /* sin catálogo: el desplegable queda solo con "De todo un poco" */
+        /* sin índice: el desplegable queda solo con "De todo un poco" */
       });
   }
 
