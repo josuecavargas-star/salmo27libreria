@@ -27,15 +27,5 @@
     "imagen": "/images/libros/880158c8-e8be-4cd1-b221-9b273f27ba7a.jpeg",
     "descripcion": "Taza térmica con diseño de logo",
     "disponible": true
-  },
-  {
-    "nombre": "wds",
-    "autor": "dwdw",
-    "categoria": "test",
-    "cantidad": 0,
-    "precio": 50000000,
-    "imagen": "/images/libros/Screenshot 2026-09-22 161840.png",
-    "descripcion": "bla bla bla",
-    "disponible": true
   }
 ]
