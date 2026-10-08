@@ -1,11 +1,1 @@
-[
-  {
-    "nombre": "El Principito",
-    "autor": "Antoine de Saint-Exupéry",
-    "cantidad": 5,
-    "precio": 250,
-    "imagen": "/images/libros/9781937482978.jpg",
-    "descripcion": "Un clásico para todas las edades sobre un niño y su amigo viajero del cosmos.",
-    "disponible": true
-  }
-]
+[]

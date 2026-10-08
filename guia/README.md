@@ -250,6 +250,19 @@ está en `public/js/main.js`, al final del archivo.
 
 Los enlaces están actualizados en header, catálogo y footer.
 
+## Servir el Sitio Localmente
+
+Para ver el sitio en tu navegador sin desplegar a Cloudflare:
+
+```
+python -m http.server 8080
+```
+
+Luego abre `http://localhost:8080/public/` en tu navegador.
+
+El puerto **8080** es el predeterminado para este proyecto. Si necesitas otro puerto,
+cámbialo en el comando (por ejemplo `python -m http.server 8000`).
+
 ## Notas
 
 - No se usan librerías externas (ni Bootstrap, ni jQuery, ni Tailwind).
