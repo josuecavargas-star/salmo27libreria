@@ -128,6 +128,16 @@ r.check("el CSS anima la apertura del menú",
 r.check("los items del menú se resaltan al pasar el mouse",
   /\.nav__dropdown-sub:hover\s*\{[^}]*box-shadow/.test(estilos) &&
   /\.nav__dropdown-grupo:hover\s*\{[^}]*box-shadow/.test(estilos));
+r.check("el menú móvil de Catálogo tiene flecha para abrir",
+  /id="navDropdownArrow"/.test(inicio));
+r.check("la flecha abre el menú en el celular",
+  /navDropdownArrow/.test(mainJs) && /classList\.toggle\("open"\)/.test(mainJs));
+r.check("en el celular el desplegable arranca cerrado",
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.nav \.nav__dropdown\s*\{[^}]*max-height:\s*0/.test(estilos));
+r.check("en el celular el desplegable se abre con animación",
+  /\.nav__item--dropdown\.open \.nav__dropdown\s*\{[^}]*max-height/.test(estilos));
+r.check("en el celular las letras del desplegable son blancas",
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.nav \.nav__dropdown-grupo,\s*\.nav \.nav__dropdown-sub\s*\{[^}]*color:\s*var\(--color-white\)/.test(estilos));
 
 r.titulo("El índice de categorías apunta a archivos que existen");
 const indice = JSON.parse(fs.readFileSync(path.join(PUBLIC, "data", "index.json"), "utf8"));

@@ -19,6 +19,21 @@
     });
   }
 
+  /* ===== MENÚ DE CATEGORÍAS EN EL CELULAR ===== */
+  /* En el celular el desplegable de Catálogo
+     arranca cerrado: el usuario lo abre con
+     la flecha. En pantalla grande se abre
+     solo al pasar el mouse. */
+  const navDropdownArrow = document.getElementById("navDropdownArrow");
+  if (navDropdownArrow) {
+    navDropdownArrow.addEventListener("click", function () {
+      const padre = navDropdownArrow.closest(".nav__item--dropdown");
+      if (!padre) return;
+      const abierto = padre.classList.toggle("open");
+      navDropdownArrow.setAttribute("aria-expanded", String(abierto));
+    });
+  }
+
   /* ===== AÑO EN EL FOOTER ===== */
   const yearSpan = document.getElementById("year");
   if (yearSpan) {

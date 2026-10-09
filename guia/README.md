@@ -94,7 +94,7 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 
 ## Secciones de la Página Web (`index.html`)
 
-1. **Header** — Logo (64px) + navegación (Inicio, Catálogo con desplegable de categorías al pasar el mouse, Nosotros, Contacto). Menú responsive con toggle para móviles. Redes sociales (Facebook, Instagram, WhatsApp) con íconos SVG en `img/iconos/`. Fondo verde sólido `#273A39`.
+1. **Header** — Logo (64px) + navegación (Inicio, Catálogo con desplegable de categorías — al pasar el mouse en pantalla grande, con la flecha ▾ en el celular —, Nosotros, Contacto). Menú responsive con toggle para móviles. Redes sociales (Facebook, Instagram, WhatsApp) con íconos SVG en `img/iconos/`. Fondo verde sólido `#273A39`.
 2. **Hero** — Banner principal con `img/hero-portada.jpg` como fondo + overlay verde semitransparente (`rgba(39,58,57,0.3)` arriba → `rgba(59,94,91,0.9)` abajo). Texto centrado: "Librería Cristiana", "Biblias, literatura y artículos para tu espíritu". Botones de acción centrados. El fondo usa `background-size: cover` y `background-position: center top`, así que en pantallas anchas se recorta por los lados.
 3. **Catálogo de Facebook** — Imagen de portada destacada que enlaza a la página de Facebook.
 4. **Categorías** — Grid de 4 tarjetas enlazadas al catálogo por grupo: Biblias, Literatura cristiana, Regalos, Artículos 2027. Cada una con icono SVG.
@@ -124,8 +124,10 @@ filtro y arma el menú de categorías del header: al
 pasar el mouse por **Catálogo** se despliegan las
 categorías principales con sus subcategorías, y cada
 una enlaza al catálogo filtrado (por grupo o por
-subcategoría). El formulario de contacto llena su
-desplegable desde el mismo índice.
+subcategoría). En el celular el desplegable arranca
+cerrado y se abre con la flecha que está junto a
+Catálogo, con las letras en blanco. El formulario de
+contacto llena su desplegable desde el mismo índice.
 
 **Para agregar una categoría nueva** (configuración,
 no código):
