@@ -128,7 +128,10 @@ subcategoría). En el celular el desplegable arranca
 cerrado: la palabra "Catálogo" queda centrada en la
 fila (sin flechita junto a ella) y la única flecha
 es la ▾ del borde derecho, que el usuario toca para
-abrir las categorías con animación de desliz. Las
+abrir las categorías con animación de desliz. Tanto
+el menú como la lista de categorías se pueden
+desplazar (scroll) en el celular, para alcanzar las
+categorías que no caben en pantalla. Las
 letras del menú son blancas. El formulario de
 contacto llena su desplegable desde el mismo índice.
 

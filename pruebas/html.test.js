@@ -149,6 +149,10 @@ r.check("en el celular la palabra Catálogo queda centrada",
   !/@media\s*\(max-width:\s*767px\)[\s\S]*\.nav__item--dropdown \.nav__dropdown-toggle\s*\{[^}]*flex:\s*1/.test(estilos));
 r.check("en el celular Catálogo no tiene la flechita extra",
   /@media\s*\(max-width:\s*767px\)[\s\S]*\.nav__dropdown-toggle::after\s*\{[^}]*content:\s*none/.test(estilos));
+r.check("en el celular el menú completo se puede desplazar",
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.nav\.open\s*\{[^}]*max-height:\s*85vh[^}]*overflow-y:\s*auto/.test(estilos));
+r.check("en el celular la lista de categorías se puede desplazar",
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.nav__item--dropdown\.open \.nav__dropdown\s*\{[^}]*max-height:\s*60vh[^}]*overflow-y:\s*auto/.test(estilos));
 
 r.titulo("El índice de categorías apunta a archivos que existen");
 const indice = JSON.parse(fs.readFileSync(path.join(PUBLIC, "data", "index.json"), "utf8"));

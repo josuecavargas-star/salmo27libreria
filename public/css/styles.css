@@ -729,7 +729,8 @@ img {
   }
 
   .nav__item--dropdown.open .nav__dropdown {
-    max-height: 600px;
+    max-height: 60vh;
+    overflow-y: auto;
     opacity: 1;
     visibility: visible;
   }
@@ -753,6 +754,7 @@ img {
   }
 
   .nav.open {
-    max-height: 500px;
+    max-height: 85vh;
+    overflow-y: auto;
   }
 }
