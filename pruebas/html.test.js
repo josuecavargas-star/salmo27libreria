@@ -122,6 +122,12 @@ r.check("el catálogo filtra por subcategoría",
 r.check("el CSS despliega el menú al pasar el mouse",
   /\.nav__dropdown\s*\{/.test(estilos) &&
   /\.nav__item--dropdown:hover \.nav__dropdown/.test(estilos));
+r.check("el CSS anima la apertura del menú",
+  /\.nav__dropdown\s*\{[^}]*opacity:\s*0/.test(estilos) &&
+  /\.nav__dropdown\s*\{[^}]*transition/.test(estilos));
+r.check("los items del menú se resaltan al pasar el mouse",
+  /\.nav__dropdown-sub:hover\s*\{[^}]*box-shadow/.test(estilos) &&
+  /\.nav__dropdown-grupo:hover\s*\{[^}]*box-shadow/.test(estilos));
 
 r.titulo("El índice de categorías apunta a archivos que existen");
 const indice = JSON.parse(fs.readFileSync(path.join(PUBLIC, "data", "index.json"), "utf8"));
