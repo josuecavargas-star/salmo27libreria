@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "nombre": "Incendiario",
+    "autor": "Itiel ",
+    "cantidad": 4,
+    "precio": 1500,
+    "imagen": "/images/libros/IMG_4810.jpeg",
+    "disponible": true
+  }
+]
