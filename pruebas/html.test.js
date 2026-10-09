@@ -104,6 +104,25 @@ r.check("index.html no codifica las categorias en el desplegable",
 r.check("main.js llena el desplegable desde el índice de categorías",
   /busquedaSelect/.test(mainJs) && /data\/index\.json/.test(mainJs));
 
+r.titulo("El menú de Catálogo en el header");
+r.check("el header ya no enlaza a la sección de categorías",
+  !/href="#categorias"/.test(inicio));
+r.check("Catálogo del header es el padre del desplegable",
+  /nav__item--dropdown/.test(inicio) && /id="navDropdown"/.test(inicio));
+r.check("el menú del header no trae categorías codificadas a mano",
+  !/class="nav__dropdown-grupo"/.test(inicio));
+r.check("main.js llena el menú del header desde el índice",
+  /navDropdown/.test(mainJs) &&
+  /nav__dropdown-grupo/.test(mainJs) &&
+  /nav__dropdown-sub/.test(mainJs));
+r.check("el menú agrupa subcategorías bajo su grupo",
+  /grupos\.set\(claveGrupo/.test(mainJs) && /subs\.set\(claveCategoria/.test(mainJs));
+r.check("el catálogo filtra por subcategoría",
+  /libro\.categoria/.test(catalogo) && /params\.get\('categoria'\)/.test(catalogo));
+r.check("el CSS despliega el menú al pasar el mouse",
+  /\.nav__dropdown\s*\{/.test(estilos) &&
+  /\.nav__item--dropdown:hover \.nav__dropdown/.test(estilos));
+
 r.titulo("El índice de categorías apunta a archivos que existen");
 const indice = JSON.parse(fs.readFileSync(path.join(PUBLIC, "data", "index.json"), "utf8"));
 r.check("el índice es una lista", Array.isArray(indice));

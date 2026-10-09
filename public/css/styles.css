@@ -124,6 +124,70 @@ img {
   color: var(--color-accent);
 }
 
+/* ----- Menú desplegable de Catálogo ----- */
+.nav__item--dropdown {
+  position: relative;
+}
+
+.nav__dropdown-toggle::after {
+  content: "▾";
+  margin-left: 4px;
+  font-size: 0.8em;
+}
+
+.nav__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 250px;
+  background: var(--color-white);
+  border: 1px solid var(--color-light);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  padding: 8px 0;
+  display: none;
+  z-index: 200;
+}
+
+/* Puente invisible: el hover no se corta entre el enlace y el panel */
+.nav__dropdown::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.nav__item--dropdown:hover .nav__dropdown,
+.nav__item--dropdown:focus-within .nav__dropdown {
+  display: block;
+}
+
+.nav .nav__dropdown-grupo {
+  display: block;
+  padding: 8px 18px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.nav .nav__dropdown-grupo:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.nav .nav__dropdown-sub {
+  display: block;
+  padding: 7px 18px 7px 34px;
+  font-size: 0.95rem;
+  color: var(--color-slate);
+}
+
+.nav .nav__dropdown-sub:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -570,6 +634,32 @@ img {
 
   .nav a:last-child {
     border-bottom: 1px solid var(--color-border);
+  }
+
+  /* En el menú vertical el desplegable se muestra
+     siempre, con las subcategorías indentadas */
+  .nav .nav__dropdown {
+    position: static;
+    display: block;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0 0 0.5rem 1.5rem;
+  }
+
+  .nav__dropdown::before {
+    display: none;
+  }
+
+  .nav .nav__dropdown-grupo,
+  .nav .nav__dropdown-sub {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .nav .nav__dropdown-sub {
+    padding-left: 2.5rem;
   }
 
   .nav-toggle {

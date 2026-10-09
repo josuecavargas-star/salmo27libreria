@@ -37,8 +37,11 @@
 
       <nav class="nav" id="nav">
         <a href="#inicio">Inicio</a>
-        <a href="catalogo.html">Catálogo</a>
-        <a href="#categorias">Categorías</a>
+        <div class="nav__item--dropdown">
+          <a href="catalogo.html" class="nav__dropdown-toggle">Catálogo</a>
+          <!-- El menú de categorías lo llena main.js desde data/index.json -->
+          <div class="nav__dropdown" id="navDropdown"></div>
+        </div>
         <a href="#nosotros">Nosotros</a>
         <a href="#contacto">Contacto</a>
       </nav>

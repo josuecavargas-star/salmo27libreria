@@ -257,7 +257,9 @@
     function renderLibros() {
       const visibles = librosData.filter(libro =>
         libro.disponible !== false &&
-        (filtroActivo === 'todos' || normalizarCategoria(libro.grupo) === filtroActivo)
+        (filtroActivo === 'todos' ||
+          normalizarCategoria(libro.grupo) === filtroActivo ||
+          normalizarCategoria(libro.categoria) === filtroActivo)
       );
       const contenedor = document.getElementById('catalogo');
 
@@ -340,18 +342,39 @@
         document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
       });
 
-    /* Los enlaces del sitio (ej. catalogo.html?grupo=biblias)
-       dejan el filtro del grupo ya elegido al abrir la página. */
+    /* Los enlaces del sitio (ej. catalogo.html?grupo=biblias o
+       catalogo.html?categoria=Biblias NVI) dejan el filtro ya
+       elegido al abrir la página. */
     function aplicarGrupoDeLaUrl() {
-      const grupoUrl = new URLSearchParams(window.location.search).get('grupo');
-      if (!grupoUrl) return;
-      const clave = normalizarCategoria(grupoUrl);
+      const params = new URLSearchParams(window.location.search);
+      const categoriaUrl = params.get('categoria');
+      const grupoUrl = params.get('grupo');
+
+      /* Subcategoría: filtra por ella y resalta el grupo
+         al que pertenece. */
+      if (categoriaUrl) {
+        const claveCategoria = normalizarCategoria(categoriaUrl);
+        const libro = librosData.find(l => normalizarCategoria(l.categoria) === claveCategoria);
+        if (!libro) return;
+        filtroActivo = claveCategoria;
+        resaltarBotonDeGrupo(normalizarCategoria(libro.grupo));
+        return;
+      }
+
+      if (grupoUrl) {
+        const clave = normalizarCategoria(grupoUrl);
+        if (!document.querySelector('.filtro-btn[data-filtro="' + clave + '"]')) return;
+        filtroActivo = clave;
+        resaltarBotonDeGrupo(clave);
+      }
+    }
+
+    function resaltarBotonDeGrupo(clave) {
       const boton = document.querySelector('.filtro-btn[data-filtro="' + clave + '"]');
       if (!boton) return;
       const activo = document.querySelector('.filtro-btn.activo');
       if (activo) activo.classList.remove('activo');
       boton.classList.add('activo');
-      filtroActivo = clave;
     }
   </script>
   <script src="js/carrito.js"></script>
