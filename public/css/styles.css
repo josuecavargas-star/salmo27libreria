@@ -684,6 +684,13 @@ img {
     border-top: none;
   }
 
+  /* En el celular la palabra Catálogo va
+     sola, igual que Inicio: la flecha que
+     sirve es la del borde derecho, no esta */
+  .nav__item--dropdown .nav__dropdown-toggle::after {
+    content: none;
+  }
+
   .nav__dropdown-arrow {
     position: absolute;
     top: 0;
