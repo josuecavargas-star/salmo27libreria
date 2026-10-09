@@ -192,8 +192,10 @@
       <nav class="nav" id="nav">
         <a href="index.html#inicio">Inicio</a>
         <div class="nav__item--dropdown">
-          <a href="catalogo.html" class="nav__dropdown-toggle">Catálogo</a>
-          <button class="nav__dropdown-arrow" id="navDropdownArrow" aria-label="Mostrar categorías" aria-expanded="false" aria-controls="navDropdown">▾</button>
+          <div class="nav__dropdown-bar">
+            <a href="catalogo.html" class="nav__dropdown-toggle">Catálogo</a>
+            <button class="nav__dropdown-arrow" id="navDropdownArrow" aria-label="Mostrar categorías" aria-expanded="false" aria-controls="navDropdown">▾</button>
+          </div>
           <!-- El menú de categorías lo llena main.js desde data/index.json -->
           <div class="nav__dropdown" id="navDropdown"></div>
         </div>

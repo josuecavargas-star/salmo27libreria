@@ -664,25 +664,37 @@ img {
      arranca cerrado: el usuario lo abre con
      la flecha, con animación de desliz */
   .nav__item--dropdown {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
+    display: block;
     width: 100%;
+  }
+
+  /* La barra de Catálogo: la palabra queda
+     alineada igual que los otros enlaces
+     (padding de 1rem a la izquierda) y la
+     flecha se superpone al borde derecho */
+  .nav__dropdown-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-top: 1px solid var(--color-border);
   }
 
   .nav__item--dropdown .nav__dropdown-toggle {
     flex: 1;
-    text-align: center;
+    border-top: none;
   }
 
   .nav__dropdown-arrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 3.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3.2rem;
     background: none;
     border: none;
-    border-top: 1px solid var(--color-border);
     color: var(--color-white);
     font-size: 1.3rem;
     line-height: 1;
@@ -696,7 +708,6 @@ img {
 
   .nav .nav__dropdown {
     position: static;
-    flex: 1 1 100%;
     min-width: 0;
     background: transparent;
     border: none;
