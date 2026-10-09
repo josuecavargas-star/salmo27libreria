@@ -128,7 +128,11 @@ subcategoría). Cuando llegás por una subcategoría,
 arriba de los filtros dice dónde estás — por
 ejemplo "Estás en: Literatura cristiana › Libros
 Hombres" — y el nombre del grupo enlaza a todo el
-grupo, para que el cliente no se pierda. En el celular el desplegable arranca
+grupo, para que el cliente no se pierda. Si la
+categoría no tiene productos todavía, muestra
+"No hay libros disponibles en esta categoría"
+en vez de mezclar productos de otras
+categorías. En el celular el desplegable arranca
 cerrado: la palabra "Catálogo" queda centrada en la
 fila (sin flechita junto a ella) y la única flecha
 es la ▾ del borde derecho, que el usuario toca para

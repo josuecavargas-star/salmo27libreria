@@ -237,6 +237,10 @@
   <script>
     let librosData = [];
     let filtroActivo = 'todos';
+    /* Categoría (con su grupo) tal como la
+       describe el índice: sirve aunque la
+       categoría no tenga productos todavía. */
+    let mapaCategorias = new Map();
 
     /* Compara categorías sin importar mayúsculas ni espacios
        extra, para que "Biblias" y "biblias" caigan en el
@@ -363,6 +367,20 @@
       })
       .then(indice => {
         if (!Array.isArray(indice)) throw new Error('Índice inválido');
+        /* Guardo cada categoría con su grupo,
+           aunque la categoría esté vacía: el
+           filtro por URL los necesita para decir
+           dónde estás y filtrar bien. */
+        mapaCategorias = new Map();
+        indice.forEach(entrada => {
+          const clave = normalizarCategoria(entrada.categoria);
+          if (clave) {
+            mapaCategorias.set(clave, {
+              grupo: entrada.grupo || entrada.categoria,
+              categoria: entrada.categoria
+            });
+          }
+        });
         return Promise.all(indice.map(entrada =>
           fetch('/data/' + entrada.archivo)
             .then(r => r.ok ? r.json() : [])
@@ -396,14 +414,22 @@
       const grupoUrl = params.get('grupo');
 
       /* Subcategoría: filtra por ella, resalta el grupo
-         al que pertenece y dice dónde estás. */
+         al que pertenece y dice dónde estás. El dato
+         sale del índice, así que funciona aunque la
+         categoría no tenga productos todavía. */
       if (categoriaUrl) {
         const claveCategoria = normalizarCategoria(categoriaUrl);
-        const libro = librosData.find(l => normalizarCategoria(l.categoria) === claveCategoria);
-        if (!libro) return;
+        const info = mapaCategorias.get(claveCategoria);
+        if (!info) {
+          /* No está en el índice: se filtra tal
+             cual para no mostrar otras cosas. */
+          filtroActivo = claveCategoria;
+          mostrarUbicacion(null);
+          return;
+        }
         filtroActivo = claveCategoria;
-        resaltarBotonDeGrupo(normalizarCategoria(libro.grupo));
-        mostrarUbicacion(libro.grupo, libro.categoria);
+        resaltarBotonDeGrupo(normalizarCategoria(info.grupo));
+        mostrarUbicacion(info.grupo, info.categoria);
         return;
       }
 
@@ -412,8 +438,16 @@
         if (!document.querySelector('.filtro-btn[data-filtro="' + clave + '"]')) return;
         filtroActivo = clave;
         resaltarBotonDeGrupo(clave);
-        const libro = librosData.find(l => normalizarCategoria(l.grupo) === clave);
-        mostrarUbicacion(libro ? libro.grupo : grupoUrl, null);
+        /* El nombre bonito del grupo sale del
+           índice, aunque el grupo esté vacío. */
+        let etiqueta = grupoUrl;
+        for (const info of mapaCategorias.values()) {
+          if (normalizarCategoria(info.grupo) === clave) {
+            etiqueta = info.grupo;
+            break;
+          }
+        }
+        mostrarUbicacion(etiqueta, null);
       }
     }
 

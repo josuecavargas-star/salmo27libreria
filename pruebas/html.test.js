@@ -80,6 +80,12 @@ r.check("la ubicación enlaza al grupo padre",
   /catalogo\.html\?grupo=' \+ encodeURIComponent\(grupo\)/.test(catalogo));
 r.check("la ubicación tiene su estilo",
   /\.catalogo__ubicacion\s*\{/.test(catalogo));
+r.check("la ubicación sale del índice, no solo de los productos",
+  /mapaCategorias/.test(catalogo) && /entrada\.categoria/.test(catalogo));
+r.check("una categoría vacía filtra en vez de mostrar todo",
+  /filtroActivo = claveCategoria/.test(catalogo));
+r.check("un grupo vacío muestra su nombre bonito",
+  /let etiqueta = grupoUrl/.test(catalogo) && /info\.grupo/.test(catalogo));
 
 r.titulo("El CSS del carrito respeta hidden");
 const carritoCss = fs.readFileSync(path.join(PUBLIC, "css", "carrito.css"), "utf8");
