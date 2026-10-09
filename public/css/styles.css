@@ -669,18 +669,17 @@ img {
   }
 
   /* La barra de Catálogo: la palabra queda
-     alineada igual que los otros enlaces
-     (padding de 1rem a la izquierda) y la
+     centrada en el ancho de la fila y la
      flecha se superpone al borde derecho */
   .nav__dropdown-bar {
     display: flex;
+    justify-content: center;
     align-items: center;
     position: relative;
     border-top: 1px solid var(--color-border);
   }
 
   .nav__item--dropdown .nav__dropdown-toggle {
-    flex: 1;
     border-top: none;
   }
 
