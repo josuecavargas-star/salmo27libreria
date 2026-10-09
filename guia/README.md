@@ -117,10 +117,15 @@ colaborador ve cada categoría en el menú lateral de
 Pages CMS y agrega el producto en la sección correcta.
 
 El catálogo (`catalogo.html`) lee `data/index.json`
-— una lista que dice qué archivos existen y cómo se
-llaman — y de ahí carga todos los productos y genera
-los botones de filtro solo. El formulario de contacto
-llena su desplegable desde el mismo índice.
+— una lista que dice qué archivos existen, cómo se
+llaman y a qué grupo general pertenecen — y de ahí
+carga todos los productos, genera los botones de
+filtro y arma el menú de categorías del header: al
+pasar el mouse por **Catálogo** se despliegan las
+categorías principales con sus subcategorías, y cada
+una enlaza al catálogo filtrado (por grupo o por
+subcategoría). El formulario de contacto llena su
+desplegable desde el mismo índice.
 
 **Para agregar una categoría nueva** (configuración,
 no código):
@@ -128,7 +133,11 @@ no código):
 1. Crear una colección en `.pages.yml` (copiar un
    bloque y cambiar `name`, `label` y `path`).
 2. Agregar una línea a `data/index.json`:
-   `{ "archivo": "nueva.json", "categoria": "Nombre" }`.
+   `{ "archivo": "nueva.json", "categoria": "Nombre", "grupo": "Grupo" }`.
+   El `grupo` es la categoría principal que agrupa
+   en el menú y los filtros (ej. "Biblias"); si el
+   producto es categoría única, `grupo` lleva el
+   mismo nombre que `categoria`.
 3. El catálogo la muestra sola.
 
 **Lo que NO hay que hacer** (así se trabó todo antes):

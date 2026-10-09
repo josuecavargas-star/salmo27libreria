@@ -207,7 +207,7 @@ Permite al dueño agregar/editar productos sin tocar código. Hay **una colecci�
 
 **Agregar una categoría nueva** (configuración, no código):
 1. Crear una colección en `.pages.yml` (copiar un bloque, cambiar `name`, `label` y `path`)
-2. Agregar una línea a `public/data/index.json`: `{ "archivo": "{nueva}.json", "categoria": "{Nombre}" }`
+2. Agregar una línea a `public/data/index.json`: `{ "archivo": "{nueva}.json", "categoria": "{Nombre}", "grupo": "{Grupo}" }` (`grupo` es la categoría principal del menú y los filtros; si es única, `grupo` = `categoria`)
 3. El catálogo la muestra sola: lee `index.json` y carga los archivos que lista
 
 **Ojo:** `index.json` **no** lo edita el CMS — hay que mantenerlo a mano. Si una categoría nueva no aparece en el sitio, revisar que la línea esté en `index.json`.
@@ -239,9 +239,9 @@ arma un enlace a `https://wa.me/50661745609`. El código está al final de
 - **Una colección = un archivo**: no poner dos colecciones apuntando al mismo JSON, se pisarían.
 - **Nunca crear JSON sueltos** que no estén en `index.json`: no se ven en la página nunca (ya pasó antes con `biblias-nvi.json` y similares).
 - **Las categorías no están en una lista en el código**: los botones de
-  filtro y el desplegable de contacto se generan solos desde
-  `index.json`. Si una categoría nueva no aparece, es porque
-  falta la línea en el índice.
+  filtro, el menú desplegable del header y el desplegable de contacto se
+  generan solos desde `index.json`. Si una categoría nueva no aparece, es
+  porque falta la línea en el índice.
 - **El push no despliega**: después de cada cambio hecho en
   Pages CMS hay que hacer `git pull` y `npx.cmd wrangler
   deploy` desde la raíz del repo.
