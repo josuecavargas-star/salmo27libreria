@@ -94,10 +94,10 @@ Si alguna vez se necesita un logo en la página, se copia de `material/logos/` a
 
 ## Secciones de la Página Web (`index.html`)
 
-1. **Header** — Logo (64px) + navegación (Inicio, Catálogo, Categorías, Nosotros, Contacto). Menú responsive con toggle para móviles. Redes sociales (Facebook, Instagram, WhatsApp) con íconos SVG en `img/iconos/`. Fondo verde sólido `#273A39`.
+1. **Header** — Logo (64px) + navegación (Inicio, Catálogo con desplegable de categorías al pasar el mouse, Nosotros, Contacto). Menú responsive con toggle para móviles. Redes sociales (Facebook, Instagram, WhatsApp) con íconos SVG en `img/iconos/`. Fondo verde sólido `#273A39`.
 2. **Hero** — Banner principal con `img/hero-portada.jpg` como fondo + overlay verde semitransparente (`rgba(39,58,57,0.3)` arriba → `rgba(59,94,91,0.9)` abajo). Texto centrado: "Librería Cristiana", "Biblias, literatura y artículos para tu espíritu". Botones de acción centrados. El fondo usa `background-size: cover` y `background-position: center top`, así que en pantallas anchas se recorta por los lados.
 3. **Catálogo de Facebook** — Imagen de portada destacada que enlaza a la página de Facebook.
-4. **Categorías** — Grid de 3 tarjetas centradas: Biblias, Literatura cristiana, Regalos cristianos.
+4. **Categorías** — Grid de 4 tarjetas enlazadas al catálogo por grupo: Biblias, Literatura cristiana, Regalos, Artículos 2027. Cada una con icono SVG.
 5. **Sobre nosotros** — Texto institucional sobre la librería en Liberia + estadísticas.
 6. **Contacto** — Información de contacto (dirección, teléfono, email, horario) + formulario.
 7. **Footer** — Logo agrandado (80px), íconos de redes sociales SVG, año dinámico y texto institucional.
@@ -253,7 +253,7 @@ mensaje ya escrito:
    categorías del índice (`data/index.json`) más **De todo un poco**.
 3. **Descripción del producto** — área de texto.
 
-Al pulsar **Continuar en WhatsApp** se genera un enlace a
+Al pulsar **Enviar información al WhatsApp** se genera un enlace a
 `https://wa.me/50661745609` con este mensaje:
 
 ```
