@@ -68,6 +68,10 @@ r.check("catalogo.html no trae categorias codificadas a mano",
   !/data-filtro="(biblias|literatura|regalos)"/.test(catalogo));
 r.check("el catalogo arma los filtros desde las categorias del JSON",
   /function renderFiltros/.test(catalogo) && /normalizarCategoria/.test(catalogo));
+r.check("el catalogo filtra por grupos generales",
+  /libro\.grupo/.test(catalogo));
+r.check("el catalogo preselecciona el grupo de la URL",
+  /URLSearchParams/.test(catalogo) && /aplicarGrupoDeLaUrl/.test(catalogo));
 
 r.titulo("El CSS del carrito respeta hidden");
 const carritoCss = fs.readFileSync(path.join(PUBLIC, "css", "carrito.css"), "utf8");
@@ -78,11 +82,15 @@ r.check("el overlay se oculta cuando tiene el atributo hidden",
 
 r.titulo("Iconos de categorias");
 const inicio = leer("index.html");
-r.check("las tres tarjetas de categoria tienen un SVG",
-  (inicio.match(/class="card__icon"[\s\S]*?<svg/g) || []).length === 3,
+r.check("las cuatro tarjetas de categoria tienen un SVG",
+  (inicio.match(/class="card__icon"[\s\S]*?<svg/g) || []).length === 4,
   "hay " + (inicio.match(/class="card__icon"[\s\S]*?<svg/g) || []).length);
 r.check("ya no quedan emojis en las tarjetas",
   !/class="card__icon">[^<]*\p{Extended_Pictographic}/u.test(inicio));
+r.check("las tarjetas son enlaces al catálogo",
+  (inicio.match(/class="card__link"/g) || []).length === 4);
+r.check("cada tarjeta enlaza con su grupo",
+  (inicio.match(/catalogo\.html\?grupo=/g) || []).length === 4);
 const estilos = fs.readFileSync(path.join(PUBLIC, "css", "styles.css"), "utf8");
 r.check("el CSS dimensiona el SVG del icono",
   /\.card__icon svg/.test(estilos));

@@ -313,6 +313,16 @@ img {
   font-size: 0.9rem;
 }
 
+.card__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card__link:hover h3 {
+  text-decoration: underline;
+}
+
 /* ===== CATÁLOGO ===== */
 .catalogo {
   text-align: center;

@@ -34,14 +34,18 @@
         return respuesta.json();
       })
       .then(function (indice) {
+        const vistos = new Set();
         (Array.isArray(indice) ? indice : []).forEach(function (entrada) {
-          const categoria = String(entrada.categoria || "").trim();
-          if (!categoria) return;
-          const opcion = document.createElement("option");
-          opcion.value = categoria;
-          opcion.textContent = categoria;
-          const deTodo = busquedaSelect.querySelector('option[value="De todo un poco"]');
-          busquedaSelect.insertBefore(opcion, deTodo);
+          const grupo = String(entrada.grupo || "").trim();
+          const clave = grupo.toLowerCase();
+          if (grupo && !vistos.has(clave)) {
+            vistos.add(clave);
+            const opcion = document.createElement("option");
+            opcion.value = grupo;
+            opcion.textContent = grupo;
+            const deTodo = busquedaSelect.querySelector('option[value="De todo un poco"]');
+            busquedaSelect.insertBefore(opcion, deTodo);
+          }
         });
       })
       .catch(function () {

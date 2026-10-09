@@ -207,19 +207,19 @@
       return String(texto == null ? '' : texto)
         .trim()
         .toLowerCase()
-        .replace(/\s+/g, ' ');
+        .replace(/[\s_-]+/g, ' ');
     }
 
-    /* Los botones de filtro se arman solos con las categorías
+    /* Los botones de filtro se arman solos con los grupos
        que hay en el inventario: una categoría nueva agregada
        desde Pages CMS aparece acá sin tocar código. */
     function renderFiltros() {
       const vistos = new Map();
       vistos.set('todos', 'Todos');
       for (const libro of librosData) {
-        const clave = normalizarCategoria(libro.categoria);
+        const clave = normalizarCategoria(libro.grupo);
         if (clave && !vistos.has(clave)) {
-          vistos.set(clave, String(libro.categoria).trim());
+          vistos.set(clave, String(libro.grupo).trim());
         }
       }
       document.getElementById('filtros').innerHTML = [...vistos.entries()]
@@ -257,7 +257,7 @@
     function renderLibros() {
       const visibles = librosData.filter(libro =>
         libro.disponible !== false &&
-        (filtroActivo === 'todos' || normalizarCategoria(libro.categoria) === filtroActivo)
+        (filtroActivo === 'todos' || normalizarCategoria(libro.grupo) === filtroActivo)
       );
       const contenedor = document.getElementById('catalogo');
 
@@ -304,11 +304,11 @@
       }
     });
 
-    /* El índice (data/index.json) dice qué archivos de
-       categoría existen y cómo se llaman. El catálogo los
-       carga a todos y a cada producto le pone la categoría
-       de su colección: agregar una categoría nueva es
-       configuración (.pages.yml + index.json), no código. */
+    /* El índice (data/index.json) dice qué archivos existen,
+       cómo se llaman y a qué grupo general pertenecen. El
+       catálogo los carga a todos y a cada producto le pone
+       su categoría y su grupo: agregar una categoría nueva
+       es configuración (.pages.yml + index.json), no código. */
     fetch('/data/index.json')
       .then(respuesta => {
         if (!respuesta.ok) throw new Error('HTTP ' + respuesta.status);
@@ -322,18 +322,37 @@
             .catch(() => [])
             .then(items =>
               (Array.isArray(items) ? items : [])
-                .map(item => ({ ...item, categoria: entrada.categoria }))
+                .map(item => ({
+                  ...item,
+                  categoria: entrada.categoria,
+                  grupo: entrada.grupo || entrada.categoria
+                }))
             )
         ));
       })
       .then(grupos => {
         librosData = grupos.flat();
         renderFiltros();
+        aplicarGrupoDeLaUrl();
         renderLibros();
       })
       .catch(() => {
         document.getElementById('catalogo').textContent = 'No se pudo cargar el catálogo. Por favor, intenta más tarde.';
       });
+
+    /* Los enlaces del sitio (ej. catalogo.html?grupo=biblias)
+       dejan el filtro del grupo ya elegido al abrir la página. */
+    function aplicarGrupoDeLaUrl() {
+      const grupoUrl = new URLSearchParams(window.location.search).get('grupo');
+      if (!grupoUrl) return;
+      const clave = normalizarCategoria(grupoUrl);
+      const boton = document.querySelector('.filtro-btn[data-filtro="' + clave + '"]');
+      if (!boton) return;
+      const activo = document.querySelector('.filtro-btn.activo');
+      if (activo) activo.classList.remove('activo');
+      boton.classList.add('activo');
+      filtroActivo = clave;
+    }
   </script>
   <script src="js/carrito.js"></script>
 </body>

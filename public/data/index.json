@@ -1,50 +1,62 @@
 [
   {
     "archivo": "biblias-reina-valera-1960.json",
-    "categoria": "Biblias Reina Valera 1960"
+    "categoria": "Biblias Reina Valera 1960",
+    "grupo": "Biblias"
   },
   {
     "archivo": "biblias-ntv.json",
-    "categoria": "Biblias Nueva Traducción Viviente"
+    "categoria": "Biblias Nueva Traducción Viviente",
+    "grupo": "Biblias"
   },
   {
     "archivo": "biblias-nvi.json",
-    "categoria": "Biblias Nueva Versión Internacional"
+    "categoria": "Biblias Nueva Versión Internacional",
+    "grupo": "Biblias"
   },
   {
     "archivo": "biblias-nbla.json",
-    "categoria": "Biblias Nueva Biblia Las Américas"
+    "categoria": "Biblias Nueva Biblia Las Américas",
+    "grupo": "Biblias"
   },
   {
     "archivo": "libros-hombres.json",
-    "categoria": "Libros Hombres"
+    "categoria": "Libros Hombres",
+    "grupo": "Literatura cristiana"
   },
   {
     "archivo": "libros-mujeres.json",
-    "categoria": "Libros Mujeres"
+    "categoria": "Libros Mujeres",
+    "grupo": "Literatura cristiana"
   },
   {
     "archivo": "libros-jovenes.json",
-    "categoria": "Libros Jóvenes"
+    "categoria": "Libros Jóvenes",
+    "grupo": "Literatura cristiana"
   },
   {
     "archivo": "libros-familia.json",
-    "categoria": "Libros Familia"
+    "categoria": "Libros Familia",
+    "grupo": "Literatura cristiana"
   },
   {
     "archivo": "libros-ninos.json",
-    "categoria": "Libros Niños"
+    "categoria": "Libros Niños",
+    "grupo": "Literatura cristiana"
   },
   {
     "archivo": "devocionales.json",
-    "categoria": "Devocionales"
+    "categoria": "Devocionales",
+    "grupo": "Literatura cristiana"
   },
   {
     "archivo": "articulos-2027.json",
-    "categoria": "Artículos 2027"
+    "categoria": "Artículos 2027",
+    "grupo": "Artículos 2027"
   },
   {
     "archivo": "regalos.json",
-    "categoria": "Regalos"
+    "categoria": "Regalos",
+    "grupo": "Regalos"
   }
 ]
