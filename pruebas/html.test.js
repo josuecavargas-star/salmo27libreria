@@ -138,6 +138,14 @@ r.check("en el celular el desplegable se abre con animación",
   /\.nav__item--dropdown\.open \.nav__dropdown\s*\{[^}]*max-height/.test(estilos));
 r.check("en el celular las letras del desplegable son blancas",
   /@media\s*\(max-width:\s*767px\)[\s\S]*\.nav \.nav__dropdown-grupo,\s*\.nav \.nav__dropdown-sub\s*\{[^}]*color:\s*var\(--color-white\)/.test(estilos));
+r.check("catalogo.html también tiene el menú del header",
+  /nav__item--dropdown/.test(catalogo) &&
+  /id="navDropdown"/.test(catalogo) &&
+  /id="navDropdownArrow"/.test(catalogo));
+r.check("catalogo.html carga main.js para el menú",
+  /<script[^>]*src="js\/main\.js"/.test(catalogo));
+r.check("en el celular la palabra Catálogo queda centrada",
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.nav__item--dropdown \.nav__dropdown-toggle\s*\{[^}]*text-align:\s*center/.test(estilos));
 
 r.titulo("El índice de categorías apunta a archivos que existen");
 const indice = JSON.parse(fs.readFileSync(path.join(PUBLIC, "data", "index.json"), "utf8"));

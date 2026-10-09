@@ -184,6 +184,22 @@
           <img src="img/iconos/instagram.svg" alt="Instagram" class="social__img" />
         </a>
       </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="nav">
+        <a href="index.html#inicio">Inicio</a>
+        <div class="nav__item--dropdown">
+          <a href="catalogo.html" class="nav__dropdown-toggle">Catálogo</a>
+          <button class="nav__dropdown-arrow" id="navDropdownArrow" aria-label="Mostrar categorías" aria-expanded="false" aria-controls="navDropdown">▾</button>
+          <!-- El menú de categorías lo llena main.js desde data/index.json -->
+          <div class="nav__dropdown" id="navDropdown"></div>
+        </div>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
     </div>
   </header>
 
@@ -377,6 +393,7 @@
       boton.classList.add('activo');
     }
   </script>
+  <script src="js/main.js"></script>
   <script src="js/carrito.js"></script>
 </body>
 </html>

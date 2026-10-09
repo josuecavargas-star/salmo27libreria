@@ -163,6 +163,10 @@ No hay backend ni base de datos: el carrito vive en `localStorage` del cliente.
 - `public/css/carrito.css` — estilos del panel deslizante (carga después de `styles.css`).
 - `public/catalogo.html` — cada tarjeta tiene un botón "Agregar al carrito".
 - `public/index.html` y `public/catalogo.html` cargan `carrito.js`.
+- **Todas las páginas comparten el mismo header** (logo, redes, menú con
+  Inicio, Catálogo con el desplegable de categorías, Nosotros, Contacto).
+  En `catalogo.html` los enlaces a secciones apuntan a `index.html#...`
+  porque esas secciones viven en la página principal.
 
 El botón flotante y el panel se inyectan desde JS, así que no hay markup que
 duplicar entre las dos páginas.
