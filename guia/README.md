@@ -124,7 +124,11 @@ filtro y arma el menú de categorías del header: al
 pasar el mouse por **Catálogo** se despliegan las
 categorías principales con sus subcategorías, y cada
 una enlaza al catálogo filtrado (por grupo o por
-subcategoría). En el celular el desplegable arranca
+subcategoría). Cuando llegás por una subcategoría,
+arriba de los filtros dice dónde estás — por
+ejemplo "Estás en: Literatura cristiana › Libros
+Hombres" — y el nombre del grupo enlaza a todo el
+grupo, para que el cliente no se pierda. En el celular el desplegable arranca
 cerrado: la palabra "Catálogo" queda centrada en la
 fila (sin flechita junto a ella) y la única flecha
 es la ▾ del borde derecho, que el usuario toca para

@@ -72,6 +72,14 @@ r.check("el catalogo filtra por grupos generales",
   /libro\.grupo/.test(catalogo));
 r.check("el catalogo preselecciona el grupo de la URL",
   /URLSearchParams/.test(catalogo) && /aplicarGrupoDeLaUrl/.test(catalogo));
+r.check("el catalogo dice dónde estás (grupo › subcategoría)",
+  /id="ubicacion"/.test(catalogo) &&
+  /mostrarUbicacion/.test(catalogo) &&
+  /Estás en/.test(catalogo));
+r.check("la ubicación enlaza al grupo padre",
+  /catalogo\.html\?grupo=' \+ encodeURIComponent\(grupo\)/.test(catalogo));
+r.check("la ubicación tiene su estilo",
+  /\.catalogo__ubicacion\s*\{/.test(catalogo));
 
 r.titulo("El CSS del carrito respeta hidden");
 const carritoCss = fs.readFileSync(path.join(PUBLIC, "css", "carrito.css"), "utf8");

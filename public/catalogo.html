@@ -27,6 +27,24 @@
       margin-bottom: 2.5rem;
       font-size: 1.1rem;
     }
+    .catalogo__ubicacion {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      margin: -1.5rem 0 2rem;
+    }
+    .catalogo__ubicacion a {
+      color: var(--color-primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .catalogo__ubicacion a:hover {
+      text-decoration: underline;
+    }
+    .catalogo__ubicacion .actual {
+      color: var(--color-accent);
+      font-weight: 700;
+    }
     .grid {
       display: grid;
       gap: 24px;
@@ -209,6 +227,8 @@
     <section class="catalogo">
       <h1 class="catalogo__title">Catálogo de Productos</h1>
       <p class="catalogo__subtitle">Explora nuestra colección de libros cristianos</p>
+      <!-- Línea de ubicación: "Estás en: Grupo › Subcategoría" -->
+      <p class="catalogo__ubicacion" id="ubicacion" hidden></p>
       <div class="filtros" id="filtros"></div>
       <div id="catalogo" class="grid">Cargando libros...</div>
     </section>
@@ -320,6 +340,13 @@
         if (activo) activo.classList.remove('activo');
         e.target.classList.add('activo');
         filtroActivo = e.target.dataset.filtro;
+        /* La línea de ubicación acompaña
+           al filtro que el usuario elige. */
+        if (filtroActivo === 'todos') {
+          mostrarUbicacion(null);
+        } else {
+          mostrarUbicacion(e.target.textContent, null);
+        }
         renderLibros();
       }
     });
@@ -368,14 +395,15 @@
       const categoriaUrl = params.get('categoria');
       const grupoUrl = params.get('grupo');
 
-      /* Subcategoría: filtra por ella y resalta el grupo
-         al que pertenece. */
+      /* Subcategoría: filtra por ella, resalta el grupo
+         al que pertenece y dice dónde estás. */
       if (categoriaUrl) {
         const claveCategoria = normalizarCategoria(categoriaUrl);
         const libro = librosData.find(l => normalizarCategoria(l.categoria) === claveCategoria);
         if (!libro) return;
         filtroActivo = claveCategoria;
         resaltarBotonDeGrupo(normalizarCategoria(libro.grupo));
+        mostrarUbicacion(libro.grupo, libro.categoria);
         return;
       }
 
@@ -384,6 +412,8 @@
         if (!document.querySelector('.filtro-btn[data-filtro="' + clave + '"]')) return;
         filtroActivo = clave;
         resaltarBotonDeGrupo(clave);
+        const libro = librosData.find(l => normalizarCategoria(l.grupo) === clave);
+        mostrarUbicacion(libro ? libro.grupo : grupoUrl, null);
       }
     }
 
@@ -393,6 +423,29 @@
       const activo = document.querySelector('.filtro-btn.activo');
       if (activo) activo.classList.remove('activo');
       boton.classList.add('activo');
+    }
+
+    /* Línea "Estás en: Grupo › Subcategoría" para que
+       el cliente no se pierda: el grupo enlaza a todo
+       el grupo y la subcategoría queda como actual. */
+    function mostrarUbicacion(grupo, categoria) {
+      const ubicacion = document.getElementById('ubicacion');
+      if (!ubicacion) return;
+      if (!grupo) {
+        ubicacion.hidden = true;
+        ubicacion.textContent = '';
+        return;
+      }
+      let html = 'Estás en: ';
+      if (categoria) {
+        html += '<a href="catalogo.html?grupo=' + encodeURIComponent(grupo) + '">' +
+          escaparHtml(grupo) + '</a> › <span class="actual">' +
+          escaparHtml(categoria) + '</span>';
+      } else {
+        html += '<span class="actual">' + escaparHtml(grupo) + '</span>';
+      }
+      ubicacion.innerHTML = html;
+      ubicacion.hidden = false;
     }
   </script>
   <script src="js/main.js"></script>
