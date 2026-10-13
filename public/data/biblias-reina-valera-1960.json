@@ -7,5 +7,14 @@
     "imagen": "/images/libros/reina valera.jpg",
     "descripcion": "La RVR 1960 Biblia de apuntes ha sido diseñada para mejorar el estudio personal de la Biblia y la preparación de clases y predicaciones. \nEsta Biblia contiene la popular versión Reina Valera 1960. Provee espacio de 5.95 centímetros para tomar notas en cada página, apuntar observaciones, escribir pensamientos y formular preguntas para la exploración adicional del texto.\n\nLa Biblia está hermosamente encuadernada e incluye una página de presentación y un plan para leer la Biblia en un año.\n\nCaracterísticas: \n-Palabras de Cristo en rojo \n-Texto en una sola columna \n-Letra de 8 puntos \n-Espacio para notas de 5.95 cm \n-Plan de lectura bíblica de un año \n-Mapas a todo color \n-Cinta marcadora \n-Concordancia",
     "disponible": true
+  },
+  {
+    "nombre": "Centrada en Cristo, edición matizada",
+    "autor": "Reina Valera 1960",
+    "cantidad": 1,
+    "precio": 35000,
+    "imagen": "/images/libros/biblia--1.jpg",
+    "descripcion": "La Biblia Devocional Centrada en Cristo de la Nueva Versión Internacional es un recurso extraordinario que proporciona herramientas, conocimiento y sabiduría para que, como mujeres, podamos continuar nuestro camino con Cristo. Conocemos la historia del Mesías, que nació en un pesebre en Belén, pero ¿sabías que podemos encontrar profecías sobre Jesús a lo largo del Antiguo Testamento?\n\nCathy Scheraldi de Núñez y Patricia de Namnún, junto con un equipo de mujeres latinas de diferentes países, han creado un hermoso viaje de un año para que las mujeres puedan sumergirse en las Escrituras y ver a Jesús en cada uno de los libros de la Biblia. Desde el Jardín del Edén hasta la eternidad, la Biblia Devocional Centrada en Cristo te ayudará a crecer en la Palabra de Dios.\n\n\nCaracterísticas:\n365 devocionales\nIntroducción\nbuenas noticias de salvación\nPlan de lectura devocional\nPlan anual de lectura\nAcuerdo\nilustraciones coloridas",
+    "disponible": true
   }
 ]
