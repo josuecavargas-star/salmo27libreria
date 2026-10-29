@@ -69,5 +69,14 @@
     "precio": 18500,
     "imagen": "/images/libros/41C7FJtspXL._SX342_SY445_FMwebp_.webp",
     "disponible": true
+  },
+  {
+    "nombre": "Biblia ultrafina NTV, con Filament",
+    "autor": "NTV",
+    "cantidad": 1,
+    "precio": 20900,
+    "imagen": "/images/libros/71SqPSx-2SL._SY342_-1.jpg",
+    "descripcion": "La experiencia de lectura de la Biblia ¡llevada al siguiente nivel!\n\nLa Biblia ultrafina NTV con Filament de Tyndale ofrece un texto legible, un diseño atractivo y referencias cruzadas en una Biblia delgada con un tamaño fácil de transportar. Y aunque tiene el mismo precio cómodo de las Biblias básicas de texto, la Biblia ultrafina NTV ofrece mucho más, al incluir la innovadora aplicación «Filament Bible». Esta aplicación le permite utilizar su teléfono móvil o tableta para conectar cada página a una amplia gama de contenido relacionado con la Biblia.\n\nLa aplicación «Filament Bible» convierte esta Biblia de texto en una poderosa herramienta devocional y de estudio que lo ayudará a aprovechar al máximo su tiempo en la Palabra de Dios y mejorar su experiencia de lectura.\n\nLo mejor es que no hay ningún costo adicional, ya que la aplicación «Filament Bible» es un valor agregado a nuestra Biblia sin costo alguno para usted. Y por supuesto, usted puede utilizar esta Biblia con o sin la aplicación, pero cuando quiera profundizar más en la lectura de las Escrituras, simplemente tome su teléfono o tableta, descargue la aplicación «Filament Bible» y descubra un mundo de conocimiento e inspiración. Es muy fácil de usar.\n\nCaracterísticas de la Biblia:\n\nEl texto preciso, comprensible y agradable al oído de la Nueva Traducción Viviente\nPalabras de Cristo en rojo\nReferencias cruzadas\nLocalizador de versículos de Tyndale\nPágina de presentación\nMaps a todo color\nEncuadernación delgada y duradera\nHabilitada para la aplicación Filament, que provee contenido adicional en cada página.",
+    "disponible": true
   }
 ]
