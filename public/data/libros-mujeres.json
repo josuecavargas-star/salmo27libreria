@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "nombre": "Estoy orando por ti ",
+    "autor": "Nancy Guthrie",
+    "cantidad": 1,
+    "precio": 10499,
+    "imagen": "/images/libros/71CHrjQT8kL._SL1500_.jpg",
+    "descripcion": "Cuando escuchamos que un amigo está luchando, puede ser fácil decir: « Estoy orando por ti », pero más difícil es saber por qué orar realmente.\nA través de cuarenta pasajes de las Escrituras cuidadosamente escogidos, Nancy Guthrie abre la riqueza de las Escrituras para enseñarnos cómo orar por aquellos que están sufriendo. Ella nos muestra cómo la Biblia nos proporciona un vocabulario para la oración que nos permite pedirle a Dios que logre lo que pretende en y a través del sufrimiento. Nancy nos muestra cómo los propósitos de Dios se revelan incluso en nuestros días más oscuros y nos anima a orar para que Su voluntad se haga en situaciones difíciles.\nCada capítulo incluye:\nUn pasaje\nUna breve explicación\nUna oración por tu amigo",
+    "disponible": true
+  },
+  {
+    "nombre": "Un corazón nuevo: De muerte a vida con Jesús",
+    "autor": "Wendy Bello",
+    "cantidad": 1,
+    "precio": 10500,
+    "imagen": "/images/libros/71ZpS67o9HL._SY425_.jpg",
+    "descripcion": "Nuestros corazones nacen contaminados por el pecado que heredamos y, por lo tanto, necesitan ser regenerados, hechos nuevos. Eso no es algo que logremos por nuestra propia cuenta. El corazón nuevo es un milagro con la firma de Dios.\n\nEste libro explora diferentes declaraciones hechas por Jesús a lo largo de los Evangelios que se relacionan con el tema de un corazón nuevo, partiendo de una premisa: tenemos un corazón muerto que solo Cristo trae a la vida, y luego lo cambia.\nSu contenido responde a varias preguntas, entre ellas:\n\n• ¿Cómo es que cambia nuestro corazón?\n• ¿Cómo llega a ser nuevo?\n• ¿Qué es un corazón dividido?\n• ¿Qué es la verdadera fe?\n• ¿Cómo afecta el evangelio mi vida cotidiana?\n\nCada capítulo incluye un resumen breve de los puntos principales así como preguntas para profundizar y reflexionar.\n\nSobre toda cosa guardada, guarda tu corazón; Porque de él mana la vida.\n",
+    "disponible": true
+  },
+  {
+    "nombre": "En la quietud de Su presencia: Una invitación a fortalecer su vida devocional con Dios",
+    "autor": "Nancy Demoss W.",
+    "cantidad": 1,
+    "precio": 10500,
+    "imagen": "/images/libros/71xx3GgYx3L._SL1000_.jpg",
+    "descripcion": "En este libro Nancy nos revela su corazón y su vida para hacernos ver que el devocional diario puede cambiar para siempre nuestra relación con Cristo. Aborda las frustraciones y dificultades comunes, que la mayoría de las mujeres encuentra en su vida devocional diaria, y hace sugerencias prácticas para poder superarlas.",
+    "disponible": true
+  },
+  {
+    "nombre": "Florece: Deja que la verdad de Cristo te libere de la mentira de una vida centrada en ti misma",
+    "autor": "Lydia BrownbackLydia Brownback",
+    "cantidad": 1,
+    "precio": 8900,
+    "disponible": true
+  }
+]
