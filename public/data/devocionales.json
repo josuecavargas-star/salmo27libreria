@@ -1,1 +1,63 @@
-[]
+[
+  {
+    "nombre": "Un año con Dios: 365 devocionales para inspirar tu vida",
+    "autor": "B&H Español",
+    "cantidad": 0,
+    "precio": 12900,
+    "imagen": "/images/libros/81UoYel4i6L._SL1500_.jpg",
+    "descripcion": "Este libro de devocionales ayudará y motivará al lector a enfocar su lectura diaria en Dios y Su Palabra.\n\nUn año con Dios presenta un devocional para cada día del año. Cada uno de estos devocionales busca que el lector profundice en su relación con Dios y aplique el conocimiento, los valores y la sabiduría que se encuentran en la Biblia a la vida diaria.\nCuenta con muchas ilustraciones, gran colorido con toque femenino y contenido inspiracional en cada uno de los 365 devocionales diarios y lecturas bíblicas.\n",
+    "disponible": true
+  },
+  {
+    "nombre": "Un año en Su presencia: 365 devocionales para animar tu vida",
+    "autor": "B&H Español",
+    "cantidad": 0,
+    "precio": 12900,
+    "imagen": "/images/libros/81ZBo5L8ANL._SL1500_.jpg",
+    "descripcion": "Este libro de 365 devocionales es la continuación de Un año con Dios y busca motivar a los lectores a enfocarse en Dios y Su palabra durante el tiempo devocional.\nUn año en Su presencia  presenta un devocional para cada día del año y cada uno busca profundizar la relación de Dios con el lector, al extraer implicaciones prácticas de la Escritura, aplicando  valores y la sabiduría encontradas aquí, en la vida diaria.\nContiene ilustraciones, hermosos colores y un lenguaje sencillo. Estos 365 devocionales inspirarán al lector a ser un lector cuidadoso de la Biblia.\n",
+    "disponible": true
+  },
+  {
+    "nombre": "Un año en los Salmos: 365 devocionales para animar tu vida",
+    "autor": "B&H Español",
+    "cantidad": 1,
+    "precio": 12900,
+    "imagen": "/images/libros/81kcka0o9XL._SL1500_.jpg",
+    "descripcion": "Este libro de 365 devocionales forma parte de la exitosa familia de devocionales de Un año con Dios y Un año en Su presencia. Motivará y ayudará a sus lectores a enfocar su tiempo devocional en Dios y Su Palabra. Un año en los Salmos presenta un devocional para cada día del año, y cada uno busca ayudar al lector a profundizar su relación con Dios al obtener implicaciones prácticas de los Salmos y al aplicar los valores y la sabiduría encontrados a la vida diaria. Estos 365 devocionales, con ilustraciones, colores femeninos y lenguaje sencillo le inspirarán a ser un lector cuidadoso de los Salmos.",
+    "disponible": true
+  },
+  {
+    "nombre": "Un año de esperanza: 365 Devocionales Para Animar Tu Alma",
+    "autor": "B&H Español",
+    "cantidad": 0,
+    "precio": 12900,
+    "imagen": "/images/libros/71l9JcgL86L._SL1500_.jpg",
+    "descripcion": "Una continuación de la serie Un año en..., este volumen se enfoca en las promesas de Dios que nos llenan de esperanza para el presente y el futuro.\n",
+    "disponible": true
+  },
+  {
+    "nombre": "Un año en Sus caminos: 365 Devocionales Para Crecer En Sabiduría",
+    "autor": "B&H Español",
+    "cantidad": 0,
+    "precio": 12900,
+    "imagen": "/images/libros/81XfuYHBjNL._SL1500_.jpg",
+    "descripcion": "¿Quién no quisiera crecer en sabiduría? Todos necesitamos tiempo para meditar y crecer en sabiduría. La sabiduría se adquiere poco a poco, día a día. Un año en Sus caminos es un libro con 365 devocionales que te ayudarán y motivarán a centrar tu tiempo en la Palabra. Un año en Sus caminos te da la oportunidad de meditar en la Palabra y conocer a Dios cada día del año. Este devocional te permite aplicar la Escritura a tu vida diaria y crecer en sabiduría.\n\n",
+    "disponible": true
+  },
+  {
+    "nombre": "Un año con Jesús: 365 devocionales para tu caminar con Dios",
+    "autor": "B&H Español",
+    "cantidad": -1,
+    "precio": 12900,
+    "imagen": "/images/libros/918Y0JwSrqL._SL1500_.jpg",
+    "descripcion": "Este libro de 365 devocionales es parte de la serie «Un Año...». Ayudará y motivará a los lectores a enfocar su tiempo devocional en Dios y Su Palabra.",
+    "disponible": true
+  },
+  {
+    "nombre": "Diario Para La Mujer Conforme Al Corazón de Dios - Edición Jardín",
+    "autor": "Elizabeth George",
+    "cantidad": 1,
+    "precio": 12900,
+    "disponible": true
+  }
+]
