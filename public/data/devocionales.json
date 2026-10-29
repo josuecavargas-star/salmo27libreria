@@ -58,6 +58,14 @@
     "autor": "Elizabeth George",
     "cantidad": 1,
     "precio": 12900,
+    "descripcion": "Un diario para acompañar a la mujer en su tiempo personal con Dios.\nOraciones, pensamientos, anhelos y gratitud: Dios está al tanto y desea estar al tanto de todo lo que nos rodea. En este bello diario, diseñado con la mujer en mente, las lectoras se convertirán ahora en autoras del registro de su crecimiento espiritual. Con espacios destinados para expresarse con libertad, un formato de alta portabilidad y materiales de la más alta calidad, este Diario de la mujer conforme al corazón de Dios le acompañará en su tiempo diario con Dios. (Este diario acompaña y se coordina con la lectura y uso devocional de la Biblia de la mujer conforme al corazón de Dios, disponible por separado).",
+    "disponible": true
+  },
+  {
+    "nombre": "Misericordia en el valle de sombra: 21 días en Salmos de lamentos",
+    "autor": "Paty Namnún",
+    "cantidad": 1,
+    "precio": 8200,
     "disponible": true
   }
 ]
