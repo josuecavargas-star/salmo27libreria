@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "nombre": "NBLA, Santa Biblia, Edición versificada, Tamaño bolsillo, Leathersoft, Morado, Con cierre, Palabras de Jesús en rojo",
+    "autor": "NBLA",
+    "cantidad": 1,
+    "precio": 19500,
+    "imagen": "/images/libros/NBLAI.avif",
+    "descripcion": "¡Ahora en un nuevo tamaño ultra compacto con texto bíblico versificado y fácil de llevar!\n\nLa nueva edición de bolsillo de la Nueva Biblia de las Américas (NBLA) es perfecta para evangelismo, viajes o ministerio, ya que cabe cómodamente en tu mochila, portafolio o bolso. Presenta un diseño de texto bíblico versificado en formato de dos columnas, nuestra exclusiva y legible tipografía Comfort Print™, las palabras de Jesús en rojo y una elegante cubierta en Leathersoft. ¡Ideal para quienes desean llevar su Biblia a todas partes!\n\nLa NBLA retiene de manera precisa el significado de los idiomas originales, al mismo tiempo que provee claridad y legibilidad únicas. Respetando el mismo vocabulario, la gramática y la estructura de los originales, la NBLA es la traducción moderna más literal disponible en español latinoamericano.\n\nCaracterísticas\n\nTexto íntegro de la NBLA en formato versificado\nTipografía exclusiva y fácil de leer Comfort Print™ 7.25+\nPlan de salvación\nPlan de lectura bíblica\n4 mapas a todo color\n1 cinta marcadora\nPalabras de Jesús en rojo\nUna elegante cubierta en Leathersoft\nCon cierre.",
+    "disponible": true
+  }
+]
