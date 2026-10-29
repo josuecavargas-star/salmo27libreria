@@ -63,8 +63,11 @@
     "disponible": true
   },
   {
-    "nombre": "Biblia ",
+    "nombre": "Biblia ultrafina NTV de zíper, con Filament",
+    "autor": "NTV",
     "cantidad": 1,
+    "precio": 18500,
+    "imagen": "/images/libros/41C7FJtspXL._SX342_SY445_FMwebp_.webp",
     "disponible": true
   }
 ]
