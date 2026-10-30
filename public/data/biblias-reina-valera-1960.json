@@ -52,5 +52,14 @@
     "imagen": "/images/libros/REINA VALE..webp",
     "descripcion": "Las Biblias para premios y regalos de Editorial Vida® brindan todas las herramientas necesarias que facilitarán tu caminar diario en la Palabra. Además, son los obsequios perfectos en esos momentos especiales como bautizos, fiestas de quinceañeras, cumpleaños y presentaciones de nuevos miembros.\n\nProvistas de características únicas como la tipografía Comfort Print® para la Reina – Valera 1960, un tipo de letra diseñado para evitar la fatiga visual con una lectura más fluida, y el resumen gráfico de la Biblia, una herramienta de estudio práctico que expone el contenido de la Escritura y sitúa a personas, acontecimientos y temas como puntos de partida.\n\n¿Qué regalas con esta Biblia?\n\nTexto íntegro de la traducción Reina-Valera 1960\nHermosa página de presentación para grabar el obsequio\nLetra grande Comfort Print® de Editorial Vida®\nTexto bíblico versificado\nFormato de texto a dos columnas\nPalabras de Cristo en color rojo\nResumen gráfico de la Biblia\nPlan de lectura\nPlan de salvación\nConcordancia",
     "disponible": true
+  },
+  {
+    "nombre": "Biblia de Promesas Inspira",
+    "autor": "Reina Valera 1960",
+    "cantidad": 1,
+    "precio": 27200,
+    "imagen": "/images/libros/rv19600.jpg",
+    "descripcion": "La Palabra y las promesas de Dios en letra gigante, acompañadas de noventa y dos edificantes meditaciones para la mujer.\n\nCaracterísticas:\n\nTexto bíblico de la Reina-Valera 1960, la versión preferida de los hispanohablantes\nMás de 1800 promesas y palabras de afirmación resaltadas para una fácil consulta y aplicación personal.\nTipografía de fácil lectura y letra gigante de 13 pts.\nNoventa y dos meditaciones de edificación e inspiración para la mujer\nPalabras del Señor Jesús en rojo\nReferencias cruzadas\nPlan de salvación\nSección de promesas por temas\nÍndice de promesas\nConcordancia breve\nMapas\nCinta marcadora\nCremallera e índice opcionales en todos los estilos.",
+    "disponible": true
   }
 ]
