@@ -88,5 +88,14 @@
     "imagen": "/images/libros/rv190.jpg",
     "descripcion": "RECURSO NUEVO\nEsta es la versión más aceptada por todas las iglesias de Latinoamérica y España. Esta edición de Biblia en Reina Valera 1960 es ideal para aquellas personas que quieran una Biblia de letra de 14 puntos y a la vez que sea un tamaño práctico para llevar. Contiene 32 páginas a todo color con ayudas.\n\nCARACTERISTICAS:\n- Palabras de Jesús en rojo\n- Referencias cruzadas a pie de página.\n- Abreviaturas e Introducciones por C.H Spurgeon y J.C. Ryle\n- Concordancia de 120 páginas\n- Genealogía de Jesús/Fiestas Judías\n- Parábolas y Milagros de Jesús\n- Plan de salvación\n- Pasajes y versículos claves de la Biblia.\n- Plan de lectura Bíblica\n- Mapas de tiempos Bíblicos a todo color\n- 12 Mapas a todo color\n- Tipología de los salmos\n- Plano del templo\n- Cronología de reyes y profetas\n- Promesas de Dios",
     "disponible": true
+  },
+  {
+    "nombre": "Biblia Rvr 1960 Letra Grande Tamaño Manual Símil Piel",
+    "autor": "reina valera 1960",
+    "cantidad": 1,
+    "precio": 23000,
+    "imagen": "/images/libros/rvr160.webp",
+    "descripcion": "Biblia RVR 1960 Letra Grande Tamaño Manual Símil Piel Duotone Lila Morado con Cierre\n\nReina Valera 1960, tamaño manual (138x212 mm), imitación piel bitono, canto dorado, con Cierre, palabras de Jesús en rojo, concordancia, Concordancia de personajes bíblicos, ayudas, referencias cruzadas. 32 páginas a todo color con ayudas y esquemas. 12 mapas a todo color. Letra 12.5 puntos.",
+    "disponible": true
   }
 ]
